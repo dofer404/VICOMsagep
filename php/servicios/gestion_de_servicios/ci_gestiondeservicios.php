@@ -19,21 +19,20 @@ class ci_gestiondeservicios extends sagep_ci
 
 	function evt__nuevo()
 	{
-		$this->cn()->resetear();
+		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_edicion');
 	}
 
 	function evt__procesar()
 	{
 		try {
-			$this->cn()->sincronizar();
-			$this->cn()->resetear();
+			$this->cn()->guardar();
 			$this->evt__cancelar();
 		} catch (toba_error_db $e) {
 			if (adebug::$debug) {
 				throw $e;
 			} else {
-				$this->cn()->resetear();
+				$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
 				if ($sql_state == 'db_23505') {
 					throw new toba_error_usuario('Ya existe el Servicio');
@@ -44,6 +43,7 @@ class ci_gestiondeservicios extends sagep_ci
 
 	function evt__cancelar()
 	{
+		$this->cn()->reiniciar();
 		unset($this->s__datos);
 		$this->set_pantalla('pant_inicial');
 	}
@@ -100,10 +100,6 @@ class ci_gestiondeservicios extends sagep_ci
 
 	function evt__cuadro__eliminar($seleccion)
 	{
-		$this->cn()->resetear();
-		$this->cn()->cargar($seleccion);
-		$this->cn()->eliminar();
-		$this->cn()->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

@@ -37,7 +37,6 @@ class ci_gestiondecontratos extends sagep_ci
 
 	function evt__procesar()
 	{
-		if ($this->s__datos['frm_ml_det_seteado']) {
 			try {
 				$this->cn()->sincronizar();
 				$this->cn()->resetear();
@@ -53,11 +52,9 @@ class ci_gestiondecontratos extends sagep_ci
 					}
 				}
 			}
-		} else {
-			$this->dep('ci_modificarcontrato')->set_pantalla('detalle');
-			throw new toba_error_usuario('Debe setear contrato');
 		}
-	}
+
+
 
 	//-----------------------------------------------------------------------------------
 	//---- Filtro -----------------------------------------------------------------------

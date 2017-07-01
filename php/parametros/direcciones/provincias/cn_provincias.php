@@ -5,14 +5,15 @@ class cn_provincias extends sagep_cn
 	//---- dr_provincias ----------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_provincias')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_provincias')->sincronizar();
+		$this->dep('dr_provincias')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

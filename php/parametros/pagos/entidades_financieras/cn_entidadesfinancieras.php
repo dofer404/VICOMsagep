@@ -5,14 +5,15 @@ class cn_entidadesfinancieras extends sagep_cn
 	//---- dr_entidadesfinancieras --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_entidadesfinancieras')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_entidadesfinancieras')->sincronizar();
+		$this->dep('dr_entidadesfinancieras')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

@@ -18,6 +18,7 @@ class dao_gestiondeservicios{
                   t_s.tamano,
                   t_s.imagen,
                   t_sr.parent_id_servicio,
+                  t_sr.nombre_serv || ' : ' || t_s.nombre_serv  servicios,
                   t_sr.nombre_serv as parent_id_servicio_nombre
 
           FROM es_sagep.servicios t_s

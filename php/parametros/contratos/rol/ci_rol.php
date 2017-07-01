@@ -20,23 +20,23 @@ class ci_rol extends sagep_ci
 
   function evt__nuevo()
   {
-    $this->cn()->resetear();
-    $this->set_pantalla('pant_edicion');
+    $this->cn()->reiniciar(); //Se resetea
+    $this->set_pantalla('pant_edicion'); //Cambia a la Pantalla de Edición
   }
+
+	/* El usuario selecciona una accion sobre el registro, se sincroniza y se resetea */
 
   function evt__procesar()
   {
     try {
-      $this->cn()->sincronizar();
-      $this->cn()->resetear();
-			echo "<script type='text/javascript'>alert('Se han registrado los cambios');</script>";
-      $this->evt__cancelar();
+      $this->cn()->guardar(); //Sincroniza con la base de datos ejecutando comandos SQL
+      $this->evt__cancelar(); //Para limpiar la seleccion
 
     } catch (toba_error_db $e) {
       if (adebug::$debug) {
         throw $e;
       } else {
-        $this->cn()->resetear();
+        $this->cn()->reiniciar();
         $sql_state = $e->get_sqlstate();
         if ($sql_state == 'db_23505') {
           throw new toba_error_usuario('Ya existe el Rol');
@@ -54,7 +54,8 @@ class ci_rol extends sagep_ci
   function evt__cancelar()
   {
     unset($this->s__datos);
-    $this->set_pantalla('pant_inicial');
+		$this->cn()->reiniciar(); //Descarta los cambios
+    $this->set_pantalla('pant_inicial'); //Cambia a la Pantalla Inicial
   }
 
   //-----------------------------------------------------------------------------------
@@ -70,7 +71,8 @@ class ci_rol extends sagep_ci
 
 	function evt__filtro__filtrar($datos)
 	{
-		$this->s__datos_filtro = $datos;
+		$this->s__datos_filtro = $datos; 	/* Guardar las condiciones en una variable de sesion
+																				para poder usarla en la configuracion del cuadro */
 	}
 
 	function evt__filtro__cancelar()
@@ -81,6 +83,8 @@ class ci_rol extends sagep_ci
 	//-----------------------------------------------------------------------------------
 	//---- Cuadro -----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
+
+	/* El cuadro se carga con un conjunto de datos traidos desde la base de datos */
 
 	function conf__cuadro(sagep_ei_cuadro $cuadro)
 	{
@@ -94,30 +98,35 @@ class ci_rol extends sagep_ci
 		}
 	}
 
+	/* Cuando del cuadro se selecciona un elemento, el datos_tabla se carga con ese elemento,
+	marcando que a partir de aqui las operaciones que se harán sobre este registro. En
+	esta operación el registro cargado del datos_tabla funciona como un cursor que representa
+	la fila actualmente seleccionada, si no está cargado, no hay selección y viceversa */
+
   function evt__cuadro__edicion($seleccion)
   {
     $this->cn()->cargar($seleccion);
     $this->cn()->set_cursor($seleccion);
-    $this->set_pantalla('pant_edicion');
+    $this->set_pantalla('pant_edicion'); //Cambia a la Pantalla de edicion
   }
 
   function evt__cuadro__eliminar($seleccion)
   {
-    $this->cn()->resetear();
-    $this->cn()->cargar($seleccion);
-    $this->cn()->eliminar();
-    $this->cn()->resetear();
   }
 
   //-----------------------------------------------------------------------------------
 	//---- Form -------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
+	/* Evento Implicito. Salta cuando el usuario acciona el evento procesar */
+
 	function evt__form__modificacion($datos)
 	{
 		$this->s__datos['form'] = $datos;
 		$this->cn()->set_rol($datos);
 	}
+
+	/* Se carga el formulario con el registro seleccionado */
 
   function conf__form(sagep_ei_formulario $form)
   {

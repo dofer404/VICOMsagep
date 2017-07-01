@@ -6,14 +6,15 @@ class cn_paises extends sagep_cn
 	//---- dr_paises --------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_paises')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_paises')->sincronizar();
+		$this->dep('dr_paises')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

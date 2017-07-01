@@ -146,6 +146,13 @@ class cn_gestiondepersonas extends sagep_cn
 		return $datos;
 	}
 
+	function hay_cursor_direcciones()
+	{
+		if ($this->dep('dr_personas')->tabla('dt_personas_detalleubicacion')->esta_cargada()) {
+			return true;
+		} 
+	}
+
 	//-----------------------------------------------------------------------------------
 	//---- dt_cuentas -----------------------------------------------------------------
 	//-----------------------------------------------------------------------------------

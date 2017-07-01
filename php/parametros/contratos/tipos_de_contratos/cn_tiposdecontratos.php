@@ -5,14 +5,15 @@ class cn_tiposdecontratos extends sagep_cn
 	//---- dr_tiposdecontratos ----------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function guardar ()
 	{
+		$this->dep('dr_tiposdecontratos')->sincronizar();
 		$this->dep('dr_tiposdecontratos')->resetear();
 	}
 
-	function sincronizar()
+	function reiniciar()
 	{
-		$this->dep('dr_tiposdecontratos')->sincronizar();
+		$this->dep('dr_tiposdecontratos')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

@@ -44,15 +44,28 @@ class ci_modificarcontrato extends sagep_ci
 		}
 	}
 
-	function evt__form_ml_detalle__modificacion($datos)
-	{
-		$this->controlador()->marcar_contratosSeteados();
-  }
-
 	function evt__form_ml_roles__modificacion($datos)
 	{
 		$this->s__datos['form_ml_roles'] = $datos;
 		$this->cn()->procesar_filas_roles($datos);
 	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form_ml_detalle --------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function evt__form_ml_detalle__modificacion($datos)
+	{
+		$this->controlador()->marcar_contratosSeteados();
+  }
+
+	function conf__form_ml_detalle(sagep_ei_formulario_ml $form_ml)
+	{
+		if ($this->cn()->hay_cursor()) {
+			$datos = $this->cn()->get_detalle();
+			$form_ml->set_datos($datos);
+		}
+	}
+
 }
 ?>

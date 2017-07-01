@@ -5,15 +5,17 @@ class cn_rol extends sagep_cn
 	//---- dr_rol -----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function guardar ()
+	{
+		$this->dep('dr_rol')->sincronizar();
+		$this->dep('dr_rol')->resetear();
+	}
+
+	function reiniciar()
 	{
 		$this->dep('dr_rol')->resetear();
 	}
 
-	function sincronizar()
-	{
-		$this->dep('dr_rol')->sincronizar();
-	}
 
 	//-----------------------------------------------------------------------------------
 	//---- dt_rol -----------------------------------------------------------------------

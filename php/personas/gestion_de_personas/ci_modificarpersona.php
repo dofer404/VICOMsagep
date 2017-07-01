@@ -71,9 +71,18 @@ class ci_modificarpersona extends sagep_ci
 
 	function conf__form_ml_direcciones(sagep_ei_formulario_ml $form_ml)
 	{
+		if (isset($this->s__datos['form_ml_direcciones'])) {
+			$this->controlador()->marcar_direccionSeteada();
+			$form_ml->set_datos($this->s__datos['form_ml_direcciones']);
+	}else {
+		if ($this->cn()->hay_cursor_direcciones()) {
 			$datos = $this->cn()->get_direcciones();
+			$this->s__datos['form_ml_direcciones'] = $datos;
 			$form_ml->set_datos($datos);
+			ei_arbol($datos);
 	}
+}
+}
 
 	function evt__form_ml_direcciones__modificacion($datos)
 	{
@@ -95,6 +104,17 @@ class ci_modificarpersona extends sagep_ci
 	{
 		$this->s__datos['form_ml_cuentas'] = $datos;
 		$this->cn()->procesar_filas_cuentas_per($datos);
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form_ml_direcciones ----------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function evt__form_ml_direcciones__seleccion($seleccion)
+	{
+		$this->s__datos['form_ml_direcciones'] = $seleccion;
+		$form_ml->set_datos($seleccion);
+		ei_arbol($seleccion);
 	}
 
 }

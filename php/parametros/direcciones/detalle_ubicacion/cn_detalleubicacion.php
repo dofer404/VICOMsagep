@@ -6,14 +6,15 @@ class cn_detalleubicacion extends sagep_cn
 	//---- dr_detalleubicacion ----------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_detalleubicacion')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_detalleubicacion')->sincronizar();
+		$this->dep('dr_detalleubicacion')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

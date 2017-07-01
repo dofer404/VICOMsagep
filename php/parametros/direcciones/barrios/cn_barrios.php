@@ -6,14 +6,15 @@ class cn_barrios extends sagep_cn
 	//---- dr_barrios ----------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function guardar()
 	{
+		$this->dep('dr_barrios')->sincronizar();
 		$this->dep('dr_barrios')->resetear();
 	}
 
-	function sincronizar()
+	function reiniciar()
 	{
-		$this->dep('dr_barrios')->sincronizar();
+		$this->dep('dr_barrios')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

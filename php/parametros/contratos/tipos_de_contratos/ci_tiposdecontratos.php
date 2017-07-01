@@ -18,22 +18,21 @@ class ci_tiposdecontratos extends sagep_ci
 
 	function evt__nuevo()
 	{
-		$this->cn()->resetear();
+		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_edicion');
 	}
 
 	function evt__procesar()
 	{
 		try {
-			$this->cn()->sincronizar();
-			$this->cn()->resetear();
+			$this->cn()->guardar();
 			$this->evt__cancelar();
 
 		} catch (toba_error_db $e) {
 			if (mensajes_error::$debug) {
 				throw $e;
 			} else {
-				$this->cn()->resetear();
+				$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
 				mensajes_error::get_mensaje_error($sql_state, 'Concepto', 'El');
 			}
@@ -48,6 +47,7 @@ class ci_tiposdecontratos extends sagep_ci
 
 	function evt__cancelar()
 	{
+		$this->cn()->reiniciar();
 		unset($this->s__datos);
 		$this->set_pantalla('pant_inicial');
 	}
@@ -98,10 +98,6 @@ class ci_tiposdecontratos extends sagep_ci
 
 	function evt__cuadro__eliminar($seleccion)
 	{
-		$this->cn()->resetear();
-		$this->cn()->cargar($seleccion);
-		$this->cn()->eliminar();
-		$this->cn()->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

@@ -13,14 +13,15 @@ class cn_tiposdezonas extends sagep_cn
 	//---- dr_tiposdezonas --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_tiposdezonas')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_tiposdezonas')->sincronizar();
+		$this->dep('dr_tiposdezonas')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------
