@@ -1,5 +1,0 @@
-<?php
-	echo '<div class="logp">';
-	echo toba_recurso::imagen_proyecto('logo_grande4.gif', true);
-	echo '</div>';
-?>
