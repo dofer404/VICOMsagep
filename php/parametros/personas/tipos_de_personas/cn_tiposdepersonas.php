@@ -6,14 +6,15 @@ class cn_tiposdepersonas extends sagep_cn
 	//---- dr_tiposdepersonas -----------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_tiposdepersonas')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_tiposdepersonas')->sincronizar();
+		$this->dep('dr_tiposdepersonas')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

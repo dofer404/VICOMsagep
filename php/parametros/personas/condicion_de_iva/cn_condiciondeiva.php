@@ -6,14 +6,15 @@ class cn_condiciondeiva extends sagep_cn
 	//---- dr_condiciondeiva ------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_condiciondeiva')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_condiciondeiva')->sincronizar();
+		$this->dep('dr_condiciondeiva')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

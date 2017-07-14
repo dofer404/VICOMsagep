@@ -6,14 +6,15 @@ class cn_tiposdetelefonos extends sagep_cn
 	//---- dr_tiposdetelefonos ----------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_tiposdetelefonos')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_tiposdetelefonos')->sincronizar();
+		$this->dep('dr_tiposdetelefonos')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

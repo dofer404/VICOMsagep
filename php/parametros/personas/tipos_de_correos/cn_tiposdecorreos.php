@@ -5,14 +5,15 @@ class cn_tiposdecorreos extends sagep_cn
 	//---- dr_tiposdecorreos ------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_tiposdecorreos')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_tiposdecorreos')->sincronizar();
+		$this->dep('dr_tiposdecorreos')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

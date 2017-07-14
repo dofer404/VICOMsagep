@@ -7,14 +7,15 @@ class cn_gestiondecontratos extends sagep_cn
 	//---- dr_contratos --------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_contratos')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_contratos')->sincronizar();
+		$this->dep('dr_contratos')->resetear();
 	}
 
 	function eliminar()
@@ -25,6 +26,11 @@ class cn_gestiondecontratos extends sagep_cn
 	function cargar($seleccion)
 	{
 		$this->dep('dr_contratos')->cargar($seleccion);
+	}
+
+	function cargar_detalle($seleccion)
+	{
+		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->cargar($seleccion);
 	}
 
 	//----------------------------------------------------------------------------------------
@@ -81,13 +87,19 @@ class cn_gestiondecontratos extends sagep_cn
 		}
 	}
 
+	function set_detalle($datos)
+	{
+		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set($datos);
+	}
+
 	function set_cursor_detalle($seleccion)
 	{
-		ei_arbol($seleccion);
-		$id_fila = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_filas(array ($seleccion), true);
-		ei_arbol($id_fila);
-		//$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($id_fila);
-		return $id_fila;
+		$id_fila = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_id_fila_condicion($seleccion)[0];
+		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($id_fila);
+
+		// $id_fila = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_filas(array ($seleccion), true);
+		// //$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($id_fila);
+		// return $id_fila;
 	}
 
 	function get_unDetalle()
@@ -106,14 +118,6 @@ class cn_gestiondecontratos extends sagep_cn
 			return $array;
 		}
 
-		function cargar_detalle($seleccion)
-		{
-			$this->dep('dr_contratos')->cargar($seleccion);
-		}
-
-
-
-
 	function procesar_filas_detalle($datos)
 	{
 		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->procesar_filas($datos);
@@ -122,6 +126,23 @@ class cn_gestiondecontratos extends sagep_cn
 	function get_detalle()
 	{
 		$datos = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_filas();
+		return $datos;
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- dt_detalleubicacion_detallecontrato -------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function procesar_filas_ubicacion($datos)
+	{
+		//ei_arbol($datos);
+		$this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->procesar_filas($datos);
+	}
+
+	public function get_ubicacion()
+	{
+		$datos = $this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->get_filas();
+		ei_arbol($datos);
 		return $datos;
 	}
 

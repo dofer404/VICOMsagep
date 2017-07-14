@@ -1,6 +1,6 @@
 <?php
 require_once('parametros/direcciones/detalle_ubicacion/dao_detalleubicacion.php');
-require_once('adebug.php');
+require_once('mensajes_error.php');
 
 class ci_detalleubicacion extends sagep_ci
 {
@@ -30,29 +30,38 @@ class ci_detalleubicacion extends sagep_ci
 			$this->evt__cancelar();
 
 		} catch (toba_error_db $e) {
-			if (adebug::$debug) {
+			if (mensajes_error::$debug) {
 				throw $e;
 			} else {
 				$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
-				if ($sql_state == 'db_23505') {
-					throw new toba_error_usuario('Ya existe la Ubicación');
-				}
+				mensajes_error::get_mensaje_error($sql_state);
 			}
 		}
 	}
 
 	function evt__cancelar()
 	{
-		$this->reiniciar();
+		$this->cn()->reiniciar();
 		unset($this->s__datos);
 		$this->set_pantalla('pant_inicial');
 	}
 
 	function evt__eliminar()
 	{
-		$this->cn()->eliminar();
-		$this->evt__procesar();
+		try {
+			$this->cn()->eliminar();
+			$this->cn()->guardar();
+			$this->evt__cancelar();
+		} catch (toba_error_db $e) {
+			if (mensajes_error::$debug) {
+				throw $e;
+			} else {
+				$this->cn()->reiniciar();
+				$sql_state = $e->get_sqlstate();
+				mensajes_error::get_mensaje_error($sql_state);
+			}
+		}
 	}
 
 	//-----------------------------------------------------------------------------------

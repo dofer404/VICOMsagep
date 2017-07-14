@@ -34,15 +34,26 @@ class ci_tiposdecontratos extends sagep_ci
 			} else {
 				$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
-				mensajes_error::get_mensaje_error($sql_state, 'Concepto', 'El');
+				mensajes_error::get_mensaje_error($sql_state);
 			}
 		}
 	}
 
 	function evt__eliminar()
 	{
-		$this->cn()->eliminar();
-		$this->evt__procesar();
+		try {
+			$this->cn()->eliminar();
+			$this->cn()->guardar();
+			$this->evt__cancelar();
+		} catch (toba_error_db $e) {
+			if (mensajes_error::$debug) {
+				throw $e;
+			} else {
+				$this->cn()->reiniciar();
+				$sql_state = $e->get_sqlstate();
+				mensajes_error::get_mensaje_error($sql_state);
+			}
+		}
 	}
 
 	function evt__cancelar()

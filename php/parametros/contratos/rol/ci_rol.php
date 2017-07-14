@@ -1,7 +1,6 @@
 <?php
 
 require_once('parametros/contratos/rol/dao_rol.php');
-require_once('adebug.php');
 require_once('mensajes_error.php');
 
 class ci_rol extends sagep_ci
@@ -32,23 +31,32 @@ class ci_rol extends sagep_ci
       $this->cn()->guardar(); //Sincroniza con la base de datos ejecutando comandos SQL
       $this->evt__cancelar(); //Para limpiar la seleccion
 
-    } catch (toba_error_db $e) {
-      if (adebug::$debug) {
-        throw $e;
-      } else {
-        $this->cn()->reiniciar();
-        $sql_state = $e->get_sqlstate();
-        if ($sql_state == 'db_23505') {
-          throw new toba_error_usuario('Ya existe el Rol');
-        }
-      }
-    }
+    }  catch (toba_error_db $e) {
+			if (mensajes_error::$debug) {
+				throw $e;
+			} else {
+				$this->cn()->reiniciar();
+				$sql_state = $e->get_sqlstate();
+				mensajes_error::get_mensaje_error($sql_state);
+			}
+		}
   }
 
   function evt__eliminar()
   {
-    $this->cn()->eliminar();
-    $this->evt__procesar();
+		try {
+			$this->cn()->eliminar();
+			$this->cn()->guardar();
+			$this->evt__cancelar();
+		} catch (toba_error_db $e) {
+			if (mensajes_error::$debug) {
+				throw $e;
+			} else {
+				$this->cn()->reiniciar();
+				$sql_state = $e->get_sqlstate();
+				mensajes_error::get_mensaje_error($sql_state);
+			}
+		}
   }
 
   function evt__cancelar()

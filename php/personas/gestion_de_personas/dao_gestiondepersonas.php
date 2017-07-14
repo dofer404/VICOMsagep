@@ -43,12 +43,6 @@ class dao_gestiondepersonas{
     JOIN es_sagep.tipos_personas t_tp ON t_p.id_tipo_persona = t_tp.id_tipo_persona
     LEFT JOIN es_sagep.tipos_documentos t_td ON t_p.id_tipo_documento = t_td.id_tipo_documento
 
-
-
-
-
-
-
               $where_armado";
 
     $datos=consultar_fuente($sql);

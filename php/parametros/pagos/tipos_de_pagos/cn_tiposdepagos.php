@@ -5,14 +5,16 @@ class cn_tiposdepagos extends sagep_cn
 	//---- dr_tiposdepagos --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_tiposdepagos')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_tiposdepagos')->sincronizar();
+		$this->dep('dr_tiposdepagos')->resetear();
+
 	}
 
 	//-----------------------------------------------------------------------------------

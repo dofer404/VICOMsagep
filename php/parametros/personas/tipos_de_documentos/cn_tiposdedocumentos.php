@@ -6,14 +6,15 @@ class cn_tiposdedocumentos extends sagep_cn
 	//---- dr_tiposdedocumentos ---------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_tiposdedocumentos')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_tiposdedocumentos')->sincronizar();
+		$this->dep('dr_tiposdedocumentos')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

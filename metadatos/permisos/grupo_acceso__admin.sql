@@ -206,12 +206,6 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	'sagep', --proyecto
 	'admin', --usuario_grupo_acc
 	NULL, --item_id
-	'3722'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'sagep', --proyecto
-	'admin', --usuario_grupo_acc
-	NULL, --item_id
 	'3724'  --item
 );
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
@@ -224,24 +218,54 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	'sagep', --proyecto
 	'admin', --usuario_grupo_acc
 	NULL, --item_id
-	'3726'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'sagep', --proyecto
-	'admin', --usuario_grupo_acc
-	NULL, --item_id
 	'3729'  --item
 );
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'sagep', --proyecto
 	'admin', --usuario_grupo_acc
 	NULL, --item_id
-	'3731'  --item
+	'3737'  --item
 );
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'sagep', --proyecto
 	'admin', --usuario_grupo_acc
 	NULL, --item_id
-	'3732'  --item
+	'3739'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'sagep', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'3740'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'sagep', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'3741'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'sagep', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'3742'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'sagep', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'3745'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'sagep', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'3747'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'sagep', --proyecto
+	'admin', --usuario_grupo_acc
+	NULL, --item_id
+	'3749'  --item
 );
 --- FIN Grupo de desarrollo 0

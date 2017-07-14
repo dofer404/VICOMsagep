@@ -1,6 +1,7 @@
 <?php
 require_once('parametros/direcciones/barrios/dao_barrios.php');
-require_once('adebug.php');
+require_once('mensajes_error.php');
+
 
 class ci_barrios extends sagep_ci
 {
@@ -30,14 +31,12 @@ class ci_barrios extends sagep_ci
 			$this->evt__cancelar();
 
 		} catch (toba_error_db $e) {
-			if (adebug::$debug) {
+			if (mensajes_error::$debug) {
 				throw $e;
 			} else {
 				$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
-				if ($sql_state == 'db_23505') {
-					throw new toba_error_usuario('Ya existe el barrio');
-				}
+				mensajes_error::get_mensaje_error($sql_state);
 			}
 		}
 	}
@@ -51,8 +50,19 @@ class ci_barrios extends sagep_ci
 
 	function evt__eliminar()
 	{
-		$this->cn()->eliminar();
-		$this->evt__procesar();
+		try {
+			$this->cn()->eliminar();
+			$this->cn()->guardar();
+			$this->evt__cancelar();
+		} catch (toba_error_db $e) {
+			if (mensajes_error::$debug) {
+				throw $e;
+			} else {
+				$this->cn()->reiniciar();
+				$sql_state = $e->get_sqlstate();
+				mensajes_error::get_mensaje_error($sql_state);
+			}
+		}
 	}
 
 	//-----------------------------------------------------------------------------------

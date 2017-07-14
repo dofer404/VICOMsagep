@@ -13,7 +13,7 @@ class mensajes_error {
 						   t_ter.nombre_tipoerror tipo,
 							 t_er.mostrar_mensaje
 	  		  FROM es_sagep.error t_er
-          JOIN es_sagep.tipo_error t_ter
+          JOIN es_sagep.tipos_error t_ter
 		  			ON t_er.id_tipo_error = t_ter.id_tipo_error
 				 WHERE t_er.codigo_error = $codigo";
 

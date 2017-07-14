@@ -1,6 +1,6 @@
 <?php
 require_once('personas/gestion_de_personas/dao_gestiondepersonas.php');
-require_once('adebug.php');
+require_once('mensajes_error.php');
 
 class ci_gestiondepersonas extends sagep_ci
 {
@@ -18,7 +18,7 @@ class ci_gestiondepersonas extends sagep_ci
 
 	function evt__nuevo()
 	{
-		$this->cn()->resetear();
+		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_edicion');
 	}
 
@@ -26,33 +26,40 @@ class ci_gestiondepersonas extends sagep_ci
 	{
 		unset($this->s__datos);
 		$this->dep('ci_modificarpersona')->disparar_limpieza_memoria();
-		$this->cn()->resetear();
+		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_inicial');
 	}
 
 	function evt__eliminar()
 	{
-		$this->cn()->eliminar();
-		$this->evt__procesar();
+		try {
+			$this->cn()->eliminar();
+			$this->cn()->guardar();
+			$this->evt__cancelar();
+		} catch (toba_error_db $e) {
+			if (mensajes_error::$debug) {
+				throw $e;
+			} else {
+				$this->cn()->reiniciar();
+				$sql_state = $e->get_sqlstate();
+				mensajes_error::get_mensaje_error($sql_state);
+			}
+		}
 	}
 
 	function evt__procesar()
 	{
-		$guardado = false;
 		try {
-			$this->cn()->sincronizar();
-			$this->cn()->resetear();
+			$this->cn()->guardar();
 			$this->evt__cancelar();
 
 		} catch (toba_error_db $e) {
-			if (adebug::$debug) {
+			if (mensajes_error::$debug) {
 				throw $e;
 			} else {
-				$this->cn()->resetear();
+				$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
-				if ($sql_state == 'db_23505') {
-					throw new toba_error_usuario('Ya existe la Persona');
-				}
+				mensajes_error::get_mensaje_error($sql_state);
 			}
 		}
 	}
@@ -84,7 +91,7 @@ class ci_gestiondepersonas extends sagep_ci
 
 			function conf__cuadro(sagep_ei_cuadro $cuadro)
 			{
-				$cuadro->desactivar_modo_clave_segura();
+				//$cuadro->desactivar_modo_clave_segura();
 				if (isset($this->s__datos_filtro)) {
 					$filtro = $this->dep('filtro');
 					$filtro->set_datos($this->s__datos_filtro);
@@ -105,16 +112,11 @@ class ci_gestiondepersonas extends sagep_ci
 
 			function evt__cuadro__eliminar($seleccion)
 			{
-				$this->cn()->resetear();
-				$this->cn()->cargar($seleccion);
-				$this->cn()->eliminar();
-				$this->cn()->resetear();
-				$this->set_pantalla('pant_inicial');
 			}
 
-			//-----------------------------------------------------------------------------------
-			//---- Configuraciones --------------------------------------------------------------
-			//-----------------------------------------------------------------------------------
+				//-----------------------------------------------------------------------------------
+				//---- Configuraciones --------------------------------------------------------------
+				//-----------------------------------------------------------------------------------
 
 			function conf__pant_edicion(toba_ei_pantalla $pantalla)
 			{
@@ -122,7 +124,7 @@ class ci_gestiondepersonas extends sagep_ci
 					$this->pantalla()->eliminar_evento('eliminar');
 				}
 			}
-			
+
 			function marcar_direccionSeteada()
 			{
 				$this->s__datos['frm_ml_dir_seteada'] = true;

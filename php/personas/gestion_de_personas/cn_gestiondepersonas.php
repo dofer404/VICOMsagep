@@ -14,14 +14,15 @@ class cn_gestiondepersonas extends sagep_cn
 	//---- dr_personas ------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_personas')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_personas')->sincronizar();
+		$this->dep('dr_personas')->resetear();
 	}
 
 	function eliminar()
@@ -150,7 +151,7 @@ class cn_gestiondepersonas extends sagep_cn
 	{
 		if ($this->dep('dr_personas')->tabla('dt_personas_detalleubicacion')->esta_cargada()) {
 			return true;
-		} 
+		}
 	}
 
 	//-----------------------------------------------------------------------------------

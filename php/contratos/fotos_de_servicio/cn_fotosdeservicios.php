@@ -1,19 +1,19 @@
 <?php
 class cn_fotosdeservicios extends sagep_cn
 {
-  //-----------------------------------------------------------------------------------
-  //---- Variables --------------------------------------------------------------------
-  //-----------------------------------------------------------------------------------
+		//-----------------------------------------------------------------------------------
+	//---- Variables --------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
 
-  protected $temp_archivo;
-  protected $temp_nombre;
-  protected $temp_imagen;
+	protected $temp_archivo;
+	protected $temp_nombre;
+	protected $temp_imagen;
 
-  //-----------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
 	//---- dr_fotos_servicio ------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-  function resetear()
+	function resetear()
 	{
 		$this->dep('dr_fotos_servicio')->resetear();
 	}
@@ -23,76 +23,74 @@ class cn_fotosdeservicios extends sagep_cn
 		$this->dep('dr_fotos_servicio')->sincronizar();
 	}
 
-  function hay_cursor()
-  {
-    if ($this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->esta_cargada()) {
-      return $this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->hay_cursor();
-    }
-  }
-
-  function set_cursor($seleccion)
+	function hay_cursor()
 	{
-		$id_fila = $this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->get_id_fila_condicion($seleccion)[0];
-		$this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio.0')->set_cursor($id_fila);
+	if ($this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->esta_cargada()) {
+		return $this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->hay_cursor();
+	}
 	}
 
-  function cargar($seleccion)
+	function set_cursor($seleccion)
+	{
+		$id_fila = $this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->get_id_fila_condicion($seleccion)[0];
+		$this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->set_cursor($id_fila);
+	}
+
+	function cargar($seleccion)
 	{
 		$this->dep('dr_fotos_servicio')->cargar($seleccion);
 	}
 
-  //-----------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
 	//---- dt_fotos_servicio ------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-  function procesar_filas_fotos($datos)
-  {
-    $this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->procesar_filas($datos);
-  }
+	function procesar_filas_fotos($datos)
+	{
+	$this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->procesar_filas($datos);
+	}
 
-  function set_blob_foto($datos, $id_fila = null)
-  {
-    if (is_array($datos['imagen'])) {
-      $temp_archivo = $datos['imagen']['tmp_name'];
-      $fp = fopen($temp_archivo, 'rb');
+	public function set_blob($datos, $id_fila)
+	{
+	if (is_array($datos['imagen'])) {
+		$temp_archivo = $datos['imagen']['tmp_name'];
+		$fp = fopen($temp_archivo, 'rb');
 
-      $this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->set_blob('imagen', $fp, $id_fila);
-    }
-  }
+		$this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->set_blob('imagen', $fp, $id_fila);
+	}
+	}
 
-  function set_blobs($datos)
-  {
-      foreach ($datos as $key => $value) {
+	function set_blobs($datos)
+	{
+		foreach ($datos as $key => $value) {
 
-        $this->set_blob_foto($datos[$key], $id_fila = null);
-      //  $aux = $datos[$key];
-        // if (is_array($aux['imagen'])) {
-        //   $temp_archivo = $aux['imagen']['tmp_name'];
-        //   $fp = fopen($temp_archivo, 'rb');
-        //
-        //   $this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->set_blob('imagen', $fp, $key);
-        // }
-      }
-  }
+		$this->set_blob($datos[$key], $key);
+		//  $aux = $datos[$key];
+		// if (is_array($aux['imagen'])) {
+		//   $temp_archivo = $aux['imagen']['tmp_name'];
+		//   $fp = fopen($temp_archivo, 'rb');
+		//
+		//   $this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->set_blob('imagen', $fp, $key);
+		// }
+		}
+	}
 
+	function get_fotos()
+	{
+		$datos = $this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->get();
+		return $datos;
+	}
 
+	public function get_blobs($datos)
+	{
+	$datos_r = array();
+		foreach ($datos as $key => $value) {
+			$datos_r[$key] = $this->get_blob($datos[$key], $key);
+		}
+	return $datos_r;
+	}
 
-  function get_fotos()
-  {
-      $datos = $this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->get();
-      return $datos;
-  }
-
-  public function get_blobs($datos)
-  {
-    $datos_r = array();
-    foreach ($datos as $key => $value) {
-      $datos_r[$key] = $this->dep('dr_fotos_servicio')->tabla('dt_fotos_servicio')->get_blob_foto($datos[$key], $key);
-    }
-    return $datos_r;
-  }
-
-  public function get_blob_foto($datos, $id_fila)
+	public function get_blob($datos, $id_fila)
 	{
 		$html_imagen = null;
 
@@ -107,16 +105,14 @@ class cn_fotosdeservicios extends sagep_cn
 			$tamano = round(filesize($temp_archivo['path']) / 1024);
 			$html_imagen =
 			"<img width=\"24px\" src='{$temp_archivo['url']}' alt=''/>";
-			$datos['imagen'] = '<a href="'.$temp_archivo['url'].'" target="_newtab">'.$html_imagen.' Tama?o archivo actual: '.$tamano.' kb</a>';
+			$datos['imagen'] = '<a href="'.$temp_archivo['url'].'" target="_newtab">'.$html_imagen.' Tamaño archivo actual: '.$tamano.' kb</a>';
 			$datos['imagen'.'?html'] = $html_imagen;
-		  $datos['imagen'.'?url'] = $temp_archivo['url'];
+			$datos['imagen'.'?url'] = $temp_archivo['url'];
 		} else {
 			$datos['imagen'] = null;
 		}
 
 		return $datos;
 	}
-
 }
-
 ?>

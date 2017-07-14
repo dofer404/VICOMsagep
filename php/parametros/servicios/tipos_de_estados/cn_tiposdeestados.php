@@ -5,14 +5,15 @@ class cn_tiposdeestados extends sagep_cn
 	//---- dr_tiposdeestados ------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_tiposdeestados')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_tiposdeestados')->sincronizar();
+		$this->dep('dr_tiposdeestados')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------

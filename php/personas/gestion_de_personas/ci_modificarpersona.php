@@ -79,7 +79,6 @@ class ci_modificarpersona extends sagep_ci
 			$datos = $this->cn()->get_direcciones();
 			$this->s__datos['form_ml_direcciones'] = $datos;
 			$form_ml->set_datos($datos);
-			ei_arbol($datos);
 	}
 }
 }
@@ -114,7 +113,6 @@ class ci_modificarpersona extends sagep_ci
 	{
 		$this->s__datos['form_ml_direcciones'] = $seleccion;
 		$form_ml->set_datos($seleccion);
-		ei_arbol($seleccion);
 	}
 
 }

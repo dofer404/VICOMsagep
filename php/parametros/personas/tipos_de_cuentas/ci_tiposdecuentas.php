@@ -1,6 +1,6 @@
 <?php
 require_once('parametros/personas/tipos_de_cuentas/dao_tiposdecuentas.php');
-require_once('adebug.php');
+require_once('mensajes_error.php');
 
 
 class ci_tiposdecuentas extends sagep_ci
@@ -19,38 +19,47 @@ class ci_tiposdecuentas extends sagep_ci
 
 	function evt__nuevo()
 	{
-		$this->cn()->resetear();
+		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_edicion');
 	}
 
 	function evt__procesar()
 	{
 		try {
-			$this->cn()->sincronizar();
-			$this->cn()->resetear();
+			$this->cn()->guardar();
 			$this->evt__cancelar();
 
 		} catch (toba_error_db $e) {
-			if (adebug::$debug) {
+			if (mensajes_error::$debug) {
 				throw $e;
 			} else {
-				$this->cn()->resetear();
+				$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
-				if ($sql_state == 'db_23505') {
-					throw new toba_error_usuario('Ya existe el Tipo de Cuenta');
-				}
+				mensajes_error::get_mensaje_error($sql_state);
 			}
 		}
 	}
 
 	function evt__eliminar()
 	{
-		$this->cn()->eliminar();
-		$this->evt__procesar();
+		try {
+			$this->cn()->eliminar();
+			$this->cn()->guardar();
+			$this->evt__cancelar();
+		} catch (toba_error_db $e) {
+			if (mensajes_error::$debug) {
+				throw $e;
+			} else {
+				$this->cn()->reiniciar();
+				$sql_state = $e->get_sqlstate();
+				mensajes_error::get_mensaje_error($sql_state);
+			}
+		}
 	}
 
 	function evt__cancelar()
 	{
+		$this->cn()->reiniciar();
 		unset($this->s__datos);
 		$this->set_pantalla('pant_inicial');
 	}

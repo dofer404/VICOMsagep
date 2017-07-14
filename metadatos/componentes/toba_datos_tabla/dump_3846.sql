@@ -56,7 +56,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'personas_detalleubicacion', --tabla
 	NULL, --tabla_ext
 	NULL, --alias
-	'1', --modificar_claves
+	'0', --modificar_claves
 	'sagep', --fuente_datos_proyecto
 	'sagep', --fuente_datos
 	'1', --permite_actualizacion_automatica

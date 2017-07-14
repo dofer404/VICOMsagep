@@ -1,6 +1,6 @@
 <?php
 require_once('contratos/gestion_de_contratos/dao_gestiondecontratos.php');
-require_once('adebug.php');
+require_once('mensajes_error.php');
 
 class ci_gestiondecontratos extends sagep_ci
 {
@@ -18,7 +18,7 @@ class ci_gestiondecontratos extends sagep_ci
 
 	function evt__nuevo()
 	{
-		$this->cn()->resetear();
+		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_edicion');
 	}
 
@@ -26,35 +26,43 @@ class ci_gestiondecontratos extends sagep_ci
 	{
 		unset($this->s__datos);
 		$this->dep('ci_modificarcontrato')->disparar_limpieza_memoria();
-		$this->cn()->resetear();
+		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_inicial');
-	}
-
-	function marcar_contratosSeteados()
-	{
-		$this->s__datos['frm_ml_det_seteado'] = true;
 	}
 
 	function evt__procesar()
 	{
+		try {
+			$this->cn()->guardar();
+			$this->evt__cancelar();
+
+		} catch (toba_error_db $e) {
+			if (mensajes_error::$debug) {
+				throw $e;
+			} else {
+				$this->cn()->reiniciar();
+				$sql_state = $e->get_sqlstate();
+				mensajes_error::get_mensaje_error($sql_state);
+			}
+		}
+		}
+
+		function evt__eliminar()
+		{
 			try {
-				$this->cn()->sincronizar();
-				$this->cn()->resetear();
+				$this->cn()->eliminar();
+				$this->cn()->guardar();
 				$this->evt__cancelar();
 			} catch (toba_error_db $e) {
-				if (adebug::$debug) {
+				if (mensajes_error::$debug) {
 					throw $e;
 				} else {
-					$this->cn()->resetear();
+					$this->cn()->reiniciar();
 					$sql_state = $e->get_sqlstate();
-					if ($sql_state == 'db_23505') {
-						throw new toba_error_usuario('Ya existe el Contrato');
-					}
+					mensajes_error::get_mensaje_error($sql_state);
 				}
 			}
 		}
-
-
 
 	//-----------------------------------------------------------------------------------
 	//---- Filtro -----------------------------------------------------------------------
@@ -83,7 +91,6 @@ class ci_gestiondecontratos extends sagep_ci
 
 	function conf__cuadro(sagep_ei_cuadro $cuadro)
 	{
-		$cuadro->desactivar_modo_clave_segura();
 		if (isset($this->s__datos_filtro)) {
 			$filtro = $this->dep('filtro');
 			$filtro->set_datos($this->s__datos_filtro);
@@ -104,12 +111,11 @@ class ci_gestiondecontratos extends sagep_ci
 
 	function evt__cuadro__eliminar($seleccion)
 	{
-		$this->cn()->resetear();
-		$this->cn()->cargar($seleccion);
-		$this->cn()->eliminar();
-		$this->cn()->resetear();
-		$this->set_pantalla('pant_inicial');
 	}
+
+	//-----------------------------------------------------------------------------------
+	//---- Configuraciones --------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
 
 	function conf__pant_edicion(toba_ei_pantalla $pantalla)
 	{

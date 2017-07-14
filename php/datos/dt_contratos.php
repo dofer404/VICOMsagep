@@ -7,6 +7,9 @@ class dt_contratos extends sagep_datos_tabla
 		return toba::db('sagep')->consultar($sql);
 	}
 
-}
 
+
+
+
+}
 ?>

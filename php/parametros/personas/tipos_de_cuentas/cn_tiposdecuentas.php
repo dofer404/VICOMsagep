@@ -5,14 +5,15 @@ class cn_tiposdecuentas extends sagep_cn
 	//---- dr_tiposdecuentas --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function resetear()
+	function reiniciar()
 	{
 		$this->dep('dr_tiposdecuentas')->resetear();
 	}
 
-	function sincronizar()
+	function guardar()
 	{
 		$this->dep('dr_tiposdecuentas')->sincronizar();
+		$this->dep('dr_tiposdecuentas')->resetear();
 	}
 
 	//-----------------------------------------------------------------------------------
