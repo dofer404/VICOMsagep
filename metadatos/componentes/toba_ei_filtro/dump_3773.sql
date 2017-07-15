@@ -138,7 +138,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Provincia', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-	'1', --inicial
+	'0', --inicial
 	'1', --orden
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
@@ -196,12 +196,12 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Pais', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-	'0', --inicial
+	'1', --inicial
 	'2', --orden
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
-	'ef_combo', --opciones_ef
-	'get_paises', --carga_metodo
+	'ef_popup', --opciones_ef
+	NULL, --carga_metodo
 	'dao_provincias', --carga_clase
 	'provincias/dao_provincias.php', --carga_include
 	NULL, --carga_dt
@@ -222,13 +222,13 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --edit_rango
 	NULL, --edit_expreg
 	NULL, --estilo
-	NULL, --popup_item
-	NULL, --popup_proyecto
-	NULL, --popup_editable
+	'3707', --popup_item
+	'sagep', --popup_proyecto
+	'0', --popup_editable
 	NULL, --popup_ventana
-	NULL, --popup_carga_desc_metodo
-	NULL, --popup_carga_desc_clase
-	NULL, --popup_carga_desc_include
+	'get_descripcionPopUpPais', --popup_carga_desc_metodo
+	'dao_provincias', --popup_carga_desc_clase
+	'parametros/direcciones/provincias/dao_provincias.php', --popup_carga_desc_include
 	NULL, --popup_puede_borrar_estado
 	'30', --punto_montaje
 	NULL, --check_valor_si
