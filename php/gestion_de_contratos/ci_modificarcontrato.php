@@ -54,11 +54,14 @@ class ci_modificarcontrato extends sagep_ci
 	//---- form__ml_detalles_contrato ---------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
+	function cambiar_pantalla() {
+		$this->set_pantalla('detalles');
+	}
 	function conf__form_ml_detalles_contrato($form_ml)
 	{
-		if ($this->cn()->hay_cursor()) {
-			$datos = $this->cn()->get_detalle();
-			$form_ml->set_datos($datos);
+		 if ($this->cn()->hay_cursor()) {
+		$datos = $this->cn()->get_detalle();
+		$form_ml->set_datos($datos);
 		}
 	}
 

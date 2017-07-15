@@ -2,6 +2,7 @@
 
 require_once('parametros/direcciones/localidades/dao_localidades.php');
 require_once('parametros/direcciones/barrios/dao_barrios.php');
+require_once('parametros/direcciones/tipos_de_zonas/dao_tiposdezonas.php');
 
 
 class dao_detalleubicacion{
@@ -80,6 +81,11 @@ class dao_detalleubicacion{
   static function get_provincias()
   {
     return dao_provincias::get_listado_provincias();
+  }
+
+  static function get_tiposZonas()
+  {
+    return dao_tiposdezonas::get_listado_tipos_zonas();
   }
 
   static function get_localidades()

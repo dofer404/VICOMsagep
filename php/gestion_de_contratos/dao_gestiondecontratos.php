@@ -96,6 +96,36 @@ class dao_gestiondecontratos{
 
   }
 
+  static function get_idExtUbicacion($id_ubicacion)
+  {
+    $id_ubicacion = quote($id_ubicacion);
+
+    $sql = "SELECT det.id_ubicacion,
+                   zon.id_tipo_zona
+              FROM es_sagep.detalleubicacion_detallecontrato det
+              JOIN es_sagep.tipos_de_zonas zon ON det.id_zona = zon.id_tipo_zona
+             WHERE det.id_ubicacion = $id_ubicacion";
+
+    $resultado = consultar_fuente($sql);
+
+    return $resultado[0];
+  }
+
+  static function get_OpZonas($id_ubicacion)
+  {
+    $id_ubicacion = quote($id_ubicacion);
+      $sql = "SELECT
+                zon.id_tipo_zona,
+                zon.nombre_tipozona
+              FROM
+                es_sagep.tipos_de_zonas zon
+              WHERE
+                det.id_zona = $id_pais";
+
+      $resultado = consultar_fuente($sql);
+      return $resultado;
+  }
+
   static function get_descripcionPopUpUbicacion($id_ubicacion)
   {
 
