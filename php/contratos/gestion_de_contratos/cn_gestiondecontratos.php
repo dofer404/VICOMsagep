@@ -94,8 +94,8 @@ class cn_gestiondecontratos extends sagep_cn
 
 	function set_cursor_detalle($seleccion)
 	{
-		$id_fila = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_id_fila_condicion($seleccion)[0];
-		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($id_fila);
+		//$id_fila = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_id_fila_condicion($seleccion)[0];
+		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($seleccion);
 
 		// $id_fila = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_filas(array ($seleccion), true);
 		// //$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($id_fila);
@@ -144,6 +144,19 @@ class cn_gestiondecontratos extends sagep_cn
 		$datos = $this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->get_filas();
 		ei_arbol($datos);
 		return $datos;
+	}
+
+	public function get_ubicaciones()
+	{
+		$datos = $this->dep('dr_ubicacion')->tabla('dt_detalleubicacion_detallecontrato')->get_filas();
+		ei_arbol($datos);
+		return $datos;
+	}
+
+	function procesar_filas_ubicaciones($datos)
+	{
+		//ei_arbol($datos);
+		$this->dep('dr_ubicacion')->tabla('dt_detalleubicacion_detallecontrato')->procesar_filas($datos);
 	}
 
 }

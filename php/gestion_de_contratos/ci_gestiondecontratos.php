@@ -21,6 +21,7 @@ class ci_gestiondecontratos extends sagep_ci
 	{
 		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_edicion');
+		$this->dep('form_ml_ubicacion')->colapsar();
 	}
 
 	function evt__cancelar()
@@ -123,11 +124,6 @@ class ci_gestiondecontratos extends sagep_ci
 		if (! $this->cn()->hay_cursor()) {
 			$this->pantalla()->eliminar_evento('eliminar');
 		}
-	}
-
-	function marcar_direccionSeteada()
-	{
-		$this->s__datos['frm_ml_det_seteada'] = true;
 	}
 }
 ?>

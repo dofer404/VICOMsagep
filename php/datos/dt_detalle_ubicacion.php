@@ -9,5 +9,7 @@ class dt_detalle_ubicacion extends sagep_datos_tabla
 
 
 
+
+
 }
 ?>

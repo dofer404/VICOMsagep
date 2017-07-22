@@ -7,6 +7,7 @@ class ci_modificarcontrato extends sagep_ci
 
 	protected $sql_state;
 	protected $s__datos;
+	protected $s__datos_ubicacion;
 
 	//-----------------------------------------------------------------------------------
 	//---- Form -------------------------------------------------------------------------
@@ -17,10 +18,6 @@ class ci_modificarcontrato extends sagep_ci
 		if (isset($this->s__datos['form'])) {
 			$form->set_datos($this->s__datos['form']);
 		} else {
-
-			// if (! $this->cn()->hay_cursor()) {
-			// 	$this->controlador()->pantalla()->evento('procesar')->desactivar();
-			// }
 
 			if ($this->cn()->hay_cursor()) {
 				$datos = $this->cn()->get_contratos();
@@ -71,43 +68,37 @@ class ci_modificarcontrato extends sagep_ci
 	// 	}
 	// }
 
-	//-----------------------------------------------------------------------------------
-	//---- form__ml_detalles_contrato ---------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	// function conf_evt__en_fila_redefinido($evento, $fila)
-	// {
-	// 		$evento->vinculo()->agregar_parametro('nota', 'En PHP se agrego la columna _descripcion_ al paso de parametros ' .
-	// 																				'(El ID del cuadro se incorpora por defecto). VALOR: ' .
-	// 																						$this->datos[$fila]['descripcion']);
-	// }
-
-	function conf__form_ml_detalles_contrato($form_ml)
-	{
-				if ($this->cn()->hay_cursor()) {
-					$datos = $this->cn()->get_detalle();
-				 $form_ml->set_datos($datos);
-				 }
-	 }
-
-	function evt__form_ml_detalles_contrato__modificacion($datos)
-	{
-		$this->s__datos['form__ml_detalles_contrato'] = $datos;
-		$this->cn()->procesar_filas_detalle($datos);
-	}
 
 // 	function evt__ml__seleccion($id_fila)
 // {
 // 		ei_arbol($id_fila);
 // 		$this->informar_msg('Se selecciona la fila con importe : '.$this->s__datos[$id_fila]['importe'], 'info');
 // }
+
 	//-----------------------------------------------------------------------------------
-	//---- form_ml_detalles_contrato ----------------------------------------------------
+	//---- form_ml_detalle_ubicacion ----------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function evt__form_ml_detalles_contrato__seleccion($seleccion)
+	function conf__form_ml_detalle_ubicacion(sagep_ei_formulario_ml $form_ml)
 	{
-		$this->cn()->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($seleccion);
+
+		if (isset($this->s__datos['form_ml_detalle_ubicacion'])) {
+			$form_ml->set_datos($this->s__datos['form_ml_detalle_ubicacion']);
+		} else {
+
+			if ($this->cn()->hay_cursor()) {
+				$this->cn()->dep('dr_ubicacion')->cargar();
+				$datos = $this->cn()->get_ubicaciones();
+				$this->s__datos['form_ml_detalle_ubicacion'] = $datos;
+				$form_ml->set_datos($datos);
+			}
+		}
+	}
+
+	function evt__form_ml_detalle_ubicacion__modificacion($datos)
+	{
+		$this->s__datos['form_ml_detalle_ubicacion'] = $datos;
+		$this->cn()->procesar_filas_ubicaciones($datos);
 	}
 
 }

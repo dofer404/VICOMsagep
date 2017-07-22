@@ -52,7 +52,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'100%', --ancho
 	NULL, --alto
 	NULL, --posicion_botonera
-	'tab_h', --tipo_navegacion
+	'wizard', --tipo_navegacion
 	'0', --botonera_barra_item
 	'0', --con_toc
 	NULL, --incremental
@@ -74,6 +74,18 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
+	'2633', --dep_id
+	'3983', --objeto_consumidor
+	'4048', --objeto_proveedor
+	'ci_detallecontrato', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
 	'2564', --dep_id
 	'3983', --objeto_consumidor
 	'3984', --objeto_proveedor
@@ -86,10 +98,10 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
-	'2577', --dep_id
+	'2652', --dep_id
 	'3983', --objeto_consumidor
-	'3996', --objeto_proveedor
-	'form_ml_detalles_contrato', --identificador
+	'4064', --objeto_proveedor
+	'form_ml_detalle_ubicacion', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -102,6 +114,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'3983', --objeto_consumidor
 	'3985', --objeto_proveedor
 	'form_ml_roles', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
+	'2673', --dep_id
+	'3983', --objeto_consumidor
+	'4051', --objeto_proveedor
+	'formulario_ml_ubicacion', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -170,7 +194,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --subclase_archivo
 	NULL, --template
 	NULL, --template_impresion
-	NULL  --punto_montaje
+	'30'  --punto_montaje
 );
 --- FIN Grupo de desarrollo 0
 
@@ -195,6 +219,20 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'sagep', --proyecto
 	'1727', --pantalla
 	'3983', --objeto_ci
+	'0', --orden
+	'2633'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1733', --pantalla
+	'3983', --objeto_ci
+	'0', --orden
+	'2652'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1733', --pantalla
+	'3983', --objeto_ci
 	'1', --orden
-	'2577'  --dep_id
+	'2673'  --dep_id
 );

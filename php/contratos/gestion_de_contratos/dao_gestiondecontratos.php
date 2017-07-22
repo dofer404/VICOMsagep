@@ -41,11 +41,45 @@ class dao_gestiondecontratos{
     return $datos;
   }
 
+  static function get_listado_detalles_contrato ($where='')
+  {
+
+    if($where){
+      $where_armado="WHERE $where";
+    }else {
+      $where_armado='';
+    }
+
+    $sql=" SELECT
+          id_detalle_contrato,
+          id_servicio,
+          id_contrato,
+          cantidad,
+          monto_unitario,
+          monto_total,
+          observaciones
+          FROM es_sagep.detalles_contrato
+
+              $where_armado ";
+
+    $datos=consultar_fuente($sql);
+    return $datos;
+  }
+
   static function get_id_detalle($id_contrato)
   {
     $id_contrato = quote($id_contrato);
 
     $sql = "SELECT id_servicio FROM es_sagep.detalles_contrato WHERE id_contrato = $id_contrato";
+
+    return consultar_fuente($sql);
+  }
+
+  static function get_lista_detalles()
+  {
+    $sql = "SELECT det.id_detalle_contrato, det.id_servicio, serv.nombre_serv
+            FROM es_sagep.detalles_contrato det, es_sagep.servicios serv
+            WHERE det.id_servicio = serv.id_servicio";
 
     return consultar_fuente($sql);
   }
@@ -101,16 +135,30 @@ class dao_gestiondecontratos{
 
   $id_ubicacion = quote($id_ubicacion);
     $sql = "SELECT
-              det.direccion
+              det.direccion,
+              det.altura,
+              loc.nombre_loc,
+              bar.nombre_bar,
+              prov.nombre_prov,
+              pais.nombre_pais,
+              det.direccion || ' al ' || det.altura ||' - Barrio '|| bar.nombre_bar ||' - '||loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais as direccion_localidad
             FROM
-              es_sagep.detalle_ubicacion det
+              es_sagep.detalle_ubicacion det,
+              es_sagep.localidades loc,
+              es_sagep.barrios bar,
+              es_sagep.provincias prov,
+              es_sagep.pais pais
             WHERE
-              det.id_ubicacion = $id_ubicacion";
+            bar.id_barrio = det.id_barrio and
+            loc.id_localidad = bar.id_localidad and
+            prov.id_provincia = loc.id_provincia and
+            pais.id_pais = prov.id_pais and
+            det.id_ubicacion = $id_ubicacion";
 
     $resultado = consultar_fuente($sql);
 
   if (count($resultado) > 0) {
-      return $resultado[0]['direccion'];
+      return $resultado[0]['direccion_localidad'];
   } else {
       return 'Fallo. Intente nuevamente';
     }

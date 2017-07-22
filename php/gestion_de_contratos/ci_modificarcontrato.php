@@ -7,7 +7,7 @@ class ci_modificarcontrato extends sagep_ci
 	//-----------------------------------------------------------------------------------
 
 	protected $sql_state;
-	//protected $s__datos;
+	protected $s__datos;
 
 	//-----------------------------------------------------------------------------------
 	//---- Form -------------------------------------------------------------------------
@@ -54,9 +54,6 @@ class ci_modificarcontrato extends sagep_ci
 	//---- form__ml_detalles_contrato ---------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function cambiar_pantalla() {
-		$this->set_pantalla('detalles');
-	}
 	function conf__form_ml_detalles_contrato($form_ml)
 	{
 		 if ($this->cn()->hay_cursor()) {
@@ -84,13 +81,17 @@ class ci_modificarcontrato extends sagep_ci
 		//     $form_ml->desactivar_agregado_filas();
 		// }
 
+
 		if ($this->cn()->hay_cursor_detalle()) {
 			$datos = $this->cn()->get_ubicacion();
 			$this->s__datos['form_ml_ubicacion'] = $datos;
 			//ei_arbol($this->s__datos['form_ml_ubicacion']);
 			$form_ml->set_datos($datos);
+			// $parametros['id_detalle_contrato'] =  $datos['id_detalle_contrato'];
+			// $form_ml->ef('id_ubicacion')->vinculo()->set_parametros($parametros);
 		} else {
-			$form_ml->desactivar_agregado_filas();
+			//$this->dep('form_ml_ubicacion')->colapsar();
+			//$form_ml->desactivar_agregado_filas();
 		}
 	}
 
@@ -107,6 +108,9 @@ class ci_modificarcontrato extends sagep_ci
 
 	function conf_evt__form_ml_ubicacion__ver_imagenes(toba_evento_usuario $evento, $fila)
 	{
+		$evento->vinculo()->agregar_parametro('nota', 'En PHP se agrego la columna _descripcion_ al paso de parametros ' .
+                                            '(El ID del cuadro se incorpora por defecto). VALOR: ' .
+                                                $this->s__datos['form_ml_ubicacion'][$fila]['id_ubicacion']);
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -117,6 +121,10 @@ class ci_modificarcontrato extends sagep_ci
 	{
 		$this->cn()->set_cursor_detalle($seleccion);
 	}
+
+	//-----------------------------------------------------------------------------------
+	//---- Configuraciones --------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
 
 }
 ?>

@@ -25,7 +25,8 @@ class dao_detalleubicacion{
               bar.nombre_bar as nombre_barrio,
               prov.id_provincia,
               pais.id_pais,
-              loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais as pais_provincia_localidad
+              loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais as pais_provincia_localidad,
+              det.direccion || ', ' || loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais as direccion_localidad
             FROM es_sagep.detalle_ubicacion det
 
             JOIN es_sagep.barrios bar ON det.id_barrio = bar.id_barrio

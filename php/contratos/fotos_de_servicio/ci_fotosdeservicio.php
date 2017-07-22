@@ -7,7 +7,7 @@ class ci_fotosdeservicio extends sagep_ci
 
 	protected $sql_state;
 	protected $s__datos_filtro;
-	protected $s__datos;
+	//protected $s__datos;
 
 	//-----------------------------------------------------------------------------------
 	//---- Eventos ----------------------------------------------------------------------
@@ -25,17 +25,20 @@ class ci_fotosdeservicio extends sagep_ci
 
 	function conf__form_ml_fotos(sagep_ei_formulario_ml $form_ml)
 	{
+		$parametros = toba::memoria()->get_parametros();
+		ei_arbol($parametros, 'PARAMETROS recibidos');
 		if (isset($this->s__datos['form_ml_fotos'])) {
-				$form_ml->set_datos($this->s__datos['form_ml_fotos']);
-			} else {
-				if ($this->cn()->hay_cursor()) {
-					$datos = $this->cn()->get_fotos();
-					$datos = $this->cn()->get_blobs($datos);
-					$this->s__datos['form_ml_fotos'] = $datos;
-					$form_ml->set_datos($datos);
-				}
+			$form->set_datos($this->s__datos['form_ml_fotos']);
+		} else {
+			if ($this->cn()->hay_cursor()) {
+				$datos = $this->cn()->get_fotos();
+				$datos = $this->cn()->get_blobs($datos);
+				$this->s__datos['form_ml_fotos'] = $datos;
+				$form_ml->set_datos($datos);
 			}
-	}
+		}
+
+		}
 
 	function evt__form_ml_fotos__modificacion($datos)
 	{
