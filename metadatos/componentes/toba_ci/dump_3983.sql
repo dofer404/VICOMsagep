@@ -52,7 +52,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'100%', --ancho
 	NULL, --alto
 	NULL, --posicion_botonera
-	'wizard', --tipo_navegacion
+	'tab_h', --tipo_navegacion
 	'0', --botonera_barra_item
 	'0', --con_toc
 	NULL, --incremental
@@ -98,6 +98,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
+	'2674', --dep_id
+	'3983', --objeto_consumidor
+	'4052', --objeto_proveedor
+	'form_ml_detalle', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
 	'2652', --dep_id
 	'3983', --objeto_consumidor
 	'4064', --objeto_proveedor
@@ -114,18 +126,6 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'3983', --objeto_consumidor
 	'3985', --objeto_proveedor
 	'form_ml_roles', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
-	NULL, --parametros_c
-	NULL, --inicializar
-	NULL  --orden
-);
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'sagep', --proyecto
-	'2673', --dep_id
-	'3983', --objeto_consumidor
-	'4051', --objeto_proveedor
-	'formulario_ml_ubicacion', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -234,5 +234,5 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'1733', --pantalla
 	'3983', --objeto_ci
 	'1', --orden
-	'2673'  --dep_id
+	'2674'  --dep_id
 );

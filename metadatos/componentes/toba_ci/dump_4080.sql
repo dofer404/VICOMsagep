@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[4048]--  ci_gestiondecontratos - ci_modificarcontrato - ci_detallecontrato 
+--[4080]--  ci_gestiondecontratos - ci_modificarcontrato - ci_detallecontrato 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -9,7 +9,7 @@
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, punto_montaje, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
 	'sagep', --proyecto
-	'4048', --objeto
+	'4080', --objeto
 	NULL, --anterior
 	NULL, --identificador
 	NULL, --reflexivo
@@ -17,7 +17,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba_ci', --clase
 	'30', --punto_montaje
 	'ci_detallecontrato', --subclase
-	'contratos/gestion_de_contratos/ci_detallecontrato.php', --subclase_archivo
+	'gestion_de_contratos/ci_detallecontrato.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_gestiondecontratos - ci_modificarcontrato - ci_detallecontrato', --nombre
@@ -36,7 +36,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2017-07-17 12:51:13', --creacion
+	'2017-07-23 23:05:42', --creacion
 	'abajo'  --posicion_botonera
 );
 --- FIN Grupo de desarrollo 0
@@ -48,16 +48,16 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple, es_autovinculo) VALUES (
 	'sagep', --proyecto
-	'3473', --evento_id
-	'4048', --objeto
-	'ubicacion', --identificador
-	'Agregar Ubicación', --etiqueta
+	'3508', --evento_id
+	'4080', --objeto
+	'nuevo', --identificador
+	'&Nuevo', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	NULL, --imagen
+	'nucleo/agregar.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden
@@ -81,10 +81,10 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple, es_autovinculo) VALUES (
 	'sagep', --proyecto
-	'3493', --evento_id
-	'4048', --objeto
+	'3509', --evento_id
+	'4080', --objeto
 	'cancelar', --identificador
-	'&VolveR', --etiqueta
+	'&Volver', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
@@ -114,10 +114,43 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple, es_autovinculo) VALUES (
 	'sagep', --proyecto
-	'3494', --evento_id
-	'4048', --objeto
+	'3510', --evento_id
+	'4080', --objeto
+	'eliminar', --identificador
+	'&Eliminar', --etiqueta
+	'0', --maneja_datos
+	NULL, --sobre_fila
+	'¿Esta seguro que desea ELIMINAR los datos?', --confirmacion
+	NULL, --estilo
+	'apex', --imagen_recurso_origen
+	'borrar.png', --imagen
+	'1', --en_botonera
+	NULL, --ayuda
+	'3', --orden
+	NULL, --ci_predep
+	'0', --implicito
+	'0', --defecto
+	NULL, --display_datos_cargados
+	NULL, --grupo
+	NULL, --accion
+	NULL, --accion_imphtml_debug
+	NULL, --accion_vinculo_carpeta
+	NULL, --accion_vinculo_item
+	NULL, --accion_vinculo_objeto
+	NULL, --accion_vinculo_popup
+	NULL, --accion_vinculo_popup_param
+	NULL, --accion_vinculo_target
+	NULL, --accion_vinculo_celda
+	NULL, --accion_vinculo_servicio
+	'0', --es_seleccion_multiple
+	'0'  --es_autovinculo
+);
+INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple, es_autovinculo) VALUES (
+	'sagep', --proyecto
+	'3511', --evento_id
+	'4080', --objeto
 	'procesar', --identificador
-	'&GuardaR', --etiqueta
+	'&Guardar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
@@ -126,7 +159,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'guardar.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
-	'3', --orden
+	'4', --orden
 	NULL, --ci_predep
 	'0', --implicito
 	'1', --defecto
@@ -152,7 +185,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 ------------------------------------------------------------
 INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, botonera_barra_item, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES (
 	'sagep', --objeto_mt_me_proyecto
-	'4048', --objeto_mt_me
+	'4080', --objeto_mt_me
 	NULL, --ev_procesar_etiq
 	NULL, --ev_cancelar_etiq
 	'100%', --ancho
@@ -180,9 +213,21 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
-	'2694', --dep_id
-	'4048', --objeto_consumidor
-	'4094', --objeto_proveedor
+	'2676', --dep_id
+	'4080', --objeto_consumidor
+	'4081', --objeto_proveedor
+	'cuadro_detalle', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
+	'2677', --dep_id
+	'4080', --objeto_consumidor
+	'4082', --objeto_proveedor
 	'form_detalle', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
@@ -192,33 +237,9 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
-	'2646', --dep_id
-	'4048', --objeto_consumidor
-	'4061', --objeto_proveedor
-	'form_importe', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
-	NULL, --parametros_c
-	NULL, --inicializar
-	NULL  --orden
-);
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'sagep', --proyecto
-	'2637', --dep_id
-	'4048', --objeto_consumidor
-	'4052', --objeto_proveedor
-	'form_ml_detalle', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
-	NULL, --parametros_c
-	NULL, --inicializar
-	NULL  --orden
-);
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'sagep', --proyecto
-	'2636', --dep_id
-	'4048', --objeto_consumidor
-	'4051', --objeto_proveedor
+	'2678', --dep_id
+	'4080', --objeto_consumidor
+	'4026', --objeto_proveedor
 	'form_ml_ubicacion', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
@@ -235,11 +256,11 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'sagep', --objeto_ci_proyecto
-	'4048', --objeto_ci
-	'1749', --pantalla
+	'4080', --objeto_ci
+	'1756', --pantalla
 	'pant_inicial', --identificador
 	'1', --orden
-	'Detalle de Contrato', --etiqueta
+	'Pantalla Inicial', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
@@ -254,8 +275,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 );
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'sagep', --objeto_ci_proyecto
-	'4048', --objeto_ci
-	'1750', --pantalla
+	'4080', --objeto_ci
+	'1757', --pantalla
 	'pant_edicion', --identificador
 	'2', --orden
 	'Pantalla Edicion', --etiqueta
@@ -271,6 +292,25 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --template_impresion
 	'30'  --punto_montaje
 );
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
+	'sagep', --objeto_ci_proyecto
+	'4080', --objeto_ci
+	'1761', --pantalla
+	'pant_imagen', --identificador
+	'3', --orden
+	'Pantalla Imagenes', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL, --subclase_archivo
+	NULL, --template
+	NULL, --template_impresion
+	NULL  --punto_montaje
+);
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
@@ -278,57 +318,50 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 ------------------------------------------------------------
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'sagep', --proyecto
-	'1749', --pantalla
-	'4048', --objeto_ci
+	'1756', --pantalla
+	'4080', --objeto_ci
 	'0', --orden
-	'2637'  --dep_id
+	'2676'  --dep_id
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'sagep', --proyecto
-	'1749', --pantalla
-	'4048', --objeto_ci
-	'1', --orden
-	'2646'  --dep_id
-);
-INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
-	'sagep', --proyecto
-	'1750', --pantalla
-	'4048', --objeto_ci
-	'1', --orden
-	'2636'  --dep_id
-);
-INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
-	'sagep', --proyecto
-	'1750', --pantalla
-	'4048', --objeto_ci
+	'1757', --pantalla
+	'4080', --objeto_ci
 	'0', --orden
-	'2694'  --dep_id
+	'2677'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1757', --pantalla
+	'4080', --objeto_ci
+	'1', --orden
+	'2678'  --dep_id
 );
 
 ------------------------------------------------------------
 -- apex_eventos_pantalla
 ------------------------------------------------------------
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
-	'1749', --pantalla
-	'4048', --objeto_ci
-	'3473', --evento_id
+	'1756', --pantalla
+	'4080', --objeto_ci
+	'3508', --evento_id
 	'sagep'  --proyecto
 );
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
-	'1749', --pantalla
-	'4048', --objeto_ci
-	'3493', --evento_id
+	'1757', --pantalla
+	'4080', --objeto_ci
+	'3509', --evento_id
 	'sagep'  --proyecto
 );
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
-	'1750', --pantalla
-	'4048', --objeto_ci
-	'3493', --evento_id
+	'1757', --pantalla
+	'4080', --objeto_ci
+	'3510', --evento_id
 	'sagep'  --proyecto
 );
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
-	'1750', --pantalla
-	'4048', --objeto_ci
-	'3494', --evento_id
+	'1757', --pantalla
+	'4080', --objeto_ci
+	'3511', --evento_id
 	'sagep'  --proyecto
 );

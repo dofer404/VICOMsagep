@@ -25,12 +25,10 @@ class cn_gestiondecontratos extends sagep_cn
 
 	function cargar($seleccion)
 	{
-		$this->dep('dr_contratos')->cargar($seleccion);
-	}
+    ei_arbol($seleccion);
 
-	function cargar_detalle($seleccion)
-	{
-		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->cargar($seleccion);
+		$this->dep('dr_contratos')->cargar($seleccion);
+    ei_arbol($seleccion);
 	}
 
 	//----------------------------------------------------------------------------------------
@@ -58,7 +56,7 @@ class cn_gestiondecontratos extends sagep_cn
 	function set_cursor($seleccion)
 	{
 		$id_fila = $this->dep('dr_contratos')->tabla('dt_contratos')->get_id_fila_condicion($seleccion)[0];
-		$this->dep('dr_contratos')->tabla('dt_contratos')->set_cursor($id_fila);
+    $this->dep('dr_contratos')->tabla('dt_contratos')->set_cursor($id_fila);
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -94,7 +92,10 @@ class cn_gestiondecontratos extends sagep_cn
 
 	function set_cursor_detalle($seleccion)
 	{
-    $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($seleccion);
+  $id_fila = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_id_fila_condicion($seleccion)[0];
+    $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($id_fila);
+
+//  $this->dep('dr_detalles_contrato')->tabla('dt_detalles_contrato')->set_cursor($seleccion);
 	}
 
 	function get_unDetalle()
@@ -121,7 +122,8 @@ class cn_gestiondecontratos extends sagep_cn
 
 	function get_detalle()
 	{
-		$datos = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_filas();
+		//$datos = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_filas();
+    $datos = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get();
 		return $datos;
 	}
 

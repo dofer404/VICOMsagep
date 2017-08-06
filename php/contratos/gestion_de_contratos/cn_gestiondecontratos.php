@@ -28,11 +28,6 @@ class cn_gestiondecontratos extends sagep_cn
 		$this->dep('dr_contratos')->cargar($seleccion);
 	}
 
-	function cargar_detalle($seleccion)
-	{
-		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->cargar($seleccion);
-	}
-
 	//----------------------------------------------------------------------------------------
 	//---- dt_contratos ----------------------------------------------------------------------
 	//----------------------------------------------------------------------------------------
@@ -135,27 +130,23 @@ class cn_gestiondecontratos extends sagep_cn
 
 	function procesar_filas_ubicacion($datos)
 	{
-		//ei_arbol($datos);
 		$this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->procesar_filas($datos);
 	}
 
 	public function get_ubicacion()
 	{
 		$datos = $this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->get_filas();
-		ei_arbol($datos);
 		return $datos;
 	}
 
 	public function get_ubicaciones()
 	{
 		$datos = $this->dep('dr_ubicacion')->tabla('dt_detalleubicacion_detallecontrato')->get_filas();
-		ei_arbol($datos);
 		return $datos;
 	}
 
 	function procesar_filas_ubicaciones($datos)
 	{
-		//ei_arbol($datos);
 		$this->dep('dr_ubicacion')->tabla('dt_detalleubicacion_detallecontrato')->procesar_filas($datos);
 	}
 

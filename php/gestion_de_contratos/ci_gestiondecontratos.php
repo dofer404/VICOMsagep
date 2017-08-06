@@ -21,7 +21,6 @@ class ci_gestiondecontratos extends sagep_ci
 	{
 		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_edicion');
-		$this->dep('form_ml_ubicacion')->colapsar();
 	}
 
 	function evt__cancelar()
@@ -37,7 +36,6 @@ class ci_gestiondecontratos extends sagep_ci
 			try {
 				$this->cn()->guardar();
 				$this->evt__cancelar();
-
 			} catch (toba_error_db $e) {
 				if (mensajes_error::$debug) {
 					throw $e;

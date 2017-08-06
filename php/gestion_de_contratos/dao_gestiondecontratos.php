@@ -41,6 +41,34 @@ class dao_gestiondecontratos{
     return $datos;
   }
 
+  static function get_listado_detalles_contrato ()
+  {
+    // $sql=" SELECT
+    //       t_dc.id_detalle_contrato,
+    //       t_s.id_servicio,
+    //       t_c.id_contrato,
+    //       t_dc.cantidad,
+    //       t_dc.monto_unitario,
+    //       t_dc.monto_total,
+    //       t_dc.observaciones
+    //       FROM es_sagep.detalles_contrato t_dc
+    //       JOIN es_sagep.contratos t_c on t_dc.id_contrato = t_c.id_contrato
+    //       JOIN es_sagep.servicios t_s on t_dc.id_servicio = t_s.id_servicio" ;
+
+          $sql=" SELECT
+                id_detalle_contrato,
+                id_servicio,
+                id_contrato,
+                cantidad,
+                monto_unitario,
+                monto_total,
+                observaciones
+                FROM es_sagep.detalles_contrato" ;
+
+    $datos=consultar_fuente($sql);
+    return $datos;
+  }
+
   static function get_id_detalle($id_contrato)
   {
     $id_contrato = quote($id_contrato);
