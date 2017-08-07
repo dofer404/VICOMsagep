@@ -150,5 +150,15 @@ class cn_gestiondecontratos extends sagep_cn
 		$this->dep('dr_ubicacion')->tabla('dt_detalleubicacion_detallecontrato')->procesar_filas($datos);
 	}
 
+	function setDatos_nuevoDetalle(array $datos) //
+  {
+    // Creamos la fila nueva en memoria temporal en el Datos Tabla
+    $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->nueva_fila($datos);
+    //Obtenemos el id_fila_condicion de la nueva fila
+    $id_fila_condicion = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_filas()[0]['x_dbr_clave'];
+    // Seteamos el cursor de dt_telefonos en el nuevo registro
+    $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($id_fila_condicion);
+  }
+
 }
 ?>
