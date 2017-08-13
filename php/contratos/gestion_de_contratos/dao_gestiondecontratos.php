@@ -32,7 +32,7 @@ class dao_gestiondecontratos{
 
     JOIN es_sagep.tipos_contratos t_tc on t_c.id_tipo_contrato = t_tc.id_tipo_contrato
     JOIN es_sagep.roles t_rs on t_c.id_contrato = t_rs.id_contrato
-    JOIN es_sagep.rol t_r on t_rs.id_rol = t_r.id_rol and t_r.nombre_rol = 'Contratante'
+    JOIN es_sagep.rol t_r on t_rs.id_rol = t_r.id_rol and t_r.nombre_rol = 'Contratado'
     JOIN es_sagep.personas t_p on t_rs.id_persona = t_p.id_persona
 
               $where_armado ";

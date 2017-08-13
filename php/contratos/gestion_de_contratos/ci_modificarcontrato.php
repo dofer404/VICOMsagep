@@ -5,28 +5,7 @@ class ci_modificarcontrato extends sagep_ci
 	//---- Variables --------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	protected $sql_state;
-	protected $s__datos;
-	protected $s__datos_ubicacion;
-
-	//-----------------------------------------------------------------------------------
-	//---- form__ml_detalle -------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__form_ml_detalle($form_ml)
-	{
-
-		if (isset($this->s__datos['form_ml_detalle'])) {
-			$form_ml->set_datos($this->s__datos['form_ml_detalle']);
-		} else {
-
-			if ($this->cn()->hay_cursor()) {
-				$datos = $this->cn()->get_detalle();
-				$this->s__datos['form_ml_detalle'] = $datos;
-				$form_ml->set_datos($datos);
-			}
-		}
-	}
+	protected $s__datos = [];
 
 	//-----------------------------------------------------------------------------------
 	//---- Form -------------------------------------------------------------------------
@@ -71,54 +50,30 @@ class ci_modificarcontrato extends sagep_ci
 	}
 
 	// //-----------------------------------------------------------------------------------
-	// //---- form_ml_detalle --------------------------------------------------------------
+	// //---- form_ml_detalle_ubicacion ----------------------------------------------------
 	// //-----------------------------------------------------------------------------------
 	//
-	// function evt__form_ml_detalle__modificacion($datos)
+	// function conf__form_ml_detalle_ubicacion(sagep_ei_formulario_ml $form_ml)
 	// {
-	// 	$this->controlador()->marcar_contratosSeteados();
-  // }
 	//
-	// function conf__form_ml_detalle(sagep_ei_formulario_ml $form_ml)
-	// {
-	// 	if ($this->cn()->hay_cursor()) {
-	// 		$datos = $this->cn()->get_detalle();
-	// 		$form_ml->set_datos($datos);
+	// 	if (isset($this->s__datos['form_ml_detalle_ubicacion'])) {
+	// 		$form_ml->set_datos($this->s__datos['form_ml_detalle_ubicacion']);
+	// 	} else {
+	//
+	// 		if ($this->cn()->hay_cursor()) {
+	// 			$this->cn()->dep('dr_ubicacion')->cargar();
+	// 			$datos = $this->cn()->get_ubicaciones();
+	// 			$this->s__datos['form_ml_detalle_ubicacion'] = $datos;
+	// 			$form_ml->set_datos($datos);
+	// 		}
 	// 	}
 	// }
-
-
-// 	function evt__ml__seleccion($id_fila)
-// {
-// 		ei_arbol($id_fila);
-// 		$this->informar_msg('Se selecciona la fila con importe : '.$this->s__datos[$id_fila]['importe'], 'info');
-// }
-
-	//-----------------------------------------------------------------------------------
-	//---- form_ml_detalle_ubicacion ----------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__form_ml_detalle_ubicacion(sagep_ei_formulario_ml $form_ml)
-	{
-
-		if (isset($this->s__datos['form_ml_detalle_ubicacion'])) {
-			$form_ml->set_datos($this->s__datos['form_ml_detalle_ubicacion']);
-		} else {
-
-			if ($this->cn()->hay_cursor()) {
-				$this->cn()->dep('dr_ubicacion')->cargar();
-				$datos = $this->cn()->get_ubicaciones();
-				$this->s__datos['form_ml_detalle_ubicacion'] = $datos;
-				$form_ml->set_datos($datos);
-			}
-		}
-	}
-
-	function evt__form_ml_detalle_ubicacion__modificacion($datos)
-	{
-		$this->s__datos['form_ml_detalle_ubicacion'] = $datos;
-		$this->cn()->procesar_filas_ubicaciones($datos);
-	}
+	//
+	// function evt__form_ml_detalle_ubicacion__modificacion($datos)
+	// {
+	// 	$this->s__datos['form_ml_detalle_ubicacion'] = $datos;
+	// 	$this->cn()->procesar_filas_ubicaciones($datos);
+	// }
 
 }
 ?>

@@ -45,24 +45,24 @@ class ci_gestiondecontratos extends sagep_ci
 				mensajes_error::get_mensaje_error($sql_state);
 			}
 		}
-		}
+	}
 
-		function evt__eliminar()
-		{
-			try {
-				$this->cn()->eliminar();
-				$this->cn()->guardar();
-				$this->evt__cancelar();
-			} catch (toba_error_db $e) {
-				if (mensajes_error::$debug) {
-					throw $e;
-				} else {
-					$this->cn()->reiniciar();
-					$sql_state = $e->get_sqlstate();
-					mensajes_error::get_mensaje_error($sql_state);
-				}
+	function evt__eliminar()
+	{
+		try {
+			$this->cn()->eliminar();
+			$this->cn()->guardar();
+			$this->evt__cancelar();
+		} catch (toba_error_db $e) {
+			if (mensajes_error::$debug) {
+				throw $e;
+			} else {
+				$this->cn()->reiniciar();
+				$sql_state = $e->get_sqlstate();
+				mensajes_error::get_mensaje_error($sql_state);
 			}
 		}
+	}
 
 	//-----------------------------------------------------------------------------------
 	//---- Filtro -----------------------------------------------------------------------
@@ -97,7 +97,6 @@ class ci_gestiondecontratos extends sagep_ci
 			$sql_where = $filtro->get_sql_where();
 
 			$datos = dao_gestiondecontratos::get_listado_contratos($sql_where);
-
 			$cuadro->set_datos($datos);
 		}
 	}
@@ -120,7 +119,7 @@ class ci_gestiondecontratos extends sagep_ci
 	function conf__pant_edicion(toba_ei_pantalla $pantalla)
 	{
 		if (! $this->cn()->hay_cursor()) {
-			$this->pantalla()->eliminar_evento('eliminar');
+			$pantalla->eliminar_evento('eliminar');
 		}
 	}
 

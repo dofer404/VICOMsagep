@@ -40,9 +40,7 @@ class cn_gestiondecontratos extends sagep_cn
 
 	function hay_cursor()
 	{
-		if ($this->dep('dr_contratos')->tabla('dt_contratos')->esta_cargada()) {
-			return $this->dep('dr_contratos')->tabla('dt_contratos')->hay_cursor();
-		}
+		return $this->dep('dr_contratos')->tabla('dt_contratos')->hay_cursor();
 	}
 
 	function set_contratos($datos)
@@ -72,14 +70,22 @@ class cn_gestiondecontratos extends sagep_cn
 	}
 
 	//-----------------------------------------------------------------------------------
-	//---- dt_detalle ---------------------------------------------------------------------
+	//---- dt_detalle -------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
+
+  function existe_fila_detalle($id_interno)
+	{
+	  return $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->existe_fila($id_interno);
+	}
 
 	function hay_cursor_detalle()
 	{
-		if ($this->dep('dr_contratos')->tabla('dt_detalles_contrato')->esta_cargada()) {
-			return $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->hay_cursor();
-		}
+		return $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->hay_cursor();
+	}
+
+	function resetear_cursor_detalle()
+	{
+		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->resetear_cursor();
 	}
 
 	function set_detalle($datos)
@@ -89,28 +95,13 @@ class cn_gestiondecontratos extends sagep_cn
 
 	function set_cursor_detalle($seleccion)
 	{
-		//$id_fila = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_id_fila_condicion($seleccion)[0];
-		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($seleccion);
-
-		// $id_fila = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_filas(array ($seleccion), true);
-		// //$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($id_fila);
-		// return $id_fila;
+				$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($seleccion);
 	}
 
 	function get_unDetalle()
 	{
-		if ($this->dep('dr_contratos')->tabla('dt_detalles_contrato')->esta_cargada()) {
-			$array = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get();
-			// foreach ($array as $key => $value) {
-			// 	$id = $value['id_contrato'];
-			// 	$cantidad = dao_carreras::set_solo_lectura_cod_plan_estudio($id);
-			// 	if ($cantidad > 0) {
-			// 		$array[$key]['alumnos_asociados'] = 'Si';
-			// 	} else {
-			// 		$array[$key]['alumnos_asociados'] = 'No';
-			// 	}
-			}
-			return $array;
+		$array = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get();
+		return $array;
 		}
 
 	function procesar_filas_detalle($datos)
@@ -123,6 +114,25 @@ class cn_gestiondecontratos extends sagep_cn
 		$datos = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_filas();
 		return $datos;
 	}
+
+	function eliminar_fila_cursor_detalle()
+  {
+		$id_interno = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_cursor();
+    $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->eliminar_fila($id_interno);
+   }
+
+	function nueva_fila_detalle($datos_fila)
+  {
+		return $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->nueva_fila($datos_fila);
+  }
+
+	function setDatos_nuevoDetalle(array $datos) //
+	{
+		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->nueva_fila($datos);
+		$id_fila_condicion = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_filas()[0]['x_dbr_clave'];
+		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($id_fila_condicion);
+	}
+
 
 	//-----------------------------------------------------------------------------------
 	//---- dt_detalleubicacion_detallecontrato -------------------------------------------------------------------
@@ -139,26 +149,22 @@ class cn_gestiondecontratos extends sagep_cn
 		return $datos;
 	}
 
-	public function get_ubicaciones()
+	function set_cursor_ubicaciones($id_interno)
 	{
-		$datos = $this->dep('dr_ubicacion')->tabla('dt_detalleubicacion_detallecontrato')->get_filas();
-		return $datos;
+		$this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->set_cursor($id_interno);
 	}
 
-	function procesar_filas_ubicaciones($datos)
+	function hay_cursor_ubicaciones($id_interno)
 	{
-		$this->dep('dr_ubicacion')->tabla('dt_detalleubicacion_detallecontrato')->procesar_filas($datos);
+		return $this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->hay_cursor();
 	}
 
-	function setDatos_nuevoDetalle(array $datos) //
-  {
-    // Creamos la fila nueva en memoria temporal en el Datos Tabla
-    $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->nueva_fila($datos);
-    //Obtenemos el id_fila_condicion de la nueva fila
-    $id_fila_condicion = $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->get_filas()[0]['x_dbr_clave'];
-    // Seteamos el cursor de dt_telefonos en el nuevo registro
-    $this->dep('dr_contratos')->tabla('dt_detalles_contrato')->set_cursor($id_fila_condicion);
-  }
+	function resetear_cursor_ubicaciones($id_interno)
+	{
+		$this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->resetear_cursor();
+	}
+
+
 
 }
 ?>
