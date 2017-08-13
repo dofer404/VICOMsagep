@@ -249,7 +249,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4052', --objeto_ei_formulario
 	'sagep', --objeto_ei_formulario_proyecto
 	'cantidad', --identificador
-	'ef_editable_numero', --elemento_formulario
+	'ef_fijo', --elemento_formulario
 	'cantidad', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -329,7 +329,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4052', --objeto_ei_formulario
 	'sagep', --objeto_ei_formulario_proyecto
 	'monto_total', --identificador
-	'ef_editable_moneda', --elemento_formulario
+	'ef_fijo', --elemento_formulario
 	'monto_total', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -340,11 +340,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
-	'1', --total
+	'0', --total
 	NULL, --inicializacion
 	'0', --permitir_html
 	'0', --deshabilitar_rest_func
-	'0', --estado_defecto
+	NULL, --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
