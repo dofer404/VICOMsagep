@@ -1,5 +1,4 @@
 <?php
-
 require_once('contratos/gestion_de_contratos/dao_gestiondecontratos.php');
 require_once('comunes/cache_form_ml.php');
 
@@ -11,6 +10,7 @@ class ci_detallecontrato extends sagep_ci
 
 	protected $sql_state;
 	protected $s__datos;
+
 
 	//-----------------------------------------------------------------------------------
 	//---- setters y getters ------------------------------------------------------------
@@ -78,6 +78,15 @@ class ci_detallecontrato extends sagep_ci
 	//---- Auxiliares ----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
+	// function setear_todos_los_formularios()
+	// 	{
+	// 		if (isset ($this->s__datos['form_ml_fotos'])){
+	// 			$this->cn()->procesar_filas_fotos($this->s__datos['form_ml_fotos']);
+	// 			$this->cn()->set_blobs($this->s__datos['form_ml_fotos']);
+	// 			$this->cn()->resetear_cursor_ubicaciones();
+	// 		}
+	// 	}
+
 	function procesar_cacnelar_pedido_registro_nuevo_detalle()
 	{
 		$this->procesar_pedido_registro_nuevo_detalle(true);
@@ -112,6 +121,7 @@ class ci_detallecontrato extends sagep_ci
 	{
 		$this->borrar_memoria();
 		unset($this->s__datos);
+		$this->cn()->resetear_cursor_ubicaciones();
 		$this->set_pantalla('pant_inicial');
 	}
 
@@ -169,8 +179,8 @@ class ci_detallecontrato extends sagep_ci
 	function evt__form_ml_detalle__pedido_registro_nuevo()
 	{
 		$this->get_cache('form_ml_detalle')->set_pedido_registro_nuevo(true);
-		//$this->unset_datos_form_detalle();
-		//$this->unset_datos_form_ubicacion();
+		$this->unset_datos_form_detalle();
+		$this->unset_datos_form_ubicacion();
 		$this->set_pantalla('pant_edicion');
 	}
 
@@ -233,6 +243,17 @@ class ci_detallecontrato extends sagep_ci
 		$this->get_cache('form_ml_ubicacion')->set_cache($datos);
 	}
 
+
+		// function evt__form_ml_ubicacion__ver_imagenes($seleccion)
+		// {
+		// 	$this->get_cache('form_ml_ubicacion')->set_cursor_cache($seleccion);
+		// }
+
+		function evt__form_ml_ubicacion__ver_estado($seleccion)
+		{
+			$this->get_cache('form_ml_ubicacion')->set_cursor_cache($seleccion);
+		}
+
 	//-----------------------------------------------------------------------------------
 	//---- Configuraciones --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -255,6 +276,73 @@ class ci_detallecontrato extends sagep_ci
 			$this->cn()->set_cursor_ubicaciones($cursor);
 		}
 	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form_ml_fotos ----------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	// function conf__form_ml_fotos(sagep_ei_formulario_ml $form_ml)
+	// {
+	// 	if ($this->cn()->hay_cursor_ubicaciones()) {
+	// 		$datos = $this->cn()->get_fotos();
+	// 		$datos = $this->cn()->get_blobs($datos);
+	// 		$form_ml->set_datos($datos);
+	// 	} else {
+	// 		$form_ml->desactivar_agregado_filas();
+	// 	}
+	//
+	// }
+	//
+	// function evt__form_ml_fotos__modificacion($datos)
+	// {
+	// 	$anterior = $this->get_cache('form_ml_fotos');
+	// 	foreach ($anterior as $keya => $valuea) {
+	// 		foreach ($datos as $keyd => $valued) {
+	// 			if (isset($valuea['id_foto_servicio'])){
+	// 				if (isset($valued['id_foto_servicio'])){
+	// 					if ($valuea['id_foto_servicio']=$valued['id_foto_servicio']){
+	// 						if (isset($valuea['imagen']) && !isset($valued['imagen'])){
+	// 							$datos[$keyd]['imagen'] = $valuea['imagen'];
+	// 							$datos[$keyd]['imagen?html'] = $valuea['imagen?html'];
+	// 							$datos[$keyd]['imagen?url'] = $valuea['imagen?url'];
+	// 						}
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// 	$this->s__datos['form_ml_fotos'] = $datos;
+	// 	if (isset ($this->s__datos['form_ml_fotos'])){
+	// 		$this->cn()->procesar_filas_fotos($this->s__datos['form_ml_fotos']);
+	// 		$this->cn()->set_blobs($this->s__datos['form_ml_fotos']);
+	// 		}
+	//
+	// 	$this->cn()->resetear_cursor_ubicaciones();
+	//
+	// }
+
+
+	//-----------------------------------------------------------------------------------
+	//---- form_ml_estados --------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_ml_estados(sagep_ei_formulario_ml $form_ml)
+	{
+		if ($this->cn()->hay_cursor_ubicaciones()) {
+			$datos = $this->cn()->get_estados();
+			$form_ml->set_datos($datos);
+		} else {
+			$form_ml->desactivar_agregado_filas();
+		}
+	}
+
+	function evt__form_ml_estados__modificacion($datos)
+	{
+		$this->cn()->procesar_filas_estados($datos);
+		$this->cn()->resetear_cursor_ubicaciones();
+	}
+
+
 
 }
 ?>

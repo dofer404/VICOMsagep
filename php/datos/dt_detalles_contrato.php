@@ -6,8 +6,12 @@ class dt_detalles_contrato extends sagep_datos_tabla
 		$sql = "SELECT id_detalle_contrato, observaciones FROM detalles_contrato ORDER BY observaciones";
 		return toba::db('sagep')->consultar($sql);
 	}
-	function get_listado()
+	function get_listado($filtro=array())
 	{
+		$where = array();
+		if (isset($filtro['id_servicio'])) {
+			$where[] = "id_servicio = ".quote($filtro['id_servicio']);
+		}
 		$sql = "SELECT
 			t_dc.id_detalle_contrato,
 			t_s.descripcion as id_servicio_nombre,
@@ -24,8 +28,12 @@ class dt_detalles_contrato extends sagep_datos_tabla
 				t_dc.id_servicio = t_s.id_servicio
 			AND  t_dc.id_contrato = t_c.id_contrato
 		ORDER BY observaciones";
+		if (count($where)>0) {
+			$sql = sql_concatenar_where($sql, $where);
+		}
 		return toba::db('sagep')->consultar($sql);
 	}
+
 
 }
 ?>

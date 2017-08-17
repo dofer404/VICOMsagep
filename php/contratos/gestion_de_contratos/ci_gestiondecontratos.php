@@ -32,6 +32,7 @@ class ci_gestiondecontratos extends sagep_ci
 
 	function evt__procesar()
 	{
+		//$this->dep('ci_modificarcontrato')->dep('ci_detallecontrato')->setear_todos_los_formularios();
 		try {
 			$this->cn()->guardar();
 			$this->evt__cancelar();

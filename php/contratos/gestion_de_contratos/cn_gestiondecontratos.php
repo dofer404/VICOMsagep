@@ -143,7 +143,7 @@ class cn_gestiondecontratos extends sagep_cn
 		$this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->procesar_filas($datos);
 	}
 
-	public function get_ubicacion()
+	function get_ubicacion()
 	{
 		$datos = $this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->get_filas();
 		return $datos;
@@ -154,14 +154,111 @@ class cn_gestiondecontratos extends sagep_cn
 		$this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->set_cursor($id_interno);
 	}
 
-	function hay_cursor_ubicaciones($id_interno)
+	function hay_cursor_ubicaciones()
 	{
 		return $this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->hay_cursor();
 	}
 
-	function resetear_cursor_ubicaciones($id_interno)
+	function resetear_cursor_ubicaciones()
 	{
 		$this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->resetear_cursor();
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- dt_fotos_servicios -------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function procesar_filas_fotos($datos)
+	{
+		$this->dep('dr_contratos')->tabla('dt_fotos_servicio')->procesar_filas($datos);
+	}
+
+	function get_fotos() //1
+	{
+		$datos = $this->dep('dr_contratos')->tabla('dt_fotos_servicio')->get_filas();
+		return $datos;
+	}
+
+	function set_cursor_fotos($id_interno)
+	{
+		$this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->set_cursor($id_interno);
+	}
+
+	function hay_cursor_fotos($id_interno) //2
+	{
+		return $this->dep('dr_contratos')->tabla('dt_fotos_servicio')->hay_cursor();
+	}
+
+	function resetear_cursor_fotos($id_interno)
+	{
+		$this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->resetear_cursor();
+	}
+
+	function get_blobs($datos) //3
+	{
+		$datos_r = array();
+		foreach ($datos as $key => $value) {
+		$datos_r[$key] = $this->get_blob($datos[$key], $key);
+		}
+		return $datos_r;
+	}
+
+	public function get_blob($datos, $id_fila)
+	{
+		$html_imagen = null;
+
+		$imagen = $this->dep('dr_contratos')->tabla('dt_fotos_servicio')->get_blob('imagen', $id_fila);
+			if (isset($imagen)) {
+			$temp_nombre = md5(uniqid(time()));
+			$temp_archivo = toba::proyecto()->get_www_temp($temp_nombre);
+			$temp_imagen = fopen($temp_archivo['path'], 'w');
+			stream_copy_to_stream($imagen, $temp_imagen);
+			fclose($temp_imagen);
+			fclose($imagen);
+			$tamano = round(filesize($temp_archivo['path']) / 1024);
+			$html_imagen =
+			"<img width=\"24px\" src='{$temp_archivo['url']}' alt='' />";
+			$datos['imagen'] = '<a href="'.$temp_archivo['url'].'" target="_newtab">'.$html_imagen.' Tama?o de archivo actual: '.$tamano.' kb</a>';
+			$datos['imagen'.'?html'] = $html_imagen;
+			$datos['imagen'.'?url'] = $temp_archivo['url'];
+		} else {
+			$datos['imagen'] = null;
+		}
+
+		return $datos;
+	}
+
+	function set_blobs($datos)
+	{
+		foreach ($datos as $key => $value) {
+			$this->set_blob($datos[$key], $key);
+		}
+	}
+
+	public function set_blob($datos, $id_fila)
+	{
+		if (isset($datos['imagen'])) {
+			if (is_array($datos['imagen'])) {
+				$temp_archivo = $datos['imagen']['tmp_name'];
+				$imagen = fopen($temp_archivo, 'rb');
+				$this->dep('dr_contratos')->tabla('dt_fotos_servicio')->set_blob('imagen',$imagen, $id_fila);
+			}
+		}
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- dt_estados -------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function procesar_filas_estados($datos)
+	{
+		$this->dep('dr_contratos')->tabla('dt_estados')->procesar_filas($datos);
+	}
+
+	public function get_estados()
+	{
+		$datos = $this->dep('dr_contratos')->tabla('dt_estados')->get_filas();
+		return $datos;
 	}
 
 

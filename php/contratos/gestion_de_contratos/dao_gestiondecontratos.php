@@ -18,6 +18,7 @@ class dao_gestiondecontratos{
     }
 
     $sql=" SELECT
+      coalesce(t_p.razon_social, t_p.apellidos || ', ' || t_p.nombres) entidad,
       t_rs.id_persona,
       t_rs.id_contrato,
       t_r.nombre_rol,
