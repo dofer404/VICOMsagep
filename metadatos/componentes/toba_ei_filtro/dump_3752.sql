@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_tiposdecontratos - filtro', --nombre
-	'Filtrar según los siguientes criterios', --titulo
+	'Criterios de Busqueda', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	'sagep', --fuente_datos_proyecto
@@ -135,7 +135,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'cadena', --tipo
 	'nombre', --nombre
 	'nombre', --expresion
-	NULL, --etiqueta
+	'Tipo de Contrato', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial

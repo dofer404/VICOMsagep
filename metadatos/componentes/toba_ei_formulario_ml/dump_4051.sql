@@ -85,7 +85,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'4051', --objeto
 	'ver_imagenes', --identificador
 	'&Imagenes', --etiqueta
-	'0', --maneja_datos
+	'1', --maneja_datos
 	'1', --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
@@ -118,7 +118,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'4051', --objeto
 	'ver_estado', --identificador
 	'&Estados', --etiqueta
-	'0', --maneja_datos
+	'1', --maneja_datos
 	'1', --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo

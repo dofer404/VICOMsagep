@@ -24,8 +24,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'Lista de Paises', --titulo
 	'0', --colapsable
 	NULL, --descripcion
-	'sagep', --fuente_datos_proyecto
-	'sagep', --fuente_datos
+	NULL, --fuente_datos_proyecto
+	NULL, --fuente_datos
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obj_obs_tipo
 	NULL, --solicitud_obj_observacion
@@ -163,11 +163,12 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'100%', --ancho
 	'1', --ordenar
 	'1', --paginar
-	'20', --tamano_pagina
+	'15', --tamano_pagina
 	'P', --tipo_paginado
 	'0', --mostrar_total_registros
 	'0', --eof_invisible
-	'No hay registros cargados', --eof_customizado
+	'<center> No hay datos. Ingrese un criterio de búsqueda y presione "Buscar" </br></br> 
+ Presione "Buscar" sin ingresar ningún criterio para listar todos los registros </center>', --eof_customizado
 	'0', --siempre_con_titulo
 	'0', --exportar_paginado
 	'1', --exportar
@@ -233,7 +234,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'1711', --objeto_cuadro_col
 	'sigla_pais', --clave
 	'1', --orden
-	'Sigla', --titulo
+	'Sigla Pais', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	NULL, --ancho

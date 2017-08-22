@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3742]--  Selector Ubicación 
+--[3742]--  Seleccionar Ubicación 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Selector Ubicación', --nombre
+	'Seleccionar Ubicación', --nombre
 	NULL, --descripcion
 	'30', --punto_montaje
 	NULL, --actividad_accion

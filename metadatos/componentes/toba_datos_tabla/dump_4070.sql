@@ -72,7 +72,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'sagep', --objeto_proyecto
 	'4070', --objeto
-	'1855', --col_id
+	'1910', --col_id
 	'id_ubicacion', --columna
 	'E', --tipo
 	'1', --pk
@@ -80,13 +80,13 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	NULL, --externa
+	'0', --externa
 	'detalleubicacion_detallecontrato'  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'sagep', --objeto_proyecto
 	'4070', --objeto
-	'1856', --col_id
+	'1911', --col_id
 	'id_detalle_contrato', --columna
 	'E', --tipo
 	'1', --pk
@@ -94,7 +94,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	NULL, --externa
+	'0', --externa
 	'detalleubicacion_detallecontrato'  --tabla
 );
 --- FIN Grupo de desarrollo 0

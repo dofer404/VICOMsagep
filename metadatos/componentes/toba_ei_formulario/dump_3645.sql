@@ -422,7 +422,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
 	NULL, --edit_expreg
-	'3707', --popup_item
+	'3759', --popup_item
 	'sagep', --popup_proyecto
 	'0', --popup_editable
 	NULL, --popup_ventana

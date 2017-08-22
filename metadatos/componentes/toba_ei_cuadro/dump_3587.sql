@@ -167,7 +167,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'P', --tipo_paginado
 	'0', --mostrar_total_registros
 	'0', --eof_invisible
-	'No hay registros cargados', --eof_customizado
+	'<center> No hay datos. Ingrese un criterio de búsqueda y presione "Buscar" </br></br> 
+ Presione "Buscar" sin ingresar ningún criterio para listar todos los registros </center>', --eof_customizado
 	'0', --siempre_con_titulo
 	'0', --exportar_paginado
 	'0', --exportar
@@ -202,7 +203,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'1618', --objeto_cuadro_col
 	'nombre_rol', --clave
 	'1', --orden
-	'Nombre rol', --titulo
+	'Rol', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	NULL, --ancho

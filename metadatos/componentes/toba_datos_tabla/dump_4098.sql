@@ -16,8 +16,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_datos_tabla', --clase
 	'30', --punto_montaje
-	'dt_estados', --subclase
-	'datos/dt_estados.php', --subclase_archivo
+	NULL, --subclase
+	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'- dr_estado - dt_estados', --nombre
@@ -72,7 +72,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'sagep', --objeto_proyecto
 	'4098', --objeto
-	'1861', --col_id
+	'1912', --col_id
 	'id_tipo_estado', --columna
 	'E', --tipo
 	'1', --pk
@@ -86,7 +86,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'sagep', --objeto_proyecto
 	'4098', --objeto
-	'1862', --col_id
+	'1913', --col_id
 	'id_detalle_contrato', --columna
 	'E', --tipo
 	'1', --pk
@@ -100,7 +100,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'sagep', --objeto_proyecto
 	'4098', --objeto
-	'1863', --col_id
+	'1914', --col_id
 	'id_ubicacion', --columna
 	'E', --tipo
 	'1', --pk
@@ -114,7 +114,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'sagep', --objeto_proyecto
 	'4098', --objeto
-	'1864', --col_id
+	'1915', --col_id
 	'fecha_cambio', --columna
 	'F', --tipo
 	'0', --pk

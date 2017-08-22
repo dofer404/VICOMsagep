@@ -134,7 +134,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'P', --tipo_paginado
 	'0', --mostrar_total_registros
 	'0', --eof_invisible
-	'No hay registros cargados', --eof_customizado
+	'<center> No hay datos. Ingrese un criterio de búsqueda y presione "Buscar" </br></br> 
+ Presione "Buscar" sin ingresar ningún criterio para listar todos los registros </center>', --eof_customizado
 	'0', --siempre_con_titulo
 	'0', --exportar_paginado
 	'0', --exportar
@@ -157,28 +158,6 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --cc_modo_anidado_totcol
 	NULL  --cc_modo_anidado_totcua
 );
-
-------------------------------------------------------------
--- apex_objeto_cuadro_cc
-------------------------------------------------------------
-
---- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
-	'sagep', --objeto_cuadro_proyecto
-	'3854', --objeto_cuadro
-	'32', --objeto_cuadro_cc
-	'corte_personas', --identificador
-	'Tipo de Personas', --descripcion
-	'1', --orden
-	'id_tipo_persona', --columnas_id
-	'id_tipo_persona_nombre', --columnas_descripcion
-	'1', --pie_contar_filas
-	'0', --pie_mostrar_titular
-	'0', --pie_mostrar_titulos
-	NULL, --imp_paginar
-	'0'  --modo_inicio_colapsado
-);
---- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
 -- apex_objeto_ei_cuadro_columna

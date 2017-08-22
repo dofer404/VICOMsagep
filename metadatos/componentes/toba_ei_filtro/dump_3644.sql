@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_detalleubicacion - filtro', --nombre
-	'Filtrar según los siguientes criterios', --titulo
+	'Criterios de Busqueda', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	'sagep', --fuente_datos_proyecto
@@ -280,7 +280,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --edit_rango
 	NULL, --edit_expreg
 	NULL, --estilo
-	'3707', --popup_item
+	'3759', --popup_item
 	'sagep', --popup_proyecto
 	'0', --popup_editable
 	NULL, --popup_ventana

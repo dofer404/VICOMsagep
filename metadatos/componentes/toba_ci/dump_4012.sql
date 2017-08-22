@@ -110,7 +110,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_inicial', --identificador
 	'1', --orden
 	'Pantalla Inicial', --etiqueta
-	'Presione "Buscar" sin ingresar ningún criterio para listar todos los registros', --descripcion
+	'Filtrar según los siguientes criterios', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

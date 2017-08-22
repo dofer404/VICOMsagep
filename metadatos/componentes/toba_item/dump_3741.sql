@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3741]--  Selector Personas 
+--[3741]--  Seleccionar Persona 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Selector Personas', --nombre
+	'Seleccionar Persona', --nombre
 	NULL, --descripcion
 	'30', --punto_montaje
 	NULL, --actividad_accion

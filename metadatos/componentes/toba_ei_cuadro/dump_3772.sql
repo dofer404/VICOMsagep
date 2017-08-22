@@ -167,7 +167,8 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'P', --tipo_paginado
 	'0', --mostrar_total_registros
 	'0', --eof_invisible
-	'No hay registros cargados', --eof_customizado
+	'<center> No hay datos. Ingrese un criterio de búsqueda y presione "Buscar" </br></br> 
+ Presione "Buscar" sin ingresar ningún criterio para listar todos los registros </center>', --eof_customizado
 	'0', --siempre_con_titulo
 	'0', --exportar_paginado
 	'1', --exportar
@@ -233,7 +234,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'1716', --objeto_cuadro_col
 	'sigla_prov', --clave
 	'2', --orden
-	'Sigla', --titulo
+	'Sigla Provincia', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	NULL, --ancho

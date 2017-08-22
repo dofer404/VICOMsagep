@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[3707]--  Pais_Popup 
+--[3707]--  País 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -18,16 +18,16 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --nivel_acceso
 	'web', --solicitud_tipo
 	'toba', --pagina_tipo_proyecto
-	'popup_ef', --pagina_tipo
+	'normal', --pagina_tipo
 	NULL, --actividad_buffer_proyecto
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Pais_Popup', --nombre
+	'País', --nombre
 	NULL, --descripcion
 	'30', --punto_montaje
 	NULL, --actividad_accion
-	'0', --menu
+	'1', --menu
 	NULL, --orden
 	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto

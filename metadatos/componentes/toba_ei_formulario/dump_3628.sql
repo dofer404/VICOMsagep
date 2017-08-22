@@ -301,7 +301,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
-	'Sigla tipozona', --etiqueta
+	'Sigla', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	NULL, --colapsado
@@ -381,7 +381,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
-	'Nombre tipozona', --etiqueta
+	'Tipo de Zona', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	NULL, --colapsado

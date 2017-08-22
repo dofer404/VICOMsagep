@@ -21,11 +21,11 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_paises', --nombre
-	'Gestión de Paises', --titulo
+	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
-	'sagep', --fuente_datos_proyecto
-	'sagep', --fuente_datos
+	NULL, --fuente_datos_proyecto
+	NULL, --fuente_datos
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obj_obs_tipo
 	NULL, --solicitud_obj_observacion
@@ -280,7 +280,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_inicial', --identificador
 	'1', --orden
 	'Pantalla Inicial', --etiqueta
-	'Presione "Buscar" sin ingresar ningún criterio para listar todos los registros', --descripcion
+	'Filtrar según los siguientes criterios', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
