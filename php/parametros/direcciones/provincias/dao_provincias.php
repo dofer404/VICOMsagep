@@ -49,7 +49,7 @@ class dao_provincias{
   if (count($resultado) > 0) {
       return $resultado[0]['nombre_pais'];
   } else {
-      return 'Fallï¿½. Intente nuevamente';
+      return 'Falló. Intente nuevamente';
   }
 
   }

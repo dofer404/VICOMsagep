@@ -12,6 +12,20 @@
  * Copyright (c) 2017 Daniel Eden
  */
 
+.ef-sagep-info-label {
+	color: #220033;
+	float: left;
+	margin-right: 4px;
+	line-height: 23px;
+}
+
+.ef-sagep-info {
+	border: none;
+	color: #220033;
+	padding: 5px 5px 2px 0px;
+	font-weight: bold;
+}
+
 .animated {
   animation-duration: 1s;
   animation-fill-mode: both;

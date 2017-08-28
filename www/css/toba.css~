@@ -12,14 +12,6 @@
  * Copyright (c) 2017 Daniel Eden
  */
 
-input[disabled], input[readonly], select[disabled], select[readonly], checkbox[disabled], checkbox[readonly], textarea[disabled], textarea[readonly]
-{
- background-color: #FF0000;
- border: #3532ff 1px solid;
- color: #000000;
- cursor: default;
-}
-
 .animated {
   animation-duration: 1s;
   animation-fill-mode: both;
