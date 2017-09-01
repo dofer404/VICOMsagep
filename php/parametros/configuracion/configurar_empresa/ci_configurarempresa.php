@@ -29,7 +29,6 @@ class ci_configurarempresa extends sagep_ci
 				$datos = $this->cn()->get_empresa();
 				$form->set_datos($datos);
 		}
-
 		// $id_empresa = ['id_empresa' => $datos['id_empresa']];
 		// //
 		// $this->cn()->cargar($id_empresa);
@@ -102,6 +101,7 @@ class ci_configurarempresa extends sagep_ci
 	function evt__form__modificacion($datos)
 	{
 		$this->s__datos['form'] = $datos;
+		ei_arbol($datos);
 		$this->cn()->set_empresa($datos);
 	}
 

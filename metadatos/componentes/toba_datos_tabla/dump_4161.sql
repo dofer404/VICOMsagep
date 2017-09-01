@@ -72,10 +72,24 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'sagep', --objeto_proyecto
 	'4161', --objeto
-	'1919', --col_id
+	'1943', --col_id
 	'id_empresa', --columna
 	'E', --tipo
 	'1', --pk
+	'datos_empresa_id_empresa_seq', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0', --externa
+	'datos_empresa'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'sagep', --objeto_proyecto
+	'4161', --objeto
+	'1944', --col_id
+	'nombre_formal', --columna
+	'C', --tipo
+	'0', --pk
 	'', --secuencia
 	NULL, --largo
 	NULL, --no_nulo
@@ -86,7 +100,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'sagep', --objeto_proyecto
 	'4161', --objeto
-	'1920', --col_id
+	'1945', --col_id
 	'id_persona', --columna
 	'E', --tipo
 	'0', --pk
@@ -94,6 +108,62 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
+	'0', --externa
+	'datos_empresa'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'sagep', --objeto_proyecto
+	'4161', --objeto
+	'1946', --col_id
+	'id_telefono', --columna
+	'E', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0', --externa
+	'datos_empresa'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'sagep', --objeto_proyecto
+	'4161', --objeto
+	'1947', --col_id
+	'id_correo', --columna
+	'E', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0', --externa
+	'datos_empresa'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'sagep', --objeto_proyecto
+	'4161', --objeto
+	'1948', --col_id
+	'id_ubicacion', --columna
+	'E', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0', --externa
+	'datos_empresa'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'sagep', --objeto_proyecto
+	'4161', --objeto
+	'1949', --col_id
+	'logo', --columna
+	'B', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
 	'0', --externa
 	'datos_empresa'  --tabla
 );
@@ -110,13 +180,13 @@ INSERT INTO apex_objeto_db_registros_ext (objeto_proyecto, objeto, externa_id, t
 	'16', --externa_id
 	'dao', --tipo
 	'1', --sincro_continua
-	'get_descripciones', --metodo
-	NULL, --clase
-	NULL, --include
+	'get_idsExtPersona', --metodo
+	'dao_configurarempresa', --clase
+	'parametros/configuracion/configurar_empresa/dao_configurarempresa.php', --include
 	'30', --punto_montaje
 	NULL, --sql
 	'0', --dato_estricto
-	'3844', --carga_dt
+	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	'0', --permite_carga_masiva
 	NULL  --metodo_masivo
