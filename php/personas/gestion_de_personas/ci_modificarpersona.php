@@ -127,8 +127,14 @@ class ci_modificarpersona extends sagep_ci
 		$reporte->set_parametro('usuarioToba', 'S', $usuario);
 		$reporte->set_parametro('idPersona', 'E', $idPersona);
 
-		$nombre_archivo = $this->s__datos['form']['apellidos'] . $this->s__datos['form']['nombres'] . $this->s__datos['form']['razon_social'];
-		$reporte->set_nombre_archivo($nombre_archivo . '.pdf');
+		if(!isset($this->s__datos['form']['razon_social'])){
+			$nombre_archivo = '"' . $this->s__datos['form']['apellidos'] . ' ' .$this->s__datos['form']['nombres'];
+		} else {
+			$nombre_archivo = '"' . $this->s__datos['form']['razon_social'];
+		}
+
+		$cadena = str_replace(' ', '_', $nombre_archivo);
+		$reporte->set_nombre_archivo($cadena . '.pdf');
 		$bd = toba::db('sagep');
 		$reporte->set_conexion($bd);
 	}
