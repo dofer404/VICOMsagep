@@ -29,13 +29,6 @@ class ci_configurarempresa extends sagep_ci
 				$datos = $this->cn()->get_empresa();
 				$form->set_datos($datos);
 		}
-		// $id_empresa = ['id_empresa' => $datos['id_empresa']];
-		// //
-		// $this->cn()->cargar($id_empresa);
-		// $this->cn()->set_cursor($id_empresa);
-		// //
-		// $datos = $this->cn()->get_empresa();
-		// $form->set_datos($datos);
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -44,13 +37,6 @@ class ci_configurarempresa extends sagep_ci
 
 	function evt__editar()
 	{
-		// $datos = dao_configurarempresa::get_listado_empresa()[0];
-		//
-		// $id_empresa = ['id_empresa' => $datos['id_empresa']];
-		//
-		// $this->cn()->cargar($id_empresa);
-		// $this->cn()->set_cursor($id_empresa);
-
 		$this->set_pantalla('pant_edicion');
 	}
 
@@ -101,7 +87,6 @@ class ci_configurarempresa extends sagep_ci
 	function evt__form__modificacion($datos)
 	{
 		$this->s__datos['form'] = $datos;
-		ei_arbol($datos);
 		$this->cn()->set_empresa($datos);
 	}
 

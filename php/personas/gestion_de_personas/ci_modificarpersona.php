@@ -115,5 +115,29 @@ class ci_modificarpersona extends sagep_ci
 		$form_ml->set_datos($seleccion);
 	}
 
+	function vista_jasperreports(toba_vista_jasperreports $reporte)
+	{
+		// /home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep
+		$path_toba = '/home/marianofrezz/proyectos/toba_2_7_2';
+		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/reporte_personas.jasper';
+		$reporte->set_path_reporte($path_reporte);
+		$usuario = toba::usuario()->get_nombre();
+		$idPersona = $this->s__datos['form']['id_persona'];
+
+		$reporte->set_parametro('usuarioToba', 'S', $usuario);
+		$reporte->set_parametro('idPersona', 'E', $idPersona);
+
+		$nombre_archivo = $this->s__datos['form']['apellidos'] . $this->s__datos['form']['nombres'] . $this->s__datos['form']['razon_social'];
+		$reporte->set_nombre_archivo($nombre_archivo . '.pdf');
+		$bd = toba::db('sagep');
+		$reporte->set_conexion($bd);
+	}
+
+	function traer_persona()
+	{
+		$idPersona = $this->s__datos['form']['id_persona'];
+		return $idPersona;
+	}
+
 }
 ?>

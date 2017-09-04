@@ -382,7 +382,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
                emp.id_telefono
          FROM
               es_sagep.telefonos tel
-         JOIN es_sagep.datos_empresa emp ON tel.id_persona = emp.id_persona and tel.id_telefono = emp.id_telefono', --carga_sql
+         JOIN es_sagep.datos_empresa emp ON tel.id_telefono = emp.id_telefono', --carga_sql
 	'sagep', --carga_fuente
 	NULL, --carga_lista
 	NULL, --carga_col_clave

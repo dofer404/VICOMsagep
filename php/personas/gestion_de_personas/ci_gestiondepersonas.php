@@ -91,7 +91,6 @@ class ci_gestiondepersonas extends sagep_ci
 
 			function conf__cuadro(sagep_ei_cuadro $cuadro)
 			{
-				//$cuadro->desactivar_modo_clave_segura();
 				if (isset($this->s__datos_filtro)) {
 					$filtro = $this->dep('filtro');
 					$filtro->set_datos($this->s__datos_filtro);
@@ -122,12 +121,32 @@ class ci_gestiondepersonas extends sagep_ci
 			{
 				if (! $this->cn()->hay_cursor()) {
 					$this->pantalla()->eliminar_evento('eliminar');
+					$this->pantalla()->eliminar_evento('imprimir');
+					$this->dep('ci_modificarpersona')->evento('imprimir')->ocultar();
 				}
 			}
 
 			function marcar_direccionSeteada()
 			{
 				$this->s__datos['frm_ml_dir_seteada'] = true;
+			}
+
+			function vista_jasperreports(toba_vista_jasperreports $reporte)
+			{
+				// /home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep
+				$path_toba = '/home/marianofrezz/proyectos/toba_2_7_2';
+				$path_reporte = $path_toba . '/exportaciones/jasper/sagep/reporte_personas.jasper';
+				$reporte->set_path_reporte($path_reporte);
+				$usuario = toba::usuario()->get_nombre();
+				$idPersona = $this->dep('ci_modificarpersona')->traer_persona();
+
+				$reporte->set_parametro('usuarioToba', 'S', $usuario);
+				$reporte->set_parametro('idPersona', 'E', $idPersona);
+
+				$nombre_archivo = $this->s__datos['form']['entidad'];
+				$reporte->set_nombre_archivo($nombre_archivo . '.pdf');
+				$bd = toba::db('sagep');
+				$reporte->set_conexion($bd);
 			}
 
 		}

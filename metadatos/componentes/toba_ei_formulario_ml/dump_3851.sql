@@ -116,7 +116,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	'0', --filas_ordenar
 	'0', --filas_ordenar_en_linea
 	'', --columna_orden
-	'1', --filas_numerar
+	'0', --filas_numerar
 	NULL, --ev_seleccion
 	NULL, --alto
 	'LINEA', --analisis_cambios
