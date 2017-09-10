@@ -344,5 +344,13 @@ class ci_detallecontrato extends sagep_ci
 
 
 
+	function conf()
+	{
+		$id_contrato = $this->controlador('ci_modificarcontrato')->traer_contrato();
+		ei_arbol($id_contrato);
+		$vinculo_propio = $this->evento('ubicacion')->vinculo();
+		$vinculo_propio->agregar_parametro($id_contrato, 'el contrato');
+	}
+
 }
 ?>

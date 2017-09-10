@@ -623,7 +623,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'6', --orden
 	'Zona', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'A1 - Puntos azules. Lugares turísticos y esquinas con semáforos
+A2 - Puntos rojos. Calles de mayor afluencia.
+C - 	Puntos naranjas. Lugares secundarios.
+B - 	Puntos verdes. Lugares terciarios.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
