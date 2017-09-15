@@ -13,6 +13,13 @@ class dt_estados extends sagep_datos_tabla
 		return toba::db('sagep')->consultar($sql);
 	}
 
-}
 
+
+	function get_descripciones()
+	{
+		$sql = "SELECT id_ubicacion,  FROM estados ORDER BY ";
+		return toba::db('sagep')->consultar($sql);
+	}
+
+}
 ?>

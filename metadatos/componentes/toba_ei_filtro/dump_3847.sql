@@ -16,8 +16,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_ei_filtro', --clase
 	'30', --punto_montaje
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'filtro', --subclase
+	'personas/gestion_de_personas/filtro.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_gestiondepersonas - filtro', --nombre

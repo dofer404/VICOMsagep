@@ -222,6 +222,8 @@ class ci_detallecontrato extends sagep_ci
 
 	function conf__form_ml_ubicacion(sagep_ei_formulario_ml $form_ml)
 	{
+	//	$parametros['id_director'] =  $proyecto['id_director'];
+		//$form_ml_ubicacion->ef('id_ubicacion')->vinculo()->set_parametros($parametros);
 
 		$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
 		$datos = $cache_ml_ubicacion->get_cache();
@@ -234,6 +236,7 @@ class ci_detallecontrato extends sagep_ci
 			}
 		}
 		$form_ml->set_datos($datos);
+		//$form_ml->ef('id_ubicacion')->vinculo()->set_parametros($datos);
 	}
 
 	function evt__form_ml_ubicacion__modificacion($datos)
@@ -342,15 +345,6 @@ class ci_detallecontrato extends sagep_ci
 		$this->cn()->resetear_cursor_ubicaciones();
 	}
 
-
-
-	function conf()
-	{
-		$id_contrato = $this->controlador('ci_modificarcontrato')->traer_contrato();
-		ei_arbol($id_contrato);
-		$vinculo_propio = $this->evento('ubicacion')->vinculo();
-		$vinculo_propio->agregar_parametro($id_contrato, 'el contrato');
-	}
 
 }
 ?>

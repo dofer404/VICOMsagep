@@ -5,6 +5,11 @@ class ci_estados extends sagep_ci
 
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
+		//$parametros = toba::memoria()->get_parametros('ubicacion');
+		$parametro_externo = toba::memoria()->get_parametro('Ubicacion');
+		ei_arbol($parametro_externo, 'PARAMETROS recibidos');
+		$clave_get = toba::memoria()->get_parametro('fila_safe');
+		//ei_arbol($clave_get);
 		$cuadro->set_datos($this->dep('datos')->tabla('estados')->get_listado());
 	}
 
@@ -18,6 +23,12 @@ class ci_estados extends sagep_ci
 
 	function conf__formulario(toba_ei_formulario $form)
 	{
+		$parametro_externo = toba::memoria()->get_parametros('id_ubicacion');
+		ei_arbol($parametro_externo, 'PARAMETROS recibidos');
+		$clave_get = toba::memoria()->get_parametro('fila_safe');
+		//ei_arbol($clave_get);
+		//$this->dep('datos')->cargar($parametro_externo);
+
 		if ($this->dep('datos')->esta_cargada()) {
 			$form->set_datos($this->dep('datos')->tabla('estados')->get());
 		} else {
@@ -61,5 +72,4 @@ class ci_estados extends sagep_ci
 	}
 
 }
-
 ?>

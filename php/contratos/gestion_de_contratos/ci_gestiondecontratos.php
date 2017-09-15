@@ -7,21 +7,21 @@ class ci_gestiondecontratos extends sagep_ci
 	//-----------------------------------------------------------------------------------
 	//---- Variables --------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
-	
+
 	protected $sql_state;
 	protected $s__datos_filtro;
 	protected $s__datos;
-	
+
 	//-----------------------------------------------------------------------------------
 	//---- Eventos ----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
-	
+
 	function evt__nuevo()
 	{
 		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_edicion');
 	}
-	
+
 	function evt__cancelar()
 	{
 		unset($this->s__datos);
@@ -29,14 +29,14 @@ class ci_gestiondecontratos extends sagep_ci
 		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_inicial');
 	}
-	
+
 	function evt__procesar()
 	{
 		//$this->dep('ci_modificarcontrato')->dep('ci_detallecontrato')->setear_todos_los_formularios();
 		try {
 			$this->cn()->guardar();
 			$this->evt__cancelar();
-			
+
 		} catch (toba_error_db $e) {
 			if (mensajes_error::$debug) {
 				throw $e;
@@ -47,7 +47,7 @@ class ci_gestiondecontratos extends sagep_ci
 			}
 		}
 	}
-	
+
 	function evt__eliminar()
 	{
 		try {
@@ -64,65 +64,66 @@ class ci_gestiondecontratos extends sagep_ci
 			}
 		}
 	}
-	
+
 	//-----------------------------------------------------------------------------------
 	//---- Filtro -----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
-	
+
 	function conf__filtro(sagep_ei_filtro $filtro)
 	{
 		if (isset($this->s__datos_filtro)) {
 			$filtro->set_datos($this->s__datos_filtro);
 		}
 	}
-	
+
 	function evt__filtro__filtrar($datos)
 	{
 		$this->s__datos_filtro = $datos;
 	}
-	
+
 	function evt__filtro__cancelar()
 	{
 		unset($this->s__datos_filtro);
 	}
-	
+
 	//-----------------------------------------------------------------------------------
 	//---- Cuadro -----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
-	
+
 	function conf__cuadro(sagep_ei_cuadro $cuadro)
 	{
 		if (isset($this->s__datos_filtro)) {
 			$filtro = $this->dep('filtro');
 			$filtro->set_datos($this->s__datos_filtro);
 			$sql_where = $filtro->get_sql_where();
-			
+
 			$datos = dao_gestiondecontratos::get_listado_contratos($sql_where);
 			$cuadro->set_datos($datos);
 		}
 	}
-	
+
 	function evt__cuadro__edicion($seleccion)
 	{
+		ei_arbol($seleccion);
 		$this->cn()->cargar($seleccion);
 		$this->cn()->set_cursor($seleccion);
 		$this->set_pantalla('pant_edicion');
 	}
-	
+
 	function evt__cuadro__eliminar($seleccion)
 	{
 	}
-	
+
 	//-----------------------------------------------------------------------------------
 	//---- Configuraciones --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
-	
+
 	function conf__pant_edicion(toba_ei_pantalla $pantalla)
 	{
 		if (! $this->cn()->hay_cursor()) {
 			$pantalla->eliminar_evento('eliminar');
 		}
 	}
-	
+
 }
 ?>
