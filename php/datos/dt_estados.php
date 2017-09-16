@@ -15,6 +15,7 @@ class dt_estados extends sagep_datos_tabla
 
 
 
+
 	function get_descripciones()
 	{
 		$sql = "SELECT id_ubicacion,  FROM estados ORDER BY ";

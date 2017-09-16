@@ -222,11 +222,10 @@ class ci_detallecontrato extends sagep_ci
 
 	function conf__form_ml_ubicacion(sagep_ei_formulario_ml $form_ml)
 	{
-	//	$parametros['id_director'] =  $proyecto['id_director'];
-		//$form_ml_ubicacion->ef('id_ubicacion')->vinculo()->set_parametros($parametros);
-
 		$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
 		$datos = $cache_ml_ubicacion->get_cache();
+
+		$form_ml->ef('id_ubicacion')->vinculo()->set_parametros($parametros);
 
 
 		if (!$datos) { // Si no hay datos
@@ -236,7 +235,6 @@ class ci_detallecontrato extends sagep_ci
 			}
 		}
 		$form_ml->set_datos($datos);
-		//$form_ml->ef('id_ubicacion')->vinculo()->set_parametros($datos);
 	}
 
 	function evt__form_ml_ubicacion__modificacion($datos)

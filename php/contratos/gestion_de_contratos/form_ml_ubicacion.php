@@ -5,7 +5,8 @@ class form_ml_ubicacion extends sagep_ei_formulario_ml
 
 	function conf_evt__vinculo($evento, $fila)
 	{
-		$evento->vinculo()->agregar_parametro('Ubicacion', $this->_datos[$fila]['id_ubicacion']);
+		$evento->vinculo()->agregar_parametro('ubicacion', $this->_datos[$fila]['id_ubicacion']);
+		$evento->vinculo()->agregar_parametro('detalle_contrato', $this->_datos[$fila]['id_detalle_contrato']);
 		//$evento->vinculo->agregar_parametro(id_ubicacion);
 	}
 
@@ -22,11 +23,19 @@ class form_ml_ubicacion extends sagep_ei_formulario_ml
 		{
 						if(!es_inicial){
 				var id_vinculo = this.ef('id_ubicacion').ir_a_fila(fila).get_id_vinculo();
-				vinculador.agregar_parametros(id_vinculo);
+				var parametros =  {'id_detalle_contrato': this.ef('id_detalle_contrato').ir_a_fila(fila).get_estado()} ;
+				vinculador.agregar_parametros(id_vinculo, parametros);
 			}
+
+		}
+		//---- Eventos ---------------------------------------------
+
+		{$this->objeto_js}.modificar_vinculo__vinculo = function(id_vinculo)
+		{
 		}
 		";
 	}
+
 
 }
 ?>
