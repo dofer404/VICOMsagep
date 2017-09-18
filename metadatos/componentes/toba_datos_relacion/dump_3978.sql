@@ -105,7 +105,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'3978', --objeto_consumidor
 	'4098', --objeto_proveedor
 	'dt_estados', --identificador
-	NULL, --parametros_a
+	'1', --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar

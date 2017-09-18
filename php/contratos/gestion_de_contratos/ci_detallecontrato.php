@@ -225,9 +225,6 @@ class ci_detallecontrato extends sagep_ci
 		$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
 		$datos = $cache_ml_ubicacion->get_cache();
 
-		$form_ml->ef('id_ubicacion')->vinculo()->set_parametros($parametros);
-
-
 		if (!$datos) { // Si no hay datos
 			if ($this->cn()->hay_cursor_detalle() ) {
 				$datos = $this->cn()->get_ubicacion();
