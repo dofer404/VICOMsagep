@@ -209,6 +209,7 @@ class ci_detallecontrato extends sagep_ci
 	{
 		if ($this->cn()->hay_cursor_detalle()) { // Hay pedido de registro nuevo
 			$datos = $this->get_cache_form_detalle();
+			ei_arbol($datos);
 			if (!$datos) {
 				$datos = $this->cn()->get_unDetalle();
 			}
@@ -332,14 +333,20 @@ class ci_detallecontrato extends sagep_ci
 		} else {
 			$form_ml->desactivar_agregado_filas();
 		}
+
 	}
 
 	function evt__form_ml_estados__modificacion($datos)
 	{
+		ei_arbol($datos);
 		$this->cn()->procesar_filas_estados($datos);
 		$this->cn()->resetear_cursor_ubicaciones();
 	}
 
+
+	function evt__form_ml_ubicacion__cambiar_estado($seleccion)
+	{
+	}
 
 }
 ?>

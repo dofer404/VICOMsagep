@@ -89,27 +89,15 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
-	'2748', --dep_id
+	'2821', --dep_id
 	'3978', --objeto_consumidor
-	'4070', --objeto_proveedor
+	'4223', --objeto_proveedor
 	'dt_detalleubicacion_detallecontrato', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
+	'', --parametros_a
+	'', --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
-	'5'  --orden
-);
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'sagep', --proyecto
-	'2756', --dep_id
-	'3978', --objeto_consumidor
-	'4098', --objeto_proveedor
-	'dt_estados', --identificador
-	'1', --parametros_a
-	NULL, --parametros_b
-	NULL, --parametros_c
-	NULL, --inicializar
-	'6'  --orden
+	NULL  --orden
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
@@ -122,6 +110,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --parametros_c
 	NULL, --inicializar
 	'2'  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
+	'2822', --dep_id
+	'3978', --objeto_consumidor
+	'4224', --objeto_proveedor
+	'dt_historial_estados', --identificador
+	'', --parametros_a
+	'', --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
@@ -177,14 +177,14 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
 	'sagep', --proyecto
 	'3978', --objeto
-	'141', --asoc_id
+	'147', --asoc_id
 	NULL, --identificador
 	'sagep', --padre_proyecto
 	'4136', --padre_objeto
 	'dt_detalles_contrato', --padre_id
 	NULL, --padre_clave
 	'sagep', --hijo_proyecto
-	'4070', --hijo_objeto
+	'4223', --hijo_objeto
 	'dt_detalleubicacion_detallecontrato', --hijo_id
 	NULL, --hijo_clave
 	NULL, --cascada
@@ -193,10 +193,10 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
 	'sagep', --proyecto
 	'3978', --objeto
-	'143', --asoc_id
+	'148', --asoc_id
 	NULL, --identificador
 	'sagep', --padre_proyecto
-	'4070', --padre_objeto
+	'4223', --padre_objeto
 	'dt_detalleubicacion_detallecontrato', --padre_id
 	NULL, --padre_clave
 	'sagep', --hijo_proyecto
@@ -205,22 +205,6 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	NULL, --hijo_clave
 	NULL, --cascada
 	'4'  --orden
-);
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
-	'sagep', --proyecto
-	'3978', --objeto
-	'144', --asoc_id
-	NULL, --identificador
-	'sagep', --padre_proyecto
-	'4070', --padre_objeto
-	'dt_detalleubicacion_detallecontrato', --padre_id
-	NULL, --padre_clave
-	'sagep', --hijo_proyecto
-	'4098', --hijo_objeto
-	'dt_estados', --hijo_id
-	NULL, --hijo_clave
-	NULL, --cascada
-	'5'  --orden
 );
 --- FIN Grupo de desarrollo 0
 
@@ -248,45 +232,27 @@ INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_obje
 INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
 	'sagep', --proyecto
 	'3978', --objeto
-	'141', --asoc_id
+	'147', --asoc_id
 	'4136', --padre_objeto
 	'1903', --padre_clave
-	'4070', --hijo_objeto
-	'1911'  --hijo_clave
+	'4223', --hijo_objeto
+	'1960'  --hijo_clave
 );
 INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
 	'sagep', --proyecto
 	'3978', --objeto
-	'143', --asoc_id
-	'4070', --padre_objeto
-	'1910', --padre_clave
+	'148', --asoc_id
+	'4223', --padre_objeto
+	'1959', --padre_clave
 	'4076', --hijo_objeto
 	'1860'  --hijo_clave
 );
 INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
 	'sagep', --proyecto
 	'3978', --objeto
-	'143', --asoc_id
-	'4070', --padre_objeto
-	'1911', --padre_clave
+	'148', --asoc_id
+	'4223', --padre_objeto
+	'1960', --padre_clave
 	'4076', --hijo_objeto
 	'1859'  --hijo_clave
-);
-INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
-	'sagep', --proyecto
-	'3978', --objeto
-	'144', --asoc_id
-	'4070', --padre_objeto
-	'1910', --padre_clave
-	'4098', --hijo_objeto
-	'1914'  --hijo_clave
-);
-INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
-	'sagep', --proyecto
-	'3978', --objeto
-	'144', --asoc_id
-	'4070', --padre_objeto
-	'1911', --padre_clave
-	'4098', --hijo_objeto
-	'1913'  --hijo_clave
 );

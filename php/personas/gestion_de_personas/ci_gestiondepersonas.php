@@ -181,6 +181,7 @@ class ci_gestiondepersonas extends sagep_ci
 		}
 
 		$reporte->set_parametro('apellidos','S', $filtro);
+		$reporte->set_parametro('nombres','S', $filtro);
 
 		$nombre_archivo = 'listado_personas';
 		$reporte->set_nombre_archivo($nombre_archivo . '.pdf');
@@ -190,14 +191,14 @@ class ci_gestiondepersonas extends sagep_ci
 
 	function ajax__get_datos_apellido($apellidos, toba_ajax_respuesta $respuesta)
 	{
-	//$this->s__criterios_filtrado['apellidos']['condicion'] =  'es_igual_a';
+	$this->s__criterios_filtrado['apellidos']['condicion'] =  'es_igual_a';
 	$this->s__criterios_filtrado['apellidos']['valor'] =  $apellidos;
 	$respuesta->set($apellidos);
 	}
 
 	function ajax__get_datos_nombre($nombres, toba_ajax_respuesta $respuesta)
 	{
-	//$this->s__criterios_filtrado['apellidos']['condicion'] =  'es_igual_a';
+	$this->s__criterios_filtrado['apellidos']['condicion'] =  'es_igual_a';
 	$this->s__criterios_filtrado['nombres']['valor'] =  $nombres;
 	$respuesta->set($nombres);
 	}

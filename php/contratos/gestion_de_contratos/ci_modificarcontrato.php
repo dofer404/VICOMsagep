@@ -49,6 +49,30 @@ class ci_modificarcontrato extends sagep_ci
 		$this->cn()->procesar_filas_roles($datos);
 	}
 
+	function vista_jasperreports(toba_vista_jasperreports $reporte)
+	{
+		// /home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep
+		$path_toba = '/home/marianofrezz/proyectos/toba_2_7_2';
+		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/reporte_contrato.jasper';
+		$reporte->set_path_reporte($path_reporte);
+		$usuario = toba::usuario()->get_nombre();
+		$idContrato = $this->s__datos['form']['id_contrato'];
+
+		//$reporte->set_parametro('usuarioToba', 'S', $usuario);
+		//$reporte->set_parametro('idPersona', 'E', $idPersona);
+
+		// if (!isset($this->s__datos['form']['razon_social'])) {
+		// 	$nombre_archivo = '"' . $this->s__datos['form']['apellidos'] . ' ' .$this->s__datos['form']['nombres'];
+		// } else {
+		// 	$nombre_archivo = '"' . $this->s__datos['form']['razon_social'];
+		// }
+
+		//$cadena = str_replace(' ', '_', $nombre_archivo);
+		$reporte->set_nombre_archivo('contrato' . '.pdf');
+		$bd = toba::db('sagep');
+		$reporte->set_conexion($bd);
+	}
+
 	function traer_contrato()
 	{
 		$idContrato = $this->s__datos['form']['id_contrato'];

@@ -3,6 +3,7 @@
 require_once('parametros/contratos/tipos_de_contratos/dao_tiposdecontratos.php');
 require_once('parametros/contratos/rol/dao_rol.php');
 require_once('parametros/direcciones/tipos_de_zonas/dao_tiposdezonas.php');
+require_once('parametros/servicios/tipos_de_estados/dao_tiposdeestados.php');
 require_once('personas/gestion_de_personas/dao_gestiondepersonas.php');
 require_once('servicios/gestion_de_servicios/dao_gestiondeservicios.php');
 
@@ -93,6 +94,11 @@ class dao_gestiondecontratos{
   static function get_tiposRol()
   {
     return dao_rol::get_listado_roles();
+  }
+
+  static function get_tiposEstados()
+  {
+    return dao_tiposdeestados::get_listado_tipos_estados();
   }
 
   static function get_personas()
