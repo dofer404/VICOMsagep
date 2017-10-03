@@ -75,17 +75,8 @@ class ci_detallecontrato extends sagep_ci
 	}
 
 	//-----------------------------------------------------------------------------------
-	//---- Auxiliares ----------------------------------------------------------------------
+	//---- Auxiliares -------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
-
-	// function setear_todos_los_formularios()
-	// 	{
-	// 		if (isset ($this->s__datos['form_ml_fotos'])){
-	// 			$this->cn()->procesar_filas_fotos($this->s__datos['form_ml_fotos']);
-	// 			$this->cn()->set_blobs($this->s__datos['form_ml_fotos']);
-	// 			$this->cn()->resetear_cursor_ubicaciones();
-	// 		}
-	// 	}
 
 	function procesar_cacnelar_pedido_registro_nuevo_detalle()
 	{
@@ -143,7 +134,7 @@ class ci_detallecontrato extends sagep_ci
 		$cache_ml = $this->get_cache('form_ml_detalle');
 		$datos = $cache_ml->get_cache();
 
-		if (!$datos) { // Si no hay datos
+		if (!$datos) {
 			if ($this->cn()->hay_cursor() ) {
 				$datos = $this->cn()->get_detalle();
 				$cache_ml->set_cache($datos);
@@ -157,7 +148,7 @@ class ci_detallecontrato extends sagep_ci
 	function evt__form_ml_detalle__modificacion($datos)
 	{
 		$this->cn()->procesar_filas_detalle($datos);
-		$datos = $this->cn()->get_detalle(); // Con esto se obtienen todos los registros que no son de baja
+		$datos = $this->cn()->get_detalle();
 		$this->get_cache('form_ml_detalle')->set_cache($datos);
 	}
 
@@ -170,7 +161,6 @@ class ci_detallecontrato extends sagep_ci
 			$this->cn()->set_cursor_detalle($seleccion);
 			$datos_ubicaciones = $this->cn()->get_ubicacion();
 			$this->get_cache('form_ml_ubicacion')->set_cache($datos_ubicaciones);
-
 		}
 		$this->set_pantalla('pant_edicion');
 		$this->controlador()->controlador()->eliminar_evento('procesar');
@@ -207,7 +197,7 @@ class ci_detallecontrato extends sagep_ci
 
 	function conf__form_detalle(sagep_ei_formulario $form)
 	{
-		if ($this->cn()->hay_cursor_detalle()) { // Hay pedido de registro nuevo
+		if ($this->cn()->hay_cursor_detalle()) {
 			$datos = $this->get_cache_form_detalle();
 			if (!$datos) {
 				$datos = $this->cn()->get_unDetalle();
@@ -226,7 +216,7 @@ class ci_detallecontrato extends sagep_ci
 		$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
 		$datos = $cache_ml_ubicacion->get_cache();
 
-		if (!$datos) { // Si no hay datos
+		if (!$datos) {
 			if ($this->cn()->hay_cursor_detalle() ) {
 				$datos = $this->cn()->get_ubicacion();
 				$cache_ml_ubicacion->set_cache($datos);
@@ -238,19 +228,62 @@ class ci_detallecontrato extends sagep_ci
 	function evt__form_ml_ubicacion__modificacion($datos)
 	{
 		$this->cn()->procesar_filas_ubicacion($datos);
-		$datos = $this->cn()->get_ubicacion(); // Con esto se obtienen todos los registros que no son de baja
+		$datos = $this->cn()->get_ubicacion();
 		$this->get_cache('form_ml_ubicacion')->set_cache($datos);
 	}
 
 
-		// function evt__form_ml_ubicacion__ver_imagenes($seleccion)
-		// {
-		// 	$this->get_cache('form_ml_ubicacion')->set_cursor_cache($seleccion);
-		// }
+		function evt__form_ml_ubicacion__ver_imagenes($seleccion)
+		{
+			$this->get_cache('form_ml_ubicacion')->set_cursor_cache($seleccion);
+		}
+
+		function conf_evt__form_ml_ubicacion__agregar_ubicacion(toba_evento_usuario $evento, $fila)
+		{
+			$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
+			$datos = $cache_ml_ubicacion->get_cache();
+			if (isset($datos[$fila])) {
+				$evento->anular();
+			}
+		}
 
 		function evt__form_ml_ubicacion__ver_estado($seleccion)
 		{
 			$this->get_cache('form_ml_ubicacion')->set_cursor_cache($seleccion);
+		}
+
+		function conf_evt__form_ml_ubicacion__cambiar_estado(toba_evento_usuario $evento, $fila)
+		{
+			$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
+			$datos = $cache_ml_ubicacion->get_cache();
+
+			if (!isset($datos[$fila])) {
+				$evento->anular();
+			}
+		}
+
+		function conf_evt__form_ml_ubicacion__vinculo(toba_evento_usuario $evento, $fila)
+		{
+			$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
+			$datos = $cache_ml_ubicacion->get_cache();
+			if (!isset($datos[$fila])) {
+				$evento->anular();
+			}
+		}
+
+		function conf_evt__form_ml_ubicacion__ver_imagenes(toba_evento_usuario $evento, $fila)
+		{
+			$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
+			$datos = $cache_ml_ubicacion->get_cache();
+			if (!isset($datos[$fila])) {
+				$evento->anular();
+			}
+		}
+
+		function evt__form_ml_ubicacion__cambiar_estado($seleccion)
+		{
+			$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
+			$cache_ml_ubicacion->set_cursor_cache($seleccion);
 		}
 
 	//-----------------------------------------------------------------------------------
@@ -342,74 +375,9 @@ class ci_detallecontrato extends sagep_ci
 		$this->cn()->resetear_cursor_ubicaciones();
 	}
 
-
-	function evt__form_ml_ubicacion__cambiar_estado($seleccion)
-	{
-
-		$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
-
-		$cache_ml_ubicacion->set_cursor_cache($seleccion);
-
-		// $datos = $cache_ml_ubicacion->get_cache();
-		//
-		// if ($this->cn()->hay_cursor_ubicaciones() ) {
-		// 	$this->dep('form_ml_ubicacion')->ef('fecha_cambio')->set_solo_lectura($datos[$seleccion]);
-		// }
-		//ei_arbol($seleccion);
-
-		//ei_arbol($this->dep('form_ml_ubicacion')->ef('fecha_cambio')->get_estado($seleccion));
-		//$datos = $this->dep('form_ml_ubicacion')->ef('fecha_cambio')->get_estado($seleccion);
-		//$this->dep('form_ml_ubicacion')->eliminar_evento('cambiar_estado');
-			// alert('Modo solo_lectura activado');
-			//$this->dep('form_ml_ubicacion')->set_solo_lectura($datos[$seleccion]);
-	}
-
 	function evt__form_ml_detalle__registro_alta($datos, $id_fila)
 	{
 	}
-
-	function conf_evt__form_ml_ubicacion__cambiar_estado(toba_evento_usuario $evento, $fila)
-	{
-		$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
-		$datos = $cache_ml_ubicacion->get_cache();
-
-		//$this->dep('form_ml_ubicacion')->ef('fecha_cambio')->set_solo_lectura($datos[$fila], true);
-
-
-
-		//ei_arbol($this->dep('form_ml_ubicacion')->ef('fecha_cambio')->get_estado());
-
-
-		//ei_arbol($fila);
-
-		//$this->dep('form_ml_ubicacion')->ef('fecha_cambio')->ir_a_fila($fila)->set_solo_lectura(true);
-
-
-		// 	if (ef_id.tiene_estado) {
-		//  		this.ef(ef_id).ir_a_fila(this._filas[id_fila]).set_solo_lectura(solo_lectura_activo);
-
-
-		//  for ($i=0; $i < $fila-1; $i++) {
-		// 	 ei_arbol($fila);
-		 //
-		// 	$this.ef('fecha_cambio').ir_a_fila($fila).set_solo_lectura(true);
-		// 	 //$this->dep('form_ml_ubicacion')->ef('fecha_cambio')->set_solo_lectura(true);
-		//  }
-
-		if (!isset($datos[$fila])) {
-			$evento->anular();
-		}
-
-	}
-
-	function conf_evt__form_ml_ubicacion__vinculo(toba_evento_usuario $evento, $fila)
-	{
-		$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
-		$datos = $cache_ml_ubicacion->get_cache();
-		if (!isset($datos[$fila])) {
-			$evento->anular();
-		}
-	}
-
+	
 }
 ?>

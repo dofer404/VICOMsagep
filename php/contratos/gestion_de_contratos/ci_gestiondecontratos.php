@@ -105,12 +105,10 @@ class ci_gestiondecontratos extends sagep_ci
 
 	function evt__cuadro__edicion($seleccion)
 	{
-		ei_arbol($seleccion);
 		$this->cn()->cargar($seleccion);
 		$this->cn()->set_cursor($seleccion);
-		$this->s__datos['modo_edicion'] = 'modificacion'; //para estados
-		$this->s__datos['sel_seleccion'] = $seleccion; //para estados
-		//$this->s__datos['sel_seleccion']['id_detalle_contrato'] = dao_gestiondecontratos::get_id_detalle($seleccion['id_ciclolectivo']);
+		$this->s__datos['modo_edicion'] = 'modificacion';
+		$this->s__datos['sel_seleccion'] = $seleccion;
 		$this->set_pantalla('pant_edicion');
 	}
 

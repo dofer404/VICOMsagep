@@ -7,6 +7,6 @@ class dt_tipo_estado extends sagep_datos_tabla
 		return toba::db('sagep')->consultar($sql);
 	}
 
-}
 
+}
 ?>

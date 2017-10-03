@@ -16,8 +16,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_datos_tabla', --clase
 	'30', --punto_montaje
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'dt_estados', --subclase
+	'datos/dt_estados.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'- dr_contratos - dt_estados', --nombre
