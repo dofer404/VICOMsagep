@@ -1,5 +1,6 @@
 <?php
-class dao_estados
+
+class dao_historialdeestados
 {
   static function get_listado_estados($id_ubicacion, $id_detalle_contrato)
   {
@@ -21,4 +22,5 @@ class dao_estados
     return $datos;
   }
 }
- ?>
+
+?>

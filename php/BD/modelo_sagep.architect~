@@ -1263,14 +1263,14 @@
  <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="true" target-schema="es_sagep"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
- <play-pen zoom="0.7751539297356029" viewportX="538" viewportY="369" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+ <play-pen zoom="0.8773578353895892" viewportX="999" viewportY="745" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB1" x="800" y="352" bgColor="0xbfd6ff" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB20" x="906" y="150" bgColor="0xbfd6ff" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB28" x="1381" y="354" bgColor="0xc8b7ea" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB35" x="1435" y="203" bgColor="0xc8b7ea" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB42" x="1712" y="418" bgColor="0xc8b7ea" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB50" x="1807" y="211" bgColor="0xc8b7ea" fgColor="0x000000" rounded="true" dashed="false"/>
-  <table-pane table-ref="TAB59" x="2008" y="618" bgColor="0xc8b7ea" fgColor="0x000000" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB59" x="2048" y="612" bgColor="0xc8b7ea" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB69" x="2885" y="641" bgColor="0xe8cfdb" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB79" x="2543" y="724" bgColor="0xe8cfdb" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB86" x="2905" y="987" bgColor="0xe8cfdb" fgColor="0x000000" rounded="true" dashed="false"/>

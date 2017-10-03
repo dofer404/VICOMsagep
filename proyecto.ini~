@@ -32,7 +32,7 @@ permite_cambio_perfil_funcional = 0;
 
 [instalador]
 ;Configuraciones para el instalador gráfico
-logo = /img/LogoSAGEP.gif
+logo = /img/logo_grande.gif
 logo_url = http://www.siu.edu.ar
 acciones = instalar, actualizar
 
