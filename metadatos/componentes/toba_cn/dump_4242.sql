@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[4228]--  cn_ubicacion 
+--[4242]--  cn_ubicacion 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -9,7 +9,7 @@
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, punto_montaje, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
 	'sagep', --proyecto
-	'4228', --objeto
+	'4242', --objeto
 	NULL, --anterior
 	NULL, --identificador
 	NULL, --reflexivo
@@ -36,7 +36,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2017-10-03 10:17:54', --creacion
+	'2017-10-03 22:43:27', --creacion
 	NULL  --posicion_botonera
 );
 --- FIN Grupo de desarrollo 0
@@ -48,9 +48,9 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
-	'2826', --dep_id
-	'4228', --objeto_consumidor
-	'4229', --objeto_proveedor
+	'2834', --dep_id
+	'4242', --objeto_consumidor
+	'4243', --objeto_proveedor
 	'dr_ubicacion', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b

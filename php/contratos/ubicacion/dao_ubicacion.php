@@ -1,7 +1,7 @@
 <?php
-class dao_estados
+class dao_ubicacion
 {
-  static function get_listado_estados($id_ubicacion, $id_detalle_contrato)
+  static function get_listado_ubicacion($id_ubicacion, $id_detalle_contrato)
   {
 
   //  $id_ubicacion = toba::memoria()->get_parametro('ubicacion');

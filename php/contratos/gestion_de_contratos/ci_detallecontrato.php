@@ -229,7 +229,11 @@ class ci_detallecontrato extends sagep_ci
 	{
 		$this->cn()->procesar_filas_ubicacion($datos);
 		$datos = $this->cn()->get_ubicacion();
-		$this->get_cache('form_ml_ubicacion')->set_cache($datos);
+		ei_arbol($datos);
+
+		$valores = $this->get_cache('form_ml_ubicacion')->set_cache($datos);
+		ei_arbol($valores);
+
 	}
 
 
@@ -378,6 +382,6 @@ class ci_detallecontrato extends sagep_ci
 	function evt__form_ml_detalle__registro_alta($datos, $id_fila)
 	{
 	}
-	
+
 }
 ?>
