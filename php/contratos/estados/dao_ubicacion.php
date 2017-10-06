@@ -1,5 +1,4 @@
 <?php
-
 require_once('parametros/servicios/tipos_de_estados/dao_tiposdeestados.php');
 
 class dao_ubicacion

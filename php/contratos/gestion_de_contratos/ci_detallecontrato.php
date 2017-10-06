@@ -216,6 +216,9 @@ class ci_detallecontrato extends sagep_ci
 		$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
 		$datos = $cache_ml_ubicacion->get_cache();
 
+		//ei_arbol($datos[0]);
+
+	  //$detalle = $this->s__datos['form_ml_ubicacion']['id_detalle_contrato'];
 		if (!$datos) {
 			if ($this->cn()->hay_cursor_detalle() ) {
 				$datos = $this->cn()->get_ubicacion();
@@ -229,11 +232,8 @@ class ci_detallecontrato extends sagep_ci
 	{
 		$this->cn()->procesar_filas_ubicacion($datos);
 		$datos = $this->cn()->get_ubicacion();
-		ei_arbol($datos);
 
 		$valores = $this->get_cache('form_ml_ubicacion')->set_cache($datos);
-		ei_arbol($valores);
-
 	}
 
 
@@ -246,8 +246,13 @@ class ci_detallecontrato extends sagep_ci
 		{
 			$cache_ml_ubicacion = $this->get_cache('form_ml_ubicacion');
 			$datos = $cache_ml_ubicacion->get_cache();
+
+
+
 			if (isset($datos[$fila])) {
-				$evento->anular();
+				//$evento->desactivar();
+			} else {
+				$evento->activar();
 			}
 		}
 

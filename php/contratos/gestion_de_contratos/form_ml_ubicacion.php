@@ -30,5 +30,13 @@ class form_ml_ubicacion extends sagep_ei_formulario_ml
 
 
 
+	function conf_evt__agregar_ubicacion($evento, $fila)
+	{
+		alert('hola');
+		$evento->vinculo()->agregar_parametro('detalle_contrato', $this->_datos[$fila]['id_detalle_contrato']);
+		$evento->vinculo()->agregar_parametro('nota', 'Este parametro se agrego en PHP');
+		echo('detalle_contrato');
+	}
+
 }
 ?>
