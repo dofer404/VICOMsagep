@@ -21,8 +21,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_gestiondecontratos - ci_modificarcontrato - ci_detallecontrato - form_ml_estados', --nombre
-	'Estados', --titulo
-	'1', --colapsable
+	'Estado', --titulo
+	'0', --colapsable
 	NULL, --descripcion
 	'sagep', --fuente_datos_proyecto
 	'sagep', --fuente_datos
@@ -106,7 +106,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --expandir_descripcion
 	NULL, --campo_bl
 	'0', --scroll
-	NULL, --filas
+	'1', --filas
 	'0', --filas_agregar
 	'1', --filas_agregar_online
 	'0', --filas_agregar_abajo
