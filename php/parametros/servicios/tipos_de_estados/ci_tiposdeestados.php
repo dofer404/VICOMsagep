@@ -2,16 +2,32 @@
 require_once('parametros/servicios/tipos_de_estados/dao_tiposdeestados.php');
 require_once('mensajes_error.php');
 
+require_once('comunes/cache_form.php');
+
 class ci_tiposdeestados extends sagep_ci
 {
 	//-----------------------------------------------------------------------------------
 	//---- Variables --------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
-
+	
 	protected $sql_state;
 	protected $s__datos_filtro;
 	protected $s__datos;
-
+	
+	//-----------------------------------------------------------------------------------
+	//---- setters y getters ------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+	
+	// getter form_ml_cache
+	
+	function get_cache($nombre)
+	{
+		if (!isset($this->s__datos[$nombre])) {
+			$this->s__datos[$nombre] = new cache_form();
+		}
+		return $this->s__datos[$nombre];
+	}
+	
 	//-----------------------------------------------------------------------------------
 	//---- Eventos ----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -21,13 +37,13 @@ class ci_tiposdeestados extends sagep_ci
 		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_edicion');
 	}
-
+	
 	function evt__procesar()
 	{
 		try {
 			$this->cn()->guardar();
 			$this->evt__cancelar();
-
+			
 		} catch (toba_error_db $e) {
 			if (mensajes_error::$debug) {
 				throw $e;
@@ -66,19 +82,19 @@ class ci_tiposdeestados extends sagep_ci
 	//-----------------------------------------------------------------------------------
 	//---- Filtro -----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
-
+	
 	function conf__filtro(sagep_ei_filtro $filtro)
 	{
 		if (isset($this->s__datos_filtro)) {
 			$filtro->set_datos($this->s__datos_filtro);
 		}
 	}
-
+	
 	function evt__filtro__filtrar($datos)
 	{
 		$this->s__datos_filtro = $datos;
 	}
-
+	
 	function evt__filtro__cancelar()
 	{
 		unset($this->s__datos_filtro);
@@ -87,26 +103,26 @@ class ci_tiposdeestados extends sagep_ci
 	//-----------------------------------------------------------------------------------
 	//---- Cuadro -----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
-
+	
 	function conf__cuadro(sagep_ei_cuadro $cuadro)
 	{
 		if (isset($this->s__datos_filtro)) {
 			$filtro = $this->dep('filtro');
 			$filtro->set_datos($this->s__datos_filtro);
 			$sql_where = $filtro->get_sql_where();
-
+			
 			$datos = dao_tiposdeestados::get_listado_tipos_estados($sql_where);
 			$cuadro->set_datos($datos);
 		}
 	}
-
+	
 	function evt__cuadro__edicion($seleccion)
 	{
 		$this->cn()->cargar($seleccion);
 		$this->cn()->set_cursor($seleccion);
 		$this->set_pantalla('pant_edicion');
 	}
-
+	
 	function evt__cuadro__eliminar($seleccion)
 	{
 	}
@@ -114,27 +130,28 @@ class ci_tiposdeestados extends sagep_ci
 	//-----------------------------------------------------------------------------------
 	//---- Form -------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
-
+	
 	function evt__form__modificacion($datos)
 	{
-		$this->s__datos['form'] = $datos;
+		$this->get_cache('form')->set_cache($datos);
 		$this->cn()->set_tipo_estado($datos);
 	}
-
+	
 	function conf__form(sagep_ei_formulario $form)
 	{
-		if (isset($this->s__datos['form'])) {
-			$form->set_datos($this->s__datos['form']);
-		} else {
-			if ($this->cn()->hay_cursor()) {
+		
+		$cache_form = $this->get_cache('form');
+		$datos = $cache_form->get_cache();
+		if (!$datos) {
+			if ($this->cn()->hay_cursor() ) {
 				$datos = $this->cn()->get_tipo_estado();
-				$this->s__datos['form'] = $datos;
-				$form->set_datos($datos);
-
+				$cache_form->set_cache($datos);
 			} else {
 				$this->pantalla()->eliminar_evento('eliminar');
 			}
 		}
+		$form->set_datos($datos);
+		
 	}
 }
 ?>
