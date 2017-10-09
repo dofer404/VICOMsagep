@@ -1,6 +1,7 @@
 <?php
 require_once('parametros/configuracion/configurar_empresa/dao_configurarempresa.php');
-require_once('mensajes_error.php');
+require_once('comunes/mensajes_error.php');
+require_once('comunes/cache_form.php');
 
 class ci_configurarempresa extends sagep_ci
 {
@@ -14,6 +15,18 @@ class ci_configurarempresa extends sagep_ci
 	protected $s__datos;
 
 	//-----------------------------------------------------------------------------------
+	//---- setters y getters ------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function get_cache($nombre)
+	{
+		if (!isset($this->s__datos[$nombre])) {
+			$this->s__datos[$nombre] = new cache_form();
+		}
+		return $this->s__datos[$nombre];
+	}
+
+	//-----------------------------------------------------------------------------------
 	//---- form_muestra -----------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
@@ -21,13 +34,13 @@ class ci_configurarempresa extends sagep_ci
 	{
 
 		if (isset(dao_configurarempresa::get_listado_empresa()[0])) {
-				$datos = dao_configurarempresa::get_listado_empresa()[0];
-				$id_empresa = ['id_empresa' => $datos['id_empresa']];
+			$datos = dao_configurarempresa::get_listado_empresa()[0];
+			$id_empresa = ['id_empresa' => $datos['id_empresa']];
 
-				$this->cn()->cargar($id_empresa);
-				$this->cn()->set_cursor($id_empresa);
-				$datos = $this->cn()->get_empresa();
-				$form->set_datos($datos);
+			$this->cn()->cargar($id_empresa);
+			$this->cn()->set_cursor($id_empresa);
+			$datos = $this->cn()->get_empresa();
+			$form->set_datos($datos);
 		}
 	}
 
@@ -51,7 +64,7 @@ class ci_configurarempresa extends sagep_ci
 	function evt__cancelar()
 	{
 		$this->cn()->reiniciar();
-		unset($this->s__datos);
+		$this->get_cache('form')->unset_cache();
 		$this->set_pantalla('pant_inicial');
 	}
 
@@ -80,13 +93,23 @@ class ci_configurarempresa extends sagep_ci
 
 	function conf__form(sagep_ei_formulario $form)
 	{
-		$datos = $this->cn()->get_empresa();
+
+		$cache_form = $this->get_cache('form');
+		$datos = $cache_form->get_cache();
+		if (!$datos) {
+			if ($this->cn()->hay_cursor() ) {
+				$datos = $this->cn()->get_empresa();
+				$cache_form->set_cache($datos);
+			} else {
+				$this->pantalla()->eliminar_evento('eliminar');
+			}
+		}
 		$form->set_datos($datos);
 	}
 
 	function evt__form__modificacion($datos)
 	{
-		$this->s__datos['form'] = $datos;
+		$this->get_cache('form')->set_cache($datos);
 		$this->cn()->set_empresa($datos);
 	}
 

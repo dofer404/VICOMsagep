@@ -29,6 +29,11 @@ class cache_form
     $this->s__datos['datos'] = $datos;
   }
 
+  function unset_cache()
+  {
+    unset($this->s__datos['datos']);
+  }
+
   // function set_pedido_registro_nuevo($si=true)
   // {
   //   $this->s__datos['pedido_nuevo?'] = !!$si;
@@ -48,11 +53,6 @@ class cache_form
 	// 	$this->s__datos['datos'] = $datos;
 	// }
   //
-	// function unset_datos_form_detalle()
-	// {
-	// 	$datos = $this->get_cache_form_detalle();
-	// 	unset($this->s__datos['form_detalle']);
-	// }
   //
 	// function unset_datos_form_ubicacion()
 	// {

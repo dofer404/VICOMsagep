@@ -1,11 +1,11 @@
 <?php
 require_once('parametros/personas/tipos_de_cuentas/dao_tiposdecuentas.php');
-require_once('mensajes_error.php');
-
+require_once('comunes/mensajes_error.php');
+require_once('comunes/cache_form.php');
 
 class ci_tiposdecuentas extends sagep_ci
 {
-  //-----------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
 	//---- Variables --------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
@@ -13,7 +13,19 @@ class ci_tiposdecuentas extends sagep_ci
 	protected $s__datos_filtro;
 	protected $s__datos;
 
-  //-----------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+	//---- setters y getters ------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function get_cache($nombre)
+	{
+		if (!isset($this->s__datos[$nombre])) {
+			$this->s__datos[$nombre] = new cache_form();
+		}
+		return $this->s__datos[$nombre];
+	}
+
+	//-----------------------------------------------------------------------------------
 	//---- Eventos ----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
@@ -60,11 +72,11 @@ class ci_tiposdecuentas extends sagep_ci
 	function evt__cancelar()
 	{
 		$this->cn()->reiniciar();
-		unset($this->s__datos);
+		$this->get_cache('form')->unset_cache();
 		$this->set_pantalla('pant_inicial');
 	}
 
-  //-----------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
 	//---- Filtro -----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
@@ -101,38 +113,36 @@ class ci_tiposdecuentas extends sagep_ci
 		}
 	}
 
-  function evt__cuadro__edicion($seleccion)
-  {
-    $this->cn()->cargar($seleccion);
-    $this->cn()->set_cursor($seleccion);
-    $this->set_pantalla('pant_edicion');
-  }
+	function evt__cuadro__edicion($seleccion)
+	{
+		$this->cn()->cargar($seleccion);
+		$this->cn()->set_cursor($seleccion);
+		$this->set_pantalla('pant_edicion');
+	}
 
-  //-----------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
 	//---- Form -------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
 	function evt__form__modificacion($datos)
 	{
-		$this->s__datos['form'] = $datos;
+		$this->get_cache('form')->set_cache($datos);
 		$this->cn()->set_tipos_cuentas($datos);
 	}
 
-  function conf__form(sagep_ei_formulario $form)
+	function conf__form(sagep_ei_formulario $form)
 	{
-		if (isset($this->s__datos['form'])) {
-			$form->set_datos($this->s__datos['form']);
-		} else {
-			if ($this->cn()->hay_cursor()) {
+		$cache_form = $this->get_cache('form');
+		$datos = $cache_form->get_cache();
+		if (!$datos) {
+			if ($this->cn()->hay_cursor() ) {
 				$datos = $this->cn()->get_tipos_cuentas();
-				$this->s__datos['form'] = $datos;
-				$form->set_datos($datos);
-
+				$cache_form->set_cache($datos);
 			} else {
 				$this->pantalla()->eliminar_evento('eliminar');
 			}
 		}
+		$form->set_datos($datos);
 	}
 }
-
 ?>

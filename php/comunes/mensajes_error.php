@@ -22,7 +22,7 @@ class mensajes_error {
 		if (isset($error[0])) {
 			$mensaje_error = $pronombre.' '.$tabla.' '.$error[0]['mensaje'];
 			if ($error[0]['mostrar_mensaje'] && isset($mensaje)) {
-				$mensaje_error = $mensaje_error.'. Mensaje de error la aplicación: '.$mensaje;
+				$mensaje_error = $mensaje_error.'. Mensaje de error la aplicaciÃ³n: '.$mensaje;
 			}
 			toba::notificacion()->agregar($mensaje_error, $error[0]['tipo']);
 		} else {
