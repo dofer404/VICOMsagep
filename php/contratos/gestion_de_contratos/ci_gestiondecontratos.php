@@ -1,6 +1,6 @@
 <?php
 require_once('contratos/gestion_de_contratos/dao_gestiondecontratos.php');
-require_once('mensajes_error.php');
+require_once('comunes/mensajes_error.php');
 
 class ci_gestiondecontratos extends sagep_ci
 {
@@ -20,7 +20,7 @@ class ci_gestiondecontratos extends sagep_ci
 	{
 		$this->cn()->reiniciar();
 		$this->s__datos['modo_edicion'] = 'nuevo'; //para estados
-		$this->set_pantalla('pant_edicion');
+		$this->set_pantalla('pant_nueva');
 	}
 
 	function evt__cancelar()

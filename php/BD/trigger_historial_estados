@@ -1,0 +1,21 @@
+﻿CREATE TRIGGER estados_insertar_historico 
+AFTER INSERT OR UPDATE OR DELETE
+ON es_sagep.estados
+FOR EACH ROW
+EXECUTE PROCEDURE es_sagep.f_estados_insertar_historico();
+
+CREATE OR REPLACE FUNCTION es_sagep.f_estados_insertar_historico()
+RETURNS trigger AS
+$$
+BEGIN
+IF TG_OP = 'INSERT' THEN
+	INSERT INTO es_sagep.historial_estado (id_detalle_contrato, id_ubicacion, fecha_cambio, id_tipo_estado) VALUES (NEW.id_detalle_contrato, NEW.id_ubicacion, now(), NEW.id_tipo_estado);
+	RETURN NEW;
+	ELSEIF TG_OP = 'UPDATE' THEN
+	INSERT INTO es_sagep.historial_estado (id_detalle_contrato, id_ubicacion, fecha_cambio, id_tipo_estado) VALUES (NEW.id_detalle_contrato, NEW.id_ubicacion, now(), NEW.id_tipo_estado);
+	RETURN NEW;
+	END IF;
+
+	RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;

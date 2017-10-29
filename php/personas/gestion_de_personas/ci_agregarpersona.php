@@ -3,7 +3,7 @@
 require_once('comunes/cache_form.php');
 require_once('comunes/cache_form_ml.php');
 
-class ci_modificarpersona extends sagep_ci
+class ci_agregarpersona extends sagep_ci
 {
 	//-----------------------------------------------------------------------------------
 	//---- Variables --------------------------------------------------------------------

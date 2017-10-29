@@ -1,6 +1,6 @@
 <?php
 require_once('personas/gestion_de_personas/dao_gestiondepersonas.php');
-require_once('mensajes_error.php');
+require_once('comunes/mensajes_error.php');
 
 class ci_gestiondepersonas extends sagep_ci
 {
@@ -20,13 +20,14 @@ class ci_gestiondepersonas extends sagep_ci
 	function evt__nuevo()
 	{
 		$this->cn()->reiniciar();
-		$this->set_pantalla('pant_edicion');
+		$this->set_pantalla('pant_nueva');
 	}
 
 	function evt__cancelar()
 	{
 		unset($this->s__datos);
 		$this->dep('ci_modificarpersona')->disparar_limpieza_memoria();
+		$this->dep('ci_agregarpersona')->disparar_limpieza_memoria();
 		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_inicial');
 	}
@@ -83,8 +84,6 @@ class ci_gestiondepersonas extends sagep_ci
 
 		if (trim($this->s__criterios_filtrado['apellidos']['valor']) != 'nopar') {
 			$filtro['apellidos']['valor'] = utf8_encode(trim($this->s__criterios_filtrado['apellidos']['valor']));
-			ei_arbol($filtro['apellidos']['valor']);
-
 		}
 	}
 
@@ -134,8 +133,9 @@ class ci_gestiondepersonas extends sagep_ci
 	function conf__pant_edicion(toba_ei_pantalla $pantalla)
 	{
 		if (! $this->cn()->hay_cursor()) {
-			$this->pantalla()->eliminar_evento('eliminar');
-			$this->pantalla()->eliminar_evento('imprimir');
+			$pantalla->eliminar_evento('eliminar');
+			$pantalla->eliminar_evento('imprimir');
+
 			$this->dep('ci_modificarpersona')->evento('imprimir')->ocultar();
 		}
 	}
@@ -161,7 +161,7 @@ class ci_gestiondepersonas extends sagep_ci
 
 
 		//Parametro para el titulo
-		$reporte->set_parametro('titulo','S','LISTADO PERSONAL POR APELLIDO');
+		$reporte->set_parametro('titulo', 'S', 'LISTADO PERSONAL POR APELLIDO');
 
 		//Parametros para el encabezado del titulo
 		//$report->set_parametro('imagenpj','S',$path_imagen_pj['path']);
@@ -171,17 +171,16 @@ class ci_gestiondepersonas extends sagep_ci
 		//$reporte->set_parametro('usuario', 'S', toba::usuario()->get_id());
 
 		//Parametros segun las opciones de filtrado
-		$filtro='%%';
+		$filtro = '%%';
 
-		if ((trim($this->s__criterios_filtrado['apellidos']['valor'])!=''))
-		{
+		if ((trim($this->s__criterios_filtrado['apellidos']['valor']) != '')) {
 			if (trim($this->s__criterios_filtrado['apellidos']['valor']) != 'nopar') {
 				$filtro = utf8_encode(trim($this->s__criterios_filtrado['apellidos']['valor']));
 			}
 		}
 
-		$reporte->set_parametro('apellidos','S', $filtro);
-		$reporte->set_parametro('nombres','S', $filtro);
+		$reporte->set_parametro('apellidos', 'S', $filtro);
+		$reporte->set_parametro('nombres', 'S', $filtro);
 
 		$nombre_archivo = 'listado_personas';
 		$reporte->set_nombre_archivo($nombre_archivo . '.pdf');
@@ -191,16 +190,16 @@ class ci_gestiondepersonas extends sagep_ci
 
 	function ajax__get_datos_apellido($apellidos, toba_ajax_respuesta $respuesta)
 	{
-	$this->s__criterios_filtrado['apellidos']['condicion'] =  'es_igual_a';
-	$this->s__criterios_filtrado['apellidos']['valor'] =  $apellidos;
-	$respuesta->set($apellidos);
+		$this->s__criterios_filtrado['apellidos']['condicion'] = 'es_igual_a';
+		$this->s__criterios_filtrado['apellidos']['valor'] = $apellidos;
+		$respuesta->set($apellidos);
 	}
 
 	function ajax__get_datos_nombre($nombres, toba_ajax_respuesta $respuesta)
 	{
-	$this->s__criterios_filtrado['apellidos']['condicion'] =  'es_igual_a';
-	$this->s__criterios_filtrado['nombres']['valor'] =  $nombres;
-	$respuesta->set($nombres);
+		$this->s__criterios_filtrado['apellidos']['condicion'] = 'es_igual_a';
+		$this->s__criterios_filtrado['nombres']['valor'] = $nombres;
+		$respuesta->set($nombres);
 	}
 
 	function vista_pdf(toba_vista_pdf $salida)
