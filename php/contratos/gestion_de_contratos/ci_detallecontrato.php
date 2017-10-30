@@ -27,13 +27,13 @@ class ci_detallecontrato extends sagep_ci
 		return $this->s__datos[$nombre_ml];
 	}
 
-	function get_cache_form($nombre)
-	{
-		if (!isset($this->s__datos[$nombre])) {
-			$this->s__datos[$nombre] = new cache_form();
-		}
-		return $this->s__datos[$nombre];
-	}
+	// function get_cache_form($nombre)
+	// {
+	// 	if (!isset($this->s__datos[$nombre])) {
+	// 		$this->s__datos[$nombre] = new cache_form();
+	// 	}
+	// 	return $this->s__datos[$nombre];
+	// }
 
 	// form_detalle
 
@@ -53,7 +53,7 @@ class ci_detallecontrato extends sagep_ci
 
 	function unset_datos_form_detalle()
 	{
-		$datos = $this->get_cache_form('form_detalle');
+		$datos = $this->get_cache_form_detalle();
 		unset($this->s__datos['form_detalle']);
 	}
 
@@ -163,7 +163,7 @@ class ci_detallecontrato extends sagep_ci
 
 	function evt__form_ml_detalle__detalle($seleccion)
 	{
-		$this->unset_cursor_detalle();
+		//$this->unset_cursor_detalle();
 
 		$datos_fila = $this->get_cache_form_ml('form_ml_detalle')->get_cache_fila($seleccion);
 		$this->set_cache_form_detalle($datos_fila);
@@ -209,7 +209,7 @@ class ci_detallecontrato extends sagep_ci
 	function conf__form_detalle(sagep_ei_formulario $form)
 	{
 		if ($this->cn()->hay_cursor_detalle()) {
-			$datos = $this->get_cache_form('form_detalle');
+			$datos = $this->get_cache_form_detalle();
 			if (!$datos) {
 				$datos = $this->cn()->get_unDetalle();
 			}

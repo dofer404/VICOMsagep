@@ -18,7 +18,7 @@ class ci_ubicacion extends sagep_ci
 
 	// getter form_ml_cache
 
-	function get_cache($nombre_ml)
+	function get_cache_form_ml($nombre_ml)
 	{
 		if (!isset($this->s__datos[$nombre_ml])) {
 			$this->s__datos[$nombre_ml] = new cache_form_ml();
@@ -37,7 +37,7 @@ class ci_ubicacion extends sagep_ci
 		return $datos;
 	}
 
-	function set_cache_form_ubicacion($datos)
+	function set_cache_form_ubicacion(array $datos)
 	{
 		$this->s__datos['form_ubicacion'] = $datos;
 	}
@@ -50,7 +50,7 @@ class ci_ubicacion extends sagep_ci
 
 	function unset_datos_form_estados()
 	{
-		$datos = $this->get_cache('form_ml_estados');
+		$datos = $this->get_cache_form_ml('form_ml_estados');
 		unset($this->s__datos['form_ml_estados']);
 	}
 
@@ -61,7 +61,7 @@ class ci_ubicacion extends sagep_ci
 
 	function unset_datos_form_ml_ubicacion()
 	{
-		$datos = $this->get_cache('form_ml_ubicacion');
+		$datos = $this->get_cache_form_ml('form_ml_ubicacion');
 		unset($this->s__datos['form_ml_ubicacion']);
 	}
 
@@ -96,7 +96,7 @@ class ci_ubicacion extends sagep_ci
 
 	function procesar_pedido_registro_nueva_ubicacion($cancelar=false)
 	{
-		$ml_dets = $this->get_cache('form_ml_ubicacion');
+		$ml_dets = $this->get_cache_form_ml('form_ml_ubicacion');
 		if ($ml_dets->hay_pedido_registro_nuevo()) {
 			$ml_dets->set_pedido_registro_nuevo(false);
 			if ($this->cn()->hay_cursor_ubicaciones()) {
@@ -118,7 +118,7 @@ class ci_ubicacion extends sagep_ci
 	{
 		$this->borrar_memoria();
 		unset($this->s__datos);
-		$this->cn()->resetear_cursor_estados();
+		//$this->cn()->resetear_cursor_estados();
 		$this->set_pantalla('pant_inicial');
 	}
 
@@ -136,7 +136,7 @@ class ci_ubicacion extends sagep_ci
 	{
 		$this->procesar_cacnelar_pedido_registro_nueva_ubicacion();
 
-		$cache_ml = $this->get_cache('form_ml_ubicacion');
+		$cache_ml = $this->get_cache_form_ml('form_ml_ubicacion');
 		$datos = $cache_ml->get_cache();
 		if (!$datos) {
 			if ($this->cn()->hay_cursor_detalle()) {
@@ -153,25 +153,25 @@ class ci_ubicacion extends sagep_ci
 	{
 		$this->cn()->procesar_filas_ubicacion($datos);
 		$datos = $this->cn()->get_ubicacion();
-		$this->get_cache('form_ml_ubicacion')->set_cache($datos);
+		$this->get_cache_form_ml('form_ml_ubicacion')->set_cache($datos);
 	}
 
   function evt__form_ml_ubicacion__ubicacion($seleccion)
   {
-    $datos_fila = $this->get_cache('form_ml_ubicacion')->get_cache_fila($seleccion);
+    $datos_fila = $this->get_cache_form_ml('form_ml_ubicacion')->get_cache_fila($seleccion);
     $this->set_cache_form_ubicacion($datos_fila);
 
     if ($this->cn()->existe_fila_ubicacion($seleccion) ) {
       $this->cn()->set_cursor_ubicaciones($seleccion);
       $datos_ubicaciones = $this->cn()->get_estado();
-      $this->get_cache('form_ml_estados')->set_cache($datos_ubicaciones);
+      $this->get_cache_form_ml('form_ml_estados')->set_cache($datos_ubicaciones);
     }
     $this->set_pantalla('pant_edicion');
   }
 
   function evt__form_ml_ubicacion__pedido_registro_nuevo()
   {
-    $this->get_cache('form_ml_ubicacion')->set_pedido_registro_nuevo(true);
+    $this->get_cache_form_ml('form_ml_ubicacion')->set_pedido_registro_nuevo(true);
    $this->unset_datos_form_ubicacion();
    $this->unset_datos_form_estados();
     $this->set_pantalla('pant_edicion');
@@ -183,18 +183,18 @@ class ci_ubicacion extends sagep_ci
 
 	function evt__form_ubicacion__modificacion($datos)
 	{
-		$cache_ml_dets = $this->get_cache('form_ml_ubicacion');
-		if ($cache_ml_dets->hay_pedido_registro_nuevo()) {
+		$cache_ml_ubs = $this->get_cache_form_ml('form_ml_ubicacion');
+		if ($cache_ml_ubs->hay_pedido_registro_nuevo()) {
 			if (!$this->cn()->hay_cursor_ubicaciones()) {
 				$id_interno_fila = $this->cn()->nueva_fila_ubicacion($datos);
 				$this->cn()->set_cursor_ubicaciones($id_interno_fila);
 			}
 		} else {
-			$this->s__datos['form_ubicacion'] = $datos;
-			//$this->set_cache_form_ubicacion($datos);
-			if ($cache_ml_dets->hay_cursor_cache()) {
-				$id_fila = $cache_ml_dets->get_cursor_cache();
-				$cache_ml_dets->set_cache_fila($id_fila, $datos);
+			//$this->s__datos['form_ubicacion'] = $datos;
+			$this->set_cache_form_ubicacion($datos);
+			if ($cache_ml_ubs->hay_cursor_cache()) {
+				$id_fila = $cache_ml_ubs->get_cursor_cache();
+				$cache_ml_ubs->set_cache_fila($id_fila, $datos);
 			}
 		}
 	}
@@ -202,12 +202,12 @@ class ci_ubicacion extends sagep_ci
   function conf__form_ubicacion(sagep_ei_formulario $form)
 	{
 		if ($this->cn()->hay_cursor_ubicaciones()) {
-			$datos = $this->s__datos['form_ubicacion'];
+			$datos = $this->get_cache_form_ubicacion();
 		//	$datos = $this->get_cache_form_ubicacion('form_ubicacion');
 			if (!$datos) {
 				$datos = $this->cn()->get_unaUbicacion();
 			}
-			//$form->set_datos($datos);
+			$form->set_datos($datos);
 		}
 	}
 
@@ -218,7 +218,7 @@ class ci_ubicacion extends sagep_ci
 	function conf__form_ml_estados(sagep_ei_formulario_ml $form_ml)
 	{
 
-		$cache_ml_estado = $this->get_cache('form_ml_estados');
+		$cache_ml_estado = $this->get_cache_form_ml('form_ml_estados');
 		$datos = $cache_ml_estado->get_cache();
 		if (!$datos) {
 			if ($this->cn()->hay_cursor_ubicaciones() ) {
@@ -236,7 +236,7 @@ class ci_ubicacion extends sagep_ci
 		$this->cn()->procesar_filas_estados($datos);
 		$datos = $this->cn()->get_estado();
 
-		$valores = $this->get_cache('form_ml_estados')->set_cache($datos);
+		$this->get_cache_form_ml('form_ml_estados')->set_cache($datos);
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -252,7 +252,7 @@ class ci_ubicacion extends sagep_ci
   function post_eventos()
   {
     // Debemos usar este evento para setear el cursor del dt de cambio_lineas porque de lo contrario el cursor se setea muy temprano y los registros se vinculan incorrectamente
-    $cache_frm_estado = $this->get_cache('form_ml_estados');
+    $cache_frm_estado = $this->get_cache_form_ml('form_ml_estados');
     if ($cache_frm_estado->hay_cursor_cache()) {
       $cursor = $cache_frm_estado->get_cursor_cache();
       $cache_frm_estado->unset_cursor_cache();
