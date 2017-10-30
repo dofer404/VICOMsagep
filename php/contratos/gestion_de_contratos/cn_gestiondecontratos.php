@@ -195,7 +195,7 @@ class cn_gestiondecontratos extends sagep_cn
 		$this->dep('dr_contratos')->tabla('dt_fotos_servicio')->procesar_filas($datos);
 	}
 
-	function get_fotos() //1
+	function get_fotos()
 	{
 		$datos = $this->dep('dr_contratos')->tabla('dt_fotos_servicio')->get_filas();
 		return $datos;

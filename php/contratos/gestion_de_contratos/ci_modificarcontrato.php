@@ -1,4 +1,5 @@
 <?php
+
 class ci_modificarcontrato extends sagep_ci
 {
 	//-----------------------------------------------------------------------------------
@@ -13,6 +14,11 @@ class ci_modificarcontrato extends sagep_ci
 
 	function conf__form(sagep_ei_formulario $form)
 	{
+		//$datos = $this->dep('ci_detallecontrato')->get_cache_detalle();
+		$datos = $this->cn()->get_detalle();
+
+		ei_arbol($datos);
+
 		if (isset($this->s__datos['form'])) {
 			$form->set_datos($this->s__datos['form']);
 		} else {
@@ -77,6 +83,37 @@ class ci_modificarcontrato extends sagep_ci
 	{
 		$idContrato = $this->s__datos['form']['id_contrato'];
 		return $idContrato;
+	}
+
+	function get_detalles()
+	{
+		//$datos = $this->dep('ci_detallecontrato')->get_cache_detalle();
+		$datos = $this->cn()->get_detalle();
+		return $datos;
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form_ml_detalle_ubicacion ----------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_ml_detalle_ubicacion(sagep_ei_formulario_ml $form_ml)
+	{
+		if (isset($this->s__datos['form_ml_detalle_ubicacion'])) {
+			$form_ml->set_datos($this->s__datos['form_ml_detalle_ubicacion']);
+		} else {
+
+			if ($this->cn()->hay_cursor_detalle()) {
+				$datos = $this->cn()->get_ubicacion();
+				$this->s__datos['form_ml_detalle_ubicacion'] = $datos;
+				$form_ml->set_datos($datos);
+			}
+		}
+	}
+
+	function evt__form_ml_detalle_ubicacion__modificacion($datos)
+	{
+		$this->s__datos['form_ml_detalle_ubicacion'] = $datos;
+		$this->cn()->procesar_filas_ubicacion($datos);
 	}
 
 }
