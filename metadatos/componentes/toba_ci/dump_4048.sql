@@ -17,7 +17,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba_ci', --clase
 	'30', --punto_montaje
 	'ci_detallecontrato', --subclase
-	'contratos/gestion_de_contratos/ci_detallecontrato.php', --subclase_archivo
+	'contratos/gestion_de_contratos/modificar_contrato/ci_detallecontrato.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_gestiondecontratos - ci_modificarcontrato - ci_detallecontrato', --nombre
@@ -150,7 +150,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'2840', --dep_id
 	'4048', --objeto_consumidor
 	'4247', --objeto_proveedor
-	'ci_ubicacion', --identificador
+	'ci_detalleubicacion', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c

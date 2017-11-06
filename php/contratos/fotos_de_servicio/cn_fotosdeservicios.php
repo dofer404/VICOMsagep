@@ -114,5 +114,26 @@ class cn_fotosdeservicios extends sagep_cn
 
 		return $datos;
 	}
+	
+		function get_ubicacion()
+	{
+		$datos = $this->dep('dr_fotos_servicio')->tabla('dt_detalleubicacion_detallecontrato')->get_filas();
+		return $datos;
+	}
+
+	function set_cursor_ubicaciones($id_interno)
+	{
+		$this->dep('dr_fotos_servicio')->tabla('dt_detalleubicacion_detallecontrato')->set_cursor($id_interno);
+	}
+
+	function nueva_fila_ubicacion($datos_fila)
+	{
+		return $this->dep('dr_fotos_servicio')->tabla('dt_detalleubicacion_detallecontrato')->nueva_fila($datos_fila);
+	}
+
+	function hay_cursor_ubicaciones()
+	{
+		return $this->dep('dr_fotos_servicio')->tabla('dt_detalleubicacion_detallecontrato')->hay_cursor();
+	}
 }
 ?>

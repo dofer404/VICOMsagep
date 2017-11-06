@@ -216,7 +216,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4064', --objeto_ei_formulario
 	'sagep', --objeto_ei_formulario_proyecto
 	'id_detalle_contrato', --identificador
-	'ef_combo', --elemento_formulario
+	'ef_editable_numero', --elemento_formulario
 	'id_detalle_contrato', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -234,16 +234,16 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
-	'get_lista_detalles', --carga_metodo
-	'dao_gestiondecontratos', --carga_clase
-	'contratos/gestion_de_contratos/dao_gestiondecontratos.php', --carga_include
+	NULL, --carga_metodo
+	NULL, --carga_clase
+	NULL, --carga_include
 	NULL, --carga_dt
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
 	'sagep', --carga_fuente
 	NULL, --carga_lista
-	'id_detalle_contrato', --carga_col_clave
-	'nombre_serv', --carga_col_desc
+	'x_dbr_clave', --carga_col_clave
+	'id_servicio', --carga_col_desc
 	NULL, --carga_maestros
 	'0', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado

@@ -120,12 +120,12 @@ class ci_gestiondecontratos extends sagep_ci
 	//---- Configuraciones --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function conf__pant_edicion(toba_ei_pantalla $pantalla)
-	{
-		if (! $this->cn()->hay_cursor()) {
-			$pantalla->eliminar_evento('eliminar');
-		}
-	}
+	// function conf__pant_edicion(toba_ei_pantalla $pantalla)
+	// {
+	// 	if (! $this->cn()->hay_cursor()) {
+	// 		$pantalla->eliminar_evento('eliminar');
+	// 	}
+	// }
 
 }
 ?>

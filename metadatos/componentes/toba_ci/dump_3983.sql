@@ -17,7 +17,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba_ci', --clase
 	'30', --punto_montaje
 	'ci_modificarcontrato', --subclase
-	'contratos/gestion_de_contratos/ci_modificarcontrato.php', --subclase_archivo
+	'contratos/gestion_de_contratos/modificar_contrato/ci_modificarcontrato.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_gestiondecontratos - ci_modificarcontrato', --nombre
@@ -94,7 +94,7 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	NULL, --posicion_botonera
 	'tab_h', --tipo_navegacion
 	'0', --botonera_barra_item
-	'0', --con_toc
+	'1', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
 	NULL, --activacion_procesar

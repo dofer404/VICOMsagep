@@ -51,7 +51,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'3423', --evento_id
 	'4014', --objeto
 	'seleccion', --identificador
-	'', --etiqueta
+	'Seleccionar', --etiqueta
 	'1', --maneja_datos
 	'1', --sobre_fila
 	NULL, --confirmacion

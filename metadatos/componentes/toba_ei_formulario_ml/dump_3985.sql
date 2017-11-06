@@ -141,7 +141,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
-	'Id rol', --etiqueta
+	'Rol', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
@@ -221,7 +221,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
-	'Id persona', --etiqueta
+	'Persona', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
@@ -265,7 +265,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'3741', --popup_item
 	'sagep', --popup_proyecto
 	'0', --popup_editable
-	NULL, --popup_ventana
+	'scrollbars:yes', --popup_ventana
 	'get_descPopUpPersonas', --popup_carga_desc_metodo
 	'dao_gestiondecontratos', --popup_carga_desc_clase
 	'contratos/gestion_de_contratos/dao_gestiondecontratos.php', --popup_carga_desc_include
@@ -289,6 +289,6 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --selec_cant_columnas
 	NULL, --upload_extensiones
 	'30', --punto_montaje
-	NULL  --placeholder
+	'-- Seleccione una Persona --'  --placeholder
 );
 --- FIN Grupo de desarrollo 0

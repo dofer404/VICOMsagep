@@ -213,6 +213,18 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
+	'2892', --dep_id
+	'3976', --objeto_consumidor
+	'4294', --objeto_proveedor
+	'ci_agregarcontrato', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
 	'2563', --dep_id
 	'3976', --objeto_consumidor
 	'3983', --objeto_proveedor
@@ -292,6 +304,25 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --template_impresion
 	'30'  --punto_montaje
 );
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
+	'sagep', --objeto_ci_proyecto
+	'3976', --objeto_ci
+	'1821', --pantalla
+	'pant_nueva', --identificador
+	'3', --orden
+	'Pantalla Nueva', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL, --subclase_archivo
+	NULL, --template
+	NULL, --template_impresion
+	'30'  --punto_montaje
+);
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
@@ -318,6 +349,13 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'0', --orden
 	'2563'  --dep_id
 );
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1821', --pantalla
+	'3976', --objeto_ci
+	'0', --orden
+	'2892'  --dep_id
+);
 
 ------------------------------------------------------------
 -- apex_eventos_pantalla
@@ -342,6 +380,18 @@ INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VAL
 );
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
 	'1725', --pantalla
+	'3976', --objeto_ci
+	'3391', --evento_id
+	'sagep'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1821', --pantalla
+	'3976', --objeto_ci
+	'3389', --evento_id
+	'sagep'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1821', --pantalla
 	'3976', --objeto_ci
 	'3391', --evento_id
 	'sagep'  --proyecto

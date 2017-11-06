@@ -130,15 +130,15 @@ class ci_gestiondepersonas extends sagep_ci
 	//---- Configuraciones --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function conf__pant_edicion(toba_ei_pantalla $pantalla)
-	{
-		if (! $this->cn()->hay_cursor()) {
-			$pantalla->eliminar_evento('eliminar');
-			$pantalla->eliminar_evento('imprimir');
-
-			$this->dep('ci_modificarpersona')->evento('imprimir')->ocultar();
-		}
-	}
+	// function conf__pant_edicion(toba_ei_pantalla $pantalla)
+	// {
+	// 	if (! $this->cn()->hay_cursor()) {
+	// 		$pantalla->eliminar_evento('eliminar');
+	// 		$pantalla->eliminar_evento('imprimir');
+	//
+	// 		$this->dep('ci_modificarpersona')->evento('imprimir')->ocultar();
+	// 	}
+	// }
 
 	function marcar_direccionSeteada()
 	{

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[4247]--  ci_gestiondecontratos - ci_modificarcontrato - ci_detallecontrato - ci_ubicacion 
+--[4247]--  ci_gestiondecontratos - ci_modificarcontrato - ci_detallecontrato - ci_detalleubicacion 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -16,11 +16,11 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_ci', --clase
 	'30', --punto_montaje
-	'ci_ubicacion', --subclase
-	'contratos/gestion_de_contratos/ci_ubicacion.php', --subclase_archivo
+	'ci_detalleubicacion', --subclase
+	'contratos/gestion_de_contratos/modificar_contrato/ci_detalleubicacion.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'ci_gestiondecontratos - ci_modificarcontrato - ci_detallecontrato - ci_ubicacion', --nombre
+	'ci_gestiondecontratos - ci_modificarcontrato - ci_detallecontrato - ci_detalleubicacion', --nombre
 	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
@@ -159,6 +159,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
+	'2846', --dep_id
+	'4247', --objeto_consumidor
+	'4250', --objeto_proveedor
+	'form_ml_fotos', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
 	'2841', --dep_id
 	'4247', --objeto_consumidor
 	'4051', --objeto_proveedor
@@ -251,6 +263,13 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'4247', --objeto_ci
 	'1', --orden
 	'2844'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1813', --pantalla
+	'4247', --objeto_ci
+	'2', --orden
+	'2846'  --dep_id
 );
 
 ------------------------------------------------------------

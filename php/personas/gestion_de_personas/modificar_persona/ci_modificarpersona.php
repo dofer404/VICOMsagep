@@ -1,28 +1,21 @@
 <?php
 
-require_once('comunes/cache_form.php');
 require_once('comunes/cache_form_ml.php');
 
-class ci_agregarpersona extends sagep_ci
+class ci_modificarpersona extends sagep_ci
 {
 	//-----------------------------------------------------------------------------------
 	//---- Variables --------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
 	protected $sql_state;
-	protected $s__datos;
+	protected $s__datos = [];
 
 	//-----------------------------------------------------------------------------------
 	//---- setters y getters ------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function get_cache_form($nombre)
-	{
-		if (!isset($this->s__datos[$nombre])) {
-			$this->s__datos[$nombre] = new cache_form();
-		}
-		return $this->s__datos[$nombre];
-	}
+	// getter form_ml_cache
 
 	function get_cache_form_ml($nombre_ml)
 	{
@@ -32,18 +25,39 @@ class ci_agregarpersona extends sagep_ci
 		return $this->s__datos[$nombre_ml];
 	}
 
+	// form_ubicacion
+
+	function get_cache_form_persona()
+	{
+		$datos = [];
+		if (isset($this->s__datos['form'])) {
+			$datos = $this->s__datos['form'];
+		}
+		return $datos;
+	}
+
+	function set_cache_form_persona(array $datos)
+	{
+		$this->s__datos['form'] = $datos;
+	}
+
+	function unset_datos_form_persona()
+	{
+		$datos = $this->get_cache_form_persona();
+		unset($this->s__datos['form']);
+	}
+
 	//-----------------------------------------------------------------------------------
 	//---- Form -------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
 	function conf__form(form $form)
 	{
-		$cache_form = $this->get_cache_form('form');
-		$datos = $cache_form->get_cache();
+		$datos = $this->get_cache_form_persona();
 		if (!$datos) {
 			if ($this->cn()->hay_cursor() ) {
 				$datos = $this->cn()->get_personas();
-				$cache_form->set_cache($datos);
+				$this->set_cache_form_persona($datos);
 			}
 		}
 		$form->set_datos($datos);
@@ -51,7 +65,7 @@ class ci_agregarpersona extends sagep_ci
 
 	function evt__form__modificacion($datos)
 	{
-		$this->get_cache_form('form')->set_cache($datos);
+		$this->set_cache_form_persona($datos);
 		$this->cn()->set_personas($datos);
 	}
 
@@ -93,34 +107,32 @@ class ci_agregarpersona extends sagep_ci
 
 	function conf__form_ml_direcciones(sagep_ei_formulario_ml $form_ml)
 	{
-		$cache_form_ml_direcciones = $this->get_cache_form_ml('form_ml_direcciones');
-		$datos = $cache_form_ml_direcciones->get_cache();
+		// $cache_form_ml_direcciones = $this->get_cache_form_ml('form_ml_direcciones');
+		// $datos = $cache_form_ml_direcciones->get_cache();
+		//
+		// if (!$datos) {
+		// 	if ($this->cn()->hay_cursor() ) {
+		// 		$datos = $this->cn()->get_direcciones();
+		// 		$cache_form_ml_direcciones->set_cache($datos);
+		// 	}
+		// } else {
+		// 	$this->controlador()->marcar_direccionSeteada();
+		// }
+		// if($datos){
+		// 	$form_ml->set_datos($datos);
+		// }
 
-		if (!$datos) {
-			if ($this->cn()->hay_cursor_direcciones() ) {
-				$datos = $this->cn()->get_direcciones();
-				$cache_form_ml_direcciones->set_cache($datos);
-			}
-		} else {
-			$this->controlador()->marcar_direccionSeteada();
-		}
-		if($datos){
-			$form_ml->set_datos($datos);
-		}
+		$datos = $this->cn()->get_direcciones();
+		$form_ml->set_datos($datos);
 	}
 
 	function evt__form_ml_direcciones__modificacion($datos)
 	{
+		//$this->get_cache_form_ml('form_ml_direcciones')->set_cache($datos);
 		$this->cn()->procesar_filas_direcciones($datos);
-		$datos = $this->cn()->get_direcciones();
-		$this->get_cache_form_ml('form_ml_direcciones')->set_cache($datos);
+		//$datos = $this->cn()->get_direcciones();
+		//$this->get_cache_form_ml('form_ml_direcciones')->set_cache($datos);
 	}
-
-	// function evt__form_ml_direcciones__seleccion($seleccion)
-	// {
-	// 	$this->s__datos['form_ml_direcciones'] = $seleccion;
-	// 	$form_ml->set_datos($seleccion);
-	// }
 
 	//-----------------------------------------------------------------------------------
 	//---- Form_ml_cuentas --------------------------------------------------------------

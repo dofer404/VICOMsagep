@@ -3,9 +3,9 @@ require_once('contratos/gestion_de_contratos/dao_gestiondecontratos.php');
 require_once('comunes/cache_form_ml.php');
 require_once('comunes/cache_form.php');
 
-class ci_detallecontrato extends sagep_ci
+class ci_agregardetalle extends sagep_ci
 {
-	//-----------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------
 	//---- Variables ------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
@@ -26,14 +26,6 @@ class ci_detallecontrato extends sagep_ci
 		}
 		return $this->s__datos[$nombre_ml];
 	}
-
-	// function get_cache_form($nombre)
-	// {
-	// 	if (!isset($this->s__datos[$nombre])) {
-	// 		$this->s__datos[$nombre] = new cache_form();
-	// 	}
-	// 	return $this->s__datos[$nombre];
-	// }
 
 	// form_detalle
 
@@ -121,7 +113,7 @@ class ci_detallecontrato extends sagep_ci
 	{
 		$this->borrar_memoria();
 		unset($this->s__datos);
-		$this->dep('ci_ubicacion')->unset_datos_form_ml_ubicacion();
+		$this->dep('ci_agregarubicacion')->unset_datos_form_ml_ubicacion();
 		$this->set_pantalla('detalle');
 	}
 
@@ -142,13 +134,13 @@ class ci_detallecontrato extends sagep_ci
 
 		$cache_ml = $this->get_cache_form_ml('form_ml_detalle');
 		$datos = $cache_ml->get_cache();
-
-		if (!$datos) {
-			if ($this->cn()->hay_cursor() ) {
-				$datos = $this->cn()->get_detalle();
-				$cache_ml->set_cache($datos);
-			}
-		}
+		//
+		// if (!$datos) {
+		// 	if ($this->cn()->hay_cursor() ) {
+		// 		$datos = $this->cn()->get_detalle();
+		// 		$cache_ml->set_cache($datos);
+		// 	}
+		// }
 		$form_ml->set_datos($datos);
 		$cache_ml->set_ml_procesado();
 		$this->cn()->resetear_cursor_detalle();
@@ -173,6 +165,7 @@ class ci_detallecontrato extends sagep_ci
 			$datos_ubicaciones = $this->cn()->get_ubicacion();
 			$this->get_cache_form_ml('form_ml_ubicacion')->set_cache($datos_ubicaciones);
 		}
+
 		$this->set_pantalla('ubicacion');
 		//$this->controlador()->controlador()->eliminar_evento('procesar');
 	}
@@ -223,19 +216,8 @@ class ci_detallecontrato extends sagep_ci
 
 	function conf__form_ml_ubicacion(sagep_ei_formulario_ml $form_ml)
 	{
-
 		$cache_ml_ubicacion = $this->get_cache_form_ml('form_ml_ubicacion');
 		$datos = $cache_ml_ubicacion->get_cache();
-
-		//ei_arbol($datos[0]);
-
-	  //$detalle = $this->s__datos['form_ml_ubicacion']['id_detalle_contrato'];
-		// if (!$datos) {
-		// 	if ($this->cn()->hay_cursor_detalle() ) {
-		// 		$datos = $this->cn()->get_ubicacion();
-		// 		$cache_ml_ubicacion->set_cache($datos);
-		// 	}
-		// }
 		$form_ml->set_datos($datos);
 	}
 
@@ -397,4 +379,5 @@ class ci_detallecontrato extends sagep_ci
 	}
 
 }
+
 ?>

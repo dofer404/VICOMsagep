@@ -16,8 +16,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_ei_formulario_ml', --clase
 	'30', --punto_montaje
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'form_ml_ubicacion', --subclase
+	'contratos/gestion_de_contratos/form_ml_ubicacion.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_gestiondecontratos - ci_modificarcontrato - ci_detallecontrato - form_ml_ubicacion', --nombre
@@ -83,7 +83,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'sagep', --proyecto
 	'3662', --evento_id
 	'4051', --objeto
-	'ubicacion', --identificador
+	'ver_ubicacion', --identificador
 	'Ver Ubicación', --etiqueta
 	'1', --maneja_datos
 	'1', --sobre_fila
@@ -114,10 +114,10 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple, es_autovinculo) VALUES (
 	'sagep', --proyecto
-	'3483', --evento_id
+	'3682', --evento_id
 	'4051', --objeto
-	'ver_imagenes', --identificador
-	'&Imagenes', --etiqueta
+	'vinculo', --identificador
+	'Historial de Estados', --etiqueta
 	'1', --maneja_datos
 	'1', --sobre_fila
 	NULL, --confirmacion
@@ -132,15 +132,15 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'0', --defecto
 	NULL, --display_datos_cargados
 	NULL, --grupo
-	NULL, --accion
+	'V', --accion
 	NULL, --accion_imphtml_debug
-	NULL, --accion_vinculo_carpeta
-	NULL, --accion_vinculo_item
+	'3693', --accion_vinculo_carpeta
+	'3771', --accion_vinculo_item
 	NULL, --accion_vinculo_objeto
-	NULL, --accion_vinculo_popup
+	'1', --accion_vinculo_popup
 	NULL, --accion_vinculo_popup_param
 	NULL, --accion_vinculo_target
-	NULL, --accion_vinculo_celda
+	'popup', --accion_vinculo_celda
 	NULL, --accion_vinculo_servicio
 	'0', --es_seleccion_multiple
 	'0'  --es_autovinculo
@@ -185,7 +185,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	'0', --filas_numerar
 	NULL, --ev_seleccion
 	NULL, --alto
-	'EVENTOS', --analisis_cambios
+	'LINEA', --analisis_cambios
 	NULL, --no_imprimir_efs_sin_estado
 	NULL, --resaltar_efs_con_estado
 	NULL, --template

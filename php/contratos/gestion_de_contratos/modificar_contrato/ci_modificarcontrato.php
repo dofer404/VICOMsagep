@@ -1,7 +1,35 @@
 <?php
 
+require_once('comunes/cache_form_ml.php');
+require_once('comunes/cache_form.php');
+
 class ci_modificarcontrato extends sagep_ci
 {
+
+	//-----------------------------------------------------------------------------------
+	//---- setters y getters ------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	// getter form_ml_cache
+
+	function get_cache_form_ml($nombre_ml)
+	{
+		if (!isset($this->s__datos[$nombre_ml])) {
+			$this->s__datos[$nombre_ml] = new cache_form_ml();
+		}
+		return $this->s__datos[$nombre_ml];
+	}
+
+	// getter form_cache
+
+	function get_cache_form($nombre)
+	{
+		if (!isset($this->s__datos[$nombre])) {
+			$this->s__datos[$nombre] = new cache_form();
+		}
+		return $this->s__datos[$nombre];
+	}
+
 	//-----------------------------------------------------------------------------------
 	//---- Variables --------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -14,26 +42,21 @@ class ci_modificarcontrato extends sagep_ci
 
 	function conf__form(sagep_ei_formulario $form)
 	{
-		//$datos = $this->dep('ci_detallecontrato')->get_cache_detalle();
-		$datos = $this->cn()->get_detalle();
-
-		ei_arbol($datos);
-
-		if (isset($this->s__datos['form'])) {
-			$form->set_datos($this->s__datos['form']);
-		} else {
-
-			if ($this->cn()->hay_cursor()) {
+		$cache_form = $this->get_cache_form('form');
+		$datos = $cache_form->get_cache();
+		if (!$datos) {
+			if ($this->cn()->hay_cursor() ) {
 				$datos = $this->cn()->get_contratos();
-				$this->s__datos['form'] = $datos;
-				$form->set_datos($datos);
+				$cache_form->set_cache($datos);
 			}
 		}
+		$form->set_datos($datos);
+
 	}
 
 	function evt__form__modificacion($datos)
 	{
-		$this->s__datos['form'] = $datos;
+		$this->get_cache_form('form')->set_cache($datos);
 		$this->cn()->set_contratos($datos);
 	}
 
@@ -43,15 +66,13 @@ class ci_modificarcontrato extends sagep_ci
 
 	function conf__form_ml_roles(sagep_ei_formulario_ml $form_ml)
 	{
-		if ($this->cn()->hay_cursor()) {
-			$datos = $this->cn()->get_roles();
-			$form_ml->set_datos($datos);
-		}
+		$datos = $this->cn()->get_roles();
+		$form_ml->set_datos($datos);
 	}
 
 	function evt__form_ml_roles__modificacion($datos)
 	{
-		$this->s__datos['form_ml_roles'] = $datos;
+		$this->get_cache_form_ml('form_ml_roles')->set_cache($datos);
 		$this->cn()->procesar_filas_roles($datos);
 	}
 
@@ -87,7 +108,6 @@ class ci_modificarcontrato extends sagep_ci
 
 	function get_detalles()
 	{
-		//$datos = $this->dep('ci_detallecontrato')->get_cache_detalle();
 		$datos = $this->cn()->get_detalle();
 		return $datos;
 	}
@@ -98,21 +118,23 @@ class ci_modificarcontrato extends sagep_ci
 
 	function conf__form_ml_detalle_ubicacion(sagep_ei_formulario_ml $form_ml)
 	{
-		if (isset($this->s__datos['form_ml_detalle_ubicacion'])) {
-			$form_ml->set_datos($this->s__datos['form_ml_detalle_ubicacion']);
-		} else {
+		$cache_form_ml_detalle_ubicacion = $this->get_cache_form_ml('form_ml_detalle_ubicacion');
+		$datos = $cache_form_ml_detalle_ubicacion->get_cache();
 
-			if ($this->cn()->hay_cursor_detalle()) {
+		if (!$datos) {
+			if ($this->cn()->hay_cursor_detalle() ) {
 				$datos = $this->cn()->get_ubicacion();
-				$this->s__datos['form_ml_detalle_ubicacion'] = $datos;
-				$form_ml->set_datos($datos);
+				$cache_form_ml_detalle_ubicacion->set_cache($datos);
 			}
+		}
+		if($datos){
+			$form_ml->set_datos($datos);
 		}
 	}
 
 	function evt__form_ml_detalle_ubicacion__modificacion($datos)
 	{
-		$this->s__datos['form_ml_detalle_ubicacion'] = $datos;
+		$this->get_cache_form_ml('form_ml_detalle_ubicacion')->set_cache($datos);
 		$this->cn()->procesar_filas_ubicacion($datos);
 	}
 
