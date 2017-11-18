@@ -1,7 +1,8 @@
 <?php
-
 require_once('comunes/cache_form.php');
 require_once('comunes/cache_form_ml.php');
+require_once('comunes/mensajes_error.php');
+
 
 class ci_agregarpersona extends sagep_ci
 {
@@ -33,6 +34,33 @@ class ci_agregarpersona extends sagep_ci
 	}
 
 	//-----------------------------------------------------------------------------------
+	//---- Eventos ----------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function evt__procesar()
+	{
+		try {
+			$this->cn()->guardar();
+			$this->evt__cancelar();
+
+		} catch (toba_error_db $e) {
+			if (!mensajes_error::$debug) {
+				//$this->cn()->reiniciar();
+				$sql_state = $e->get_sqlstate();
+				mensajes_error::get_mensaje_error($sql_state);
+				throw $e;
+			}
+		}
+	}
+
+	function evt__cancelar()
+	{
+		unset($this->s__datos);
+		$this->cn()->reiniciar();
+		$this->controlador()->set_pantalla('pant_inicial');
+	}
+
+	//-----------------------------------------------------------------------------------
 	//---- Form -------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
@@ -45,8 +73,8 @@ class ci_agregarpersona extends sagep_ci
 
 	function evt__form__modificacion($datos)
 	{
-		$this->get_cache_form('form')->set_cache($datos);
 		$this->cn()->set_personas($datos);
+		$this->get_cache_form('form')->set_cache($datos);
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -57,13 +85,18 @@ class ci_agregarpersona extends sagep_ci
 	{
 		$cache_ml_telefonos = $this->get_cache_form_ml('form_ml_telefonos');
 		$datos = $cache_ml_telefonos->get_cache();
-		$form_ml->set_datos($datos);
+		if($datos){
+			$form_ml->set_datos($datos);
+		} else {
+			$form_ml->set_registro_nuevo();
+		}
 	}
 
 	function evt__form_ml_telefonos__modificacion($datos)
 	{
-		$this->get_cache_form_ml('form_ml_telefonos')->set_cache($datos);
 		$this->cn()->procesar_filas_telefonos($datos);
+		$datos = $this->cn()->get_telefonos();
+		$this->get_cache_form_ml('form_ml_telefonos')->set_cache($datos);
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -74,13 +107,19 @@ class ci_agregarpersona extends sagep_ci
 	{
 		$cache_ml_correos = $this->get_cache_form_ml('form_ml_correos');
 		$datos = $cache_ml_correos->get_cache();
-		$form_ml->set_datos($datos);
+
+		if($datos){
+			$form_ml->set_datos($datos);
+		} else {
+			$form_ml->set_registro_nuevo();
+		 }
 	}
 
 	function evt__form_ml_correos__modificacion($datos)
 	{
-		$this->get_cache_form_ml('form_ml_correos')->set_cache($datos);
 		$this->cn()->procesar_filas_correos($datos);
+		$datos = $this->cn()->get_correos();
+		$this->get_cache_form_ml('form_ml_correos')->set_cache($datos);
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -91,7 +130,11 @@ class ci_agregarpersona extends sagep_ci
 	{
 		$cache_form_ml_direcciones = $this->get_cache_form_ml('form_ml_direcciones');
 		$datos = $cache_form_ml_direcciones->get_cache();
-		$form_ml->set_datos($datos);
+		if($datos){
+			$form_ml->set_datos($datos);
+		} else {
+		 	$form_ml->set_registro_nuevo();
+		 }
 	}
 
 	function evt__form_ml_direcciones__modificacion($datos)
@@ -114,8 +157,9 @@ class ci_agregarpersona extends sagep_ci
 
 	function evt__form_ml_cuentas__modificacion($datos)
 	{
-		$this->get_cache_form_ml('form_ml_cuentas')->set_cache($datos);
 		$this->cn()->procesar_filas_cuentas_per($datos);
+		$datos = $this->cn()->get_cuentas_per();
+		$this->get_cache_form_ml('form_ml_cuentas')->set_cache($datos);
 	}
 
 }

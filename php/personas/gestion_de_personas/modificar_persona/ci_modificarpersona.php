@@ -81,7 +81,7 @@ class ci_modificarpersona extends sagep_ci
 
 	function evt__form_ml_telefonos__modificacion($datos)
 	{
-		$this->get_cache_form_ml('form_ml_telefonos')->set_cache($datos);
+		//$this->get_cache_form_ml('form_ml_telefonos')->set_cache($datos);
 		$this->cn()->procesar_filas_telefonos($datos);
 	}
 
@@ -91,14 +91,16 @@ class ci_modificarpersona extends sagep_ci
 
 	function conf__form_ml_correos(sagep_ei_formulario_ml $form_ml)
 	{
+
 		$datos = $this->cn()->get_correos();
 		$form_ml->set_datos($datos);
 	}
 
 	function evt__form_ml_correos__modificacion($datos)
 	{
-		$this->get_cache_form_ml('form_ml_correos')->set_cache($datos);
+		//$this->get_cache_form_ml('form_ml_correos')->set_cache($datos);
 		$this->cn()->procesar_filas_correos($datos);
+
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -146,7 +148,7 @@ class ci_modificarpersona extends sagep_ci
 
 	function evt__form_ml_cuentas__modificacion($datos)
 	{
-		$this->get_cache_form_ml('form_ml_cuentas')->set_cache($datos);
+		//$this->get_cache_form_ml('form_ml_cuentas')->set_cache($datos);
 		$this->cn()->procesar_filas_cuentas_per($datos);
 	}
 

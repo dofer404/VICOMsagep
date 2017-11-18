@@ -1,6 +1,6 @@
 <?php
 require_once('personas/listado_personas/dao_listadodepersonas.php');
-require_once('mensajes_error.php');
+require_once('comunes/mensajes_error.php');
 
 class ci_listadodepersonas extends sagep_ci
 {

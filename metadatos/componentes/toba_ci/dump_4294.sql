@@ -52,9 +52,9 @@ INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_
 	'100%', --ancho
 	NULL, --alto
 	NULL, --posicion_botonera
-	'tab_h', --tipo_navegacion
+	'wizard', --tipo_navegacion
 	'0', --botonera_barra_item
-	'0', --con_toc
+	'1', --con_toc
 	NULL, --incremental
 	NULL, --debug_eventos
 	NULL, --activacion_procesar
@@ -120,7 +120,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'4294', --objeto_ci
 	'1844', --pantalla
 	'contrato', --identificador
-	'1', --orden
+	'2', --orden
 	'Contrato', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
@@ -139,7 +139,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'4294', --objeto_ci
 	'1845', --pantalla
 	'detalles', --identificador
-	'2', --orden
+	'3', --orden
 	'Detalle de Contrato', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
@@ -152,6 +152,25 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --template
 	NULL, --template_impresion
 	NULL  --punto_montaje
+);
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
+	'sagep', --objeto_ci_proyecto
+	'4294', --objeto_ci
+	'1852', --pantalla
+	'introduccion', --identificador
+	'1', --orden
+	'Introducción', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	'apex', --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL, --subclase_archivo
+	NULL, --template
+	NULL, --template_impresion
+	'30'  --punto_montaje
 );
 --- FIN Grupo de desarrollo 0
 

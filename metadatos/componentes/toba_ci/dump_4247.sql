@@ -159,9 +159,9 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
-	'2846', --dep_id
+	'2911', --dep_id
 	'4247', --objeto_consumidor
-	'4250', --objeto_proveedor
+	'4312', --objeto_proveedor
 	'form_ml_fotos', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
@@ -269,7 +269,7 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'1813', --pantalla
 	'4247', --objeto_ci
 	'2', --orden
-	'2846'  --dep_id
+	'2911'  --dep_id
 );
 
 ------------------------------------------------------------

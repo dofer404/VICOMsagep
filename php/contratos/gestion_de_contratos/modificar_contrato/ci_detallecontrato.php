@@ -320,49 +320,49 @@ class ci_detallecontrato extends sagep_ci
 		}
 	}
 
-	//-----------------------------------------------------------------------------------
-	//---- form_ml_fotos ----------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__form_ml_fotos(sagep_ei_formulario_ml $form_ml)
-	{
-		if ($this->cn()->hay_cursor_ubicaciones()) {
-			$datos = $this->cn()->get_fotos();
-			$datos = $this->cn()->get_blobs($datos);
-			$form_ml->set_datos($datos);
-		} else {
-			$form_ml->desactivar_agregado_filas();
-		}
-
-	}
-
-	function evt__form_ml_fotos__modificacion($datos)
-	{
-		$anterior = $this->get_cache_form_ml('form_ml_fotos');
-		foreach ($anterior as $keya => $valuea) {
-			foreach ($datos as $keyd => $valued) {
-				if (isset($valuea['id_foto_servicio'])){
-					if (isset($valued['id_foto_servicio'])){
-						if ($valuea['id_foto_servicio']=$valued['id_foto_servicio']){
-							if (isset($valuea['imagen']) && !isset($valued['imagen'])){
-								$datos[$keyd]['imagen'] = $valuea['imagen'];
-								$datos[$keyd]['imagen?html'] = $valuea['imagen?html'];
-								$datos[$keyd]['imagen?url'] = $valuea['imagen?url'];
-							}
-						}
-					}
-				}
-			}
-		}
-		$this->s__datos['form_ml_fotos'] = $datos;
-		if (isset ($this->s__datos['form_ml_fotos'])){
-			$this->cn()->procesar_filas_fotos($this->s__datos['form_ml_fotos']);
-			$this->cn()->set_blobs($this->s__datos['form_ml_fotos']);
-			}
-
-		//$this->cn()->resetear_cursor_ubicaciones();
-
-	}
+	// //-----------------------------------------------------------------------------------
+	// //---- form_ml_fotos ----------------------------------------------------------------
+	// //-----------------------------------------------------------------------------------
+	//
+	// function conf__form_ml_fotos(sagep_ei_formulario_ml $form_ml)
+	// {
+	// 	if ($this->cn()->hay_cursor_ubicaciones()) {
+	// 		$datos = $this->cn()->get_fotos();
+	// 		$datos = $this->cn()->get_blobs($datos);
+	// 		$form_ml->set_datos($datos);
+	// 	} else {
+	// 		$form_ml->desactivar_agregado_filas();
+	// 	}
+	//
+	// }
+	//
+	// function evt__form_ml_fotos__modificacion($datos)
+	// {
+	// 	$anterior = $this->get_cache_form_ml('form_ml_fotos');
+	// 	foreach ($anterior as $keya => $valuea) {
+	// 		foreach ($datos as $keyd => $valued) {
+	// 			if (isset($valuea['id_foto_servicio'])){
+	// 				if (isset($valued['id_foto_servicio'])){
+	// 					if ($valuea['id_foto_servicio']=$valued['id_foto_servicio']){
+	// 						if (isset($valuea['imagen']) && !isset($valued['imagen'])){
+	// 							$datos[$keyd]['imagen'] = $valuea['imagen'];
+	// 							$datos[$keyd]['imagen?html'] = $valuea['imagen?html'];
+	// 							$datos[$keyd]['imagen?url'] = $valuea['imagen?url'];
+	// 						}
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// 	$this->s__datos['form_ml_fotos'] = $datos;
+	// 	if (isset ($this->s__datos['form_ml_fotos'])){
+	// 		$this->cn()->procesar_filas_fotos($this->s__datos['form_ml_fotos']);
+	// 		$this->cn()->set_blobs($this->s__datos['form_ml_fotos']);
+	// 		}
+	//
+	// 	//$this->cn()->resetear_cursor_ubicaciones();
+	//
+	// }
 
 
 	//-----------------------------------------------------------------------------------

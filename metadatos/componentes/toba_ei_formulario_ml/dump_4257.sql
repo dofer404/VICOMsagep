@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_gestiondepersonas - ci_agregarpersona - form_ml_cuentas', --nombre
-	NULL, --titulo
+	'Cuentas', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	'sagep', --fuente_datos_proyecto
@@ -110,8 +110,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	'1', --filas_agregar
 	'1', --filas_agregar_online
 	'0', --filas_agregar_abajo
-	NULL, --filas_agregar_texto
-	'0', --filas_borrar_en_linea
+	'Agregar', --filas_agregar_texto
+	'1', --filas_borrar_en_linea
 	NULL, --filas_undo
 	'0', --filas_ordenar
 	'0', --filas_ordenar_en_linea
@@ -143,16 +143,16 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'3', --orden
 	'Cbu', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'Ingrese el numero de Cuenta Bancaria', --descripcion
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
-	NULL, --total
+	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -223,7 +223,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --orden
 	'Tipo de Cuenta', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Seleccione un Tipo de Cuenta', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -303,7 +303,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'2', --orden
 	'Entidad FInanciera', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Seleccione una Entidad Financiera', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
