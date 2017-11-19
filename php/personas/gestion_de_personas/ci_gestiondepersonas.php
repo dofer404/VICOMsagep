@@ -25,10 +25,9 @@ class ci_gestiondepersonas extends sagep_ci
 
 	function evt__cancelar()
 	{
-		//unset($this->s__datos);
-		//$this->dep('ci_modificarpersona')->disparar_limpieza_memoria();
-		$this->dep('ci_agregarpersona')->disparar_limpieza_memoria();
-		//$this->cn()->reiniciar();
+		unset($this->s__datos);
+		$this->dep('ci_modificarpersona')->disparar_limpieza_memoria();
+		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_inicial');
 	}
 
@@ -40,7 +39,7 @@ class ci_gestiondepersonas extends sagep_ci
 			$this->evt__cancelar();
 		} catch (toba_error_db $e) {
 			if (!mensajes_error::$debug) {
-				//$this->cn()->reiniciar();
+				$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
 				mensajes_error::get_mensaje_error($sql_state);
 				throw $e;
@@ -58,7 +57,6 @@ class ci_gestiondepersonas extends sagep_ci
 			if (mensajes_error::$debug) {
 				throw $e;
 			} else {
-				//$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
 				mensajes_error::get_mensaje_error($sql_state);
 			}
