@@ -33,7 +33,7 @@ class ci_gestiondeservicios extends sagep_ci
 	function evt__nuevo()
 	{
 		$this->cn()->reiniciar();
-		$this->set_pantalla('pant_edicion');
+		$this->set_pantalla('pant_nueva');
 	}
 	
 	function evt__procesar()

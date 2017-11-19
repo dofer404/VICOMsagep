@@ -292,9 +292,9 @@ class ci_agregardetalle extends sagep_ci
 
 	function conf__ubicacion(toba_ei_pantalla $pantalla)
 	{
-		$this->controlador()->controlador()->pantalla()->eliminar_evento('procesar');
-		$this->controlador()->controlador()->pantalla()->eliminar_evento('eliminar');
-		$this->controlador()->controlador()->pantalla()->eliminar_evento('cancelar');
+		$this->controlador()->pantalla()->eliminar_evento('procesar');
+	//	$this->controlador()->pantalla()->eliminar_evento('eliminar');
+		$this->controlador()->pantalla()->eliminar_evento('cancelar');
 	}
 
 	function post_eventos()

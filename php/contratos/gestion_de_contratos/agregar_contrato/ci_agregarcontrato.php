@@ -1,6 +1,7 @@
 <?php
 require_once('comunes/cache_form_ml.php');
 require_once('comunes/cache_form.php');
+require_once('comunes/mensajes_error.php');
 
 class ci_agregarcontrato extends sagep_ci
 {
@@ -35,6 +36,33 @@ class ci_agregarcontrato extends sagep_ci
 	protected $s__datos = [];
 
 	//-----------------------------------------------------------------------------------
+	//---- Eventos ----------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function evt__procesar()
+	{
+		try {
+			$this->cn()->guardar();
+			$this->evt__cancelar();
+
+		} catch (toba_error_db $e) {
+			if (!mensajes_error::$debug) {
+				//$this->cn()->reiniciar();
+				$sql_state = $e->get_sqlstate();
+				mensajes_error::get_mensaje_error($sql_state);
+				throw $e;
+			}
+		}
+	}
+
+	function evt__cancelar()
+	{
+		unset($this->s__datos);
+		$this->cn()->reiniciar();
+		$this->controlador()->set_pantalla('pant_inicial');
+	}
+
+	//-----------------------------------------------------------------------------------
 	//---- Form -------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
@@ -58,14 +86,21 @@ class ci_agregarcontrato extends sagep_ci
 
 	function conf__form_ml_roles(sagep_ei_formulario_ml $form_ml)
 	{
-		$datos = $this->cn()->get_roles();
-		$form_ml->set_datos($datos);
+		$cache_ml_roles = $this->get_cache_form_ml('form_ml_roles');
+		$datos = $cache_ml_roles->get_cache();
+		if($datos){
+			$form_ml->set_datos($datos);
+		} else {
+			$form_ml->set_registro_nuevo();
+		}
+
 	}
 
 	function evt__form_ml_roles__modificacion($datos)
 	{
-		$this->get_cache_form_ml('form_ml_roles')->set_cache($datos);
 		$this->cn()->procesar_filas_roles($datos);
+		$datos = $this->cn()->get_roles();
+		$this->get_cache_form_ml('form_ml_roles')->set_cache($datos);
 	}
 
 
@@ -99,6 +134,7 @@ class ci_agregarcontrato extends sagep_ci
 		$this->cn()->procesar_filas_ubicacion($datos);
 	}
 
-}
 
+
+}
 ?>

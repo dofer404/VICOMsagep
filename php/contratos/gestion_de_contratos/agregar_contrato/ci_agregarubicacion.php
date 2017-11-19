@@ -227,9 +227,11 @@ class ci_agregarubicacion extends sagep_ci
 		// 		$cache_ml_estado->set_cache($datos);
 		// 	}
 		// }
-	//	if($datos){
+	if($datos){
 			$form_ml->set_datos($datos);
-		//}
+	} //else {
+		//$form_ml->set_registro_nuevo();
+	//}
 	}
 
   function evt__form_ml_estados__modificacion($datos)
