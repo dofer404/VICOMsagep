@@ -220,7 +220,10 @@ class cn_gestiondecontratos extends sagep_cn
 	{
 		$datos_r = array();
 		foreach ($datos as $key => $value) {
-			$datos_r[$key] = $this->get_blob($datos[$key], $key);
+			if (isset($value['x_dbr_clave'])) {
+			$datos_r[$key] = $this->get_blob($value, $value['x_dbr_clave']);
+		}
+
 		}
 		return $datos_r;
 	}
@@ -236,7 +239,7 @@ class cn_gestiondecontratos extends sagep_cn
 			$temp_imagen = fopen($temp_archivo['path'], 'w');
 			stream_copy_to_stream($imagen, $temp_imagen);
 			fclose($temp_imagen);
-			fclose($imagen);
+			//fclose($imagen);
 			$tamano = round(filesize($temp_archivo['path']) / 1024);
 			$html_imagen =
 				"<img width=\"24px\" src='{$temp_archivo['url']}' alt='' />";

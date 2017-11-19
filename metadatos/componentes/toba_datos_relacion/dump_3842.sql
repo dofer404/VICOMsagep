@@ -69,7 +69,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'3842', --objeto_consumidor
 	'3845', --objeto_proveedor
 	'dt_correos', --identificador
-	'1', --parametros_a
+	NULL, --parametros_a
 	'', --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
@@ -93,7 +93,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'3842', --objeto_consumidor
 	'3843', --objeto_proveedor
 	'dt_personas', --identificador
-	'1', --parametros_a
+	NULL, --parametros_a
 	'', --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
@@ -105,7 +105,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'3842', --objeto_consumidor
 	'3846', --objeto_proveedor
 	'dt_personas_detalleubicacion', --identificador
-	'1', --parametros_a
+	NULL, --parametros_a
 	'', --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
@@ -117,7 +117,7 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'3842', --objeto_consumidor
 	'3844', --objeto_proveedor
 	'dt_telefonos', --identificador
-	'1', --parametros_a
+	NULL, --parametros_a
 	'', --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar

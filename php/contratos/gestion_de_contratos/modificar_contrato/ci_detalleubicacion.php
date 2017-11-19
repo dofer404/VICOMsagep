@@ -123,7 +123,7 @@ class ci_detalleubicacion extends sagep_ci
 	{
 		$this->borrar_memoria();
 		unset($this->s__datos);
-		$this->unset_datos_form_ml_fotos();
+		//$this->unset_datos_form_ml_fotos();
 		//$this->cn()->resetear_cursor_estados();
 		$this->set_pantalla('pant_inicial');
 	}
@@ -131,7 +131,7 @@ class ci_detalleubicacion extends sagep_ci
 	function evt__procesar()
 	{
 		$this->procesar_aceptar_pedido_registro_nueva_ubicacion();
-		$this->set_pantalla('pant_inicial');
+		$this->evt__cancelar();
 	}
 
   //-----------------------------------------------------------------------------------
@@ -171,6 +171,9 @@ class ci_detalleubicacion extends sagep_ci
       $this->cn()->set_cursor_ubicaciones($seleccion);
       $datos_ubicaciones = $this->cn()->get_estado();
       $this->get_cache_form_ml('form_ml_estados')->set_cache($datos_ubicaciones);
+			$datos_fotos = $this->cn()->get_fotos();
+			$datos_fotos = $this->cn()->get_blobs($datos_fotos);
+			$this->get_cache_form_ml('form_ml_fotos')->set_cache($datos_fotos);
     }
     $this->set_pantalla('pant_edicion');
   }
@@ -272,39 +275,32 @@ class ci_detalleubicacion extends sagep_ci
 
 	function conf__form_ml_fotos(sagep_ei_formulario_ml $form_ml)
 	{
+		$cache_ml_fotos = $this->get_cache_form_ml('form_ml_fotos');
+		$datos = $cache_ml_fotos->get_cache();
+		if (!$datos) {
 			if ($this->cn()->hay_cursor_ubicaciones() ) {
 				$datos = $this->cn()->get_fotos();
 				$datos = $this->cn()->get_blobs($datos);
-				$form_ml->set_datos($datos);
+				$cache_ml_fotos->set_cache($datos);
 			}
+		}
+		if($datos){
+			$form_ml->set_datos($datos);
+		}
 	}
 
 	function evt__form_ml_fotos__modificacion($datos)
 	{
 
-		$anterior = $this->get_cache_form_ml('form_ml_fotos');
-		foreach ($anterior as $keya => $valuea) {
-			foreach ($datos as $keyd => $valued) {
-				if (isset($valuea['id_foto_servicio'])){
-					if (isset($valued['id_foto_servicio'])){
-						if ($valuea['id_foto_servicio']=$valued['id_foto_servicio']){
-							if (isset($valuea['imagen']) && !isset($valued['imagen'])){
-								$datos[$keyd]['imagen'] = $valuea['imagen'];
-								$datos[$keyd]['imagen?html'] = $valuea['imagen?html'];
-								$datos[$keyd]['imagen?url'] = $valuea['imagen?url'];
-							}
-						}
-					}
-				}
-			}
-		}
-
 		if ($datos){
 			$this->cn()->procesar_filas_fotos($datos);
 			$this->cn()->set_blobs($datos);
+
+			$datos = $this->cn()->get_fotos();
+			$datos = $this->cn()->get_blobs($datos);
+
 			$this->get_cache_form_ml('form_ml_fotos')->set_cache($datos);
 			}
-
 	}
 
 }
