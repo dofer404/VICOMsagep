@@ -45,7 +45,6 @@ class ci_agregarpersona extends sagep_ci
 
 		} catch (toba_error_db $e) {
 			if (!mensajes_error::$debug) {
-				//$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
 				mensajes_error::get_mensaje_error($sql_state);
 				throw $e;
@@ -107,7 +106,6 @@ class ci_agregarpersona extends sagep_ci
 	{
 		$cache_ml_correos = $this->get_cache_form_ml('form_ml_correos');
 		$datos = $cache_ml_correos->get_cache();
-
 		if($datos){
 			$form_ml->set_datos($datos);
 		} else {
@@ -133,8 +131,8 @@ class ci_agregarpersona extends sagep_ci
 		if($datos){
 			$form_ml->set_datos($datos);
 		} else {
-		 	$form_ml->set_registro_nuevo();
-		 }
+			$form_ml->set_registro_nuevo();
+		}
 	}
 
 	function evt__form_ml_direcciones__modificacion($datos)

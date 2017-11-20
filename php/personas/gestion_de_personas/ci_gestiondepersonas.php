@@ -39,7 +39,6 @@ class ci_gestiondepersonas extends sagep_ci
 			$this->evt__cancelar();
 		} catch (toba_error_db $e) {
 			if (!mensajes_error::$debug) {
-				$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
 				mensajes_error::get_mensaje_error($sql_state);
 				throw $e;
@@ -117,10 +116,6 @@ class ci_gestiondepersonas extends sagep_ci
 		$this->cn()->cargar($seleccion);
 		$this->cn()->set_cursor($seleccion);
 		$this->set_pantalla('pant_edicion');
-	}
-
-	function evt__cuadro__eliminar($seleccion)
-	{
 	}
 
 	//-----------------------------------------------------------------------------------
