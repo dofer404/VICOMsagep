@@ -154,9 +154,7 @@ class ci_detallecontrato extends sagep_ci
 
 	function evt__form_ml_detalle__detalle($seleccion)
 	{
-		//$this->unset_cursor_detalle();
 		$this->dep('ci_detalleubicacion')->unset_datos_form_ml_ubicacion();
-
 
 		$datos_fila = $this->get_cache_form_ml('form_ml_detalle')->get_cache_fila($seleccion);
 		$this->set_cache_form_detalle($datos_fila);
@@ -167,7 +165,6 @@ class ci_detallecontrato extends sagep_ci
 			$this->get_cache_form_ml('form_ml_ubicacion')->set_cache($datos_ubicaciones);
 		}
 		$this->set_pantalla('ubicacion');
-		//$this->controlador()->controlador()->eliminar_evento('procesar');
 	}
 
 	function evt__form_ml_detalle__pedido_registro_nuevo()
@@ -212,93 +209,6 @@ class ci_detallecontrato extends sagep_ci
 	}
 
 	//-----------------------------------------------------------------------------------
-	//---- form_ml_ubicacion ------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__form_ml_ubicacion(sagep_ei_formulario_ml $form_ml)
-	{
-
-		$cache_ml_ubicacion = $this->get_cache_form_ml('form_ml_ubicacion');
-		$datos = $cache_ml_ubicacion->get_cache();
-
-		//ei_arbol($datos[0]);
-
-	  //$detalle = $this->s__datos['form_ml_ubicacion']['id_detalle_contrato'];
-		// if (!$datos) {
-		// 	if ($this->cn()->hay_cursor_detalle() ) {
-		// 		$datos = $this->cn()->get_ubicacion();
-		// 		$cache_ml_ubicacion->set_cache($datos);
-		// 	}
-		// }
-		$form_ml->set_datos($datos);
-	}
-
-	function evt__form_ml_ubicacion__modificacion($datos)
-	{
-		$this->cn()->procesar_filas_ubicacion($datos);
-		$datos = $this->cn()->get_ubicacion();
-
-		$valores = $this->get_cache_form_ml('form_ml_ubicacion')->set_cache($datos);
-	}
-
-
-	function evt__form_ml_ubicacion__ver_imagenes($seleccion)
-	{
-		$this->get_cache_form_ml('form_ml_ubicacion')->set_cursor_cache($seleccion);
-	}
-
-	function conf_evt__form_ml_ubicacion__agregar_ubicacion(toba_evento_usuario $evento, $fila)
-	{
-		$cache_ml_ubicacion = $this->get_cache_form_ml('form_ml_ubicacion');
-		$datos = $cache_ml_ubicacion->get_cache();
-
-		if (isset($datos[$fila])) {
-				//$evento->desactivar();
-		} else {
-			$evento->activar();
-		}
-	}
-
-	function evt__form_ml_ubicacion__ver_estado($seleccion)
-	{
-		$this->get_cache_form_ml('form_ml_ubicacion')->set_cursor_cache($seleccion);
-	}
-
-	function conf_evt__form_ml_ubicacion__cambiar_estado(toba_evento_usuario $evento, $fila)
-	{
-		$cache_ml_ubicacion = $this->get_cache_form_ml('form_ml_ubicacion');
-		$datos = $cache_ml_ubicacion->get_cache();
-
-		if (!isset($datos[$fila])) {
-			$evento->anular();
-		}
-	}
-
-		function conf_evt__form_ml_ubicacion__vinculo(toba_evento_usuario $evento, $fila)
-		{
-			$cache_ml_ubicacion = $this->get_cache_form_ml('form_ml_ubicacion');
-			$datos = $cache_ml_ubicacion->get_cache();
-			if (!isset($datos[$fila])) {
-				$evento->anular();
-			}
-		}
-
-		function conf_evt__form_ml_ubicacion__ver_imagenes(toba_evento_usuario $evento, $fila)
-		{
-			$cache_ml_ubicacion = $this->get_cache_form_ml('form_ml_ubicacion');
-			$datos = $cache_ml_ubicacion->get_cache();
-			if (!isset($datos[$fila])) {
-				$evento->anular();
-			}
-		}
-
-		function evt__form_ml_ubicacion__cambiar_estado($seleccion)
-		{
-			$cache_ml_ubicacion = $this->get_cache_form_ml('form_ml_ubicacion');
-			$cache_ml_ubicacion->set_cursor_cache($seleccion);
-		}
-
-	//-----------------------------------------------------------------------------------
 	//---- Configuraciones --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
@@ -318,76 +228,6 @@ class ci_detallecontrato extends sagep_ci
 			$cache_frm_ubicacion->unset_cursor_cache();
 			$this->cn()->set_cursor_ubicaciones($cursor);
 		}
-	}
-
-	// //-----------------------------------------------------------------------------------
-	// //---- form_ml_fotos ----------------------------------------------------------------
-	// //-----------------------------------------------------------------------------------
-	//
-	// function conf__form_ml_fotos(sagep_ei_formulario_ml $form_ml)
-	// {
-	// 	if ($this->cn()->hay_cursor_ubicaciones()) {
-	// 		$datos = $this->cn()->get_fotos();
-	// 		$datos = $this->cn()->get_blobs($datos);
-	// 		$form_ml->set_datos($datos);
-	// 	} else {
-	// 		$form_ml->desactivar_agregado_filas();
-	// 	}
-	//
-	// }
-	//
-	// function evt__form_ml_fotos__modificacion($datos)
-	// {
-	// 	$anterior = $this->get_cache_form_ml('form_ml_fotos');
-	// 	foreach ($anterior as $keya => $valuea) {
-	// 		foreach ($datos as $keyd => $valued) {
-	// 			if (isset($valuea['id_foto_servicio'])){
-	// 				if (isset($valued['id_foto_servicio'])){
-	// 					if ($valuea['id_foto_servicio']=$valued['id_foto_servicio']){
-	// 						if (isset($valuea['imagen']) && !isset($valued['imagen'])){
-	// 							$datos[$keyd]['imagen'] = $valuea['imagen'];
-	// 							$datos[$keyd]['imagen?html'] = $valuea['imagen?html'];
-	// 							$datos[$keyd]['imagen?url'] = $valuea['imagen?url'];
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// 	$this->s__datos['form_ml_fotos'] = $datos;
-	// 	if (isset ($this->s__datos['form_ml_fotos'])){
-	// 		$this->cn()->procesar_filas_fotos($this->s__datos['form_ml_fotos']);
-	// 		$this->cn()->set_blobs($this->s__datos['form_ml_fotos']);
-	// 		}
-	//
-	// 	//$this->cn()->resetear_cursor_ubicaciones();
-	//
-	// }
-
-
-	//-----------------------------------------------------------------------------------
-	//---- form_ml_estados --------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__form_ml_estados(sagep_ei_formulario_ml $form_ml)
-	{
-		if ($this->cn()->hay_cursor_ubicaciones()) {
-			$datos = $this->cn()->get_estados();
-			$form_ml->set_datos($datos);
-		} else {
-			$form_ml->desactivar_agregado_filas();
-		}
-
-	}
-
-	function evt__form_ml_estados__modificacion($datos)
-	{
-		$this->cn()->procesar_filas_estados($datos);
-		$this->cn()->resetear_cursor_ubicaciones();
-	}
-
-	function evt__form_ml_detalle__registro_alta($datos, $id_fila)
-	{
 	}
 
 }

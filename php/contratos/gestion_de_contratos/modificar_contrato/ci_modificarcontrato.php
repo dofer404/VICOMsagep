@@ -112,31 +112,5 @@ class ci_modificarcontrato extends sagep_ci
 		return $datos;
 	}
 
-	//-----------------------------------------------------------------------------------
-	//---- form_ml_detalle_ubicacion ----------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__form_ml_detalle_ubicacion(sagep_ei_formulario_ml $form_ml)
-	{
-		$cache_form_ml_detalle_ubicacion = $this->get_cache_form_ml('form_ml_detalle_ubicacion');
-		$datos = $cache_form_ml_detalle_ubicacion->get_cache();
-
-		if (!$datos) {
-			if ($this->cn()->hay_cursor_detalle() ) {
-				$datos = $this->cn()->get_ubicacion();
-				$cache_form_ml_detalle_ubicacion->set_cache($datos);
-			}
-		}
-		if($datos){
-			$form_ml->set_datos($datos);
-		}
-	}
-
-	function evt__form_ml_detalle_ubicacion__modificacion($datos)
-	{
-		$this->get_cache_form_ml('form_ml_detalle_ubicacion')->set_cache($datos);
-		$this->cn()->procesar_filas_ubicacion($datos);
-	}
-
 }
 ?>

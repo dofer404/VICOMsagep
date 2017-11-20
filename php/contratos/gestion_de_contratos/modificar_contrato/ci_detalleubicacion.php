@@ -200,7 +200,6 @@ class ci_detalleubicacion extends sagep_ci
 				$this->cn()->set_cursor_ubicaciones($id_interno_fila);
 			}
 		} else {
-			//$this->s__datos['form_ubicacion'] = $datos;
 			$this->set_cache_form_ubicacion($datos);
 			if ($cache_ml_ubs->hay_cursor_cache()) {
 				$id_fila = $cache_ml_ubs->get_cursor_cache();
