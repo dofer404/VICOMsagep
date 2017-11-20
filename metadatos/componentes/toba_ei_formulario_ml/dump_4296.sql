@@ -110,8 +110,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	'1', --filas_agregar
 	'1', --filas_agregar_online
 	'0', --filas_agregar_abajo
-	NULL, --filas_agregar_texto
-	'0', --filas_borrar_en_linea
+	'Agregar', --filas_agregar_texto
+	'1', --filas_borrar_en_linea
 	NULL, --filas_undo
 	'0', --filas_ordenar
 	'0', --filas_ordenar_en_linea
@@ -143,7 +143,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'2', --orden
 	'Rol', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Seleccione un Rol', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -223,7 +223,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --orden
 	'Persona', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Elija una Persona. En caso de no encontrarse, la puede crear.', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -267,8 +267,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --popup_editable
 	'scrollbars:yes', --popup_ventana
 	'get_descPopUpPersonas', --popup_carga_desc_metodo
-	'dao_gestiondepersonas', --popup_carga_desc_clase
-	'personas/gestion_de_personas/dao_gestiondepersonas.php', --popup_carga_desc_include
+	'dao_gestiondecontratos', --popup_carga_desc_clase
+	'contratos/gestion_de_contratos/dao_gestiondecontratos.php', --popup_carga_desc_include
 	'1', --popup_puede_borrar_estado
 	NULL, --fieldset_fin
 	NULL, --check_valor_si

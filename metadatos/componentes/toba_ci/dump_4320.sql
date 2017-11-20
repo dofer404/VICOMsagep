@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[4000]--  - dr_fotos_servicio 
+--[4320]--  ci_listadodeservicios 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -9,23 +9,23 @@
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, punto_montaje, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
 	'sagep', --proyecto
-	'4000', --objeto
+	'4320', --objeto
 	NULL, --anterior
 	NULL, --identificador
 	NULL, --reflexivo
 	'toba', --clase_proyecto
-	'toba_datos_relacion', --clase
+	'toba_ci', --clase
 	'30', --punto_montaje
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'ci_listadoservicios', --subclase
+	'servicios/listado_servicios/ci_listadoservicios.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'- dr_fotos_servicio', --nombre
+	'ci_listadodeservicios', --nombre
 	NULL, --titulo
-	NULL, --colapsable
+	'0', --colapsable
 	NULL, --descripcion
-	'sagep', --fuente_datos_proyecto
-	'sagep', --fuente_datos
+	NULL, --fuente_datos_proyecto
+	NULL, --fuente_datos
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obj_obs_tipo
 	NULL, --solicitud_obj_observacion
@@ -36,26 +36,35 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2017-07-11 09:16:28', --creacion
-	NULL  --posicion_botonera
+	'2017-11-20 08:55:47', --creacion
+	'abajo'  --posicion_botonera
 );
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
--- apex_objeto_datos_rel
+-- apex_objeto_mt_me
 ------------------------------------------------------------
-INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, punto_montaje, ap_clase, ap_archivo, sinc_susp_constraints, sinc_orden_automatico, sinc_lock_optimista) VALUES (
-	'sagep', --proyecto
-	'4000', --objeto
-	'0', --debug
-	NULL, --clave
-	'2', --ap
-	'30', --punto_montaje
-	NULL, --ap_clase
-	NULL, --ap_archivo
-	'0', --sinc_susp_constraints
-	'1', --sinc_orden_automatico
-	'1'  --sinc_lock_optimista
+INSERT INTO apex_objeto_mt_me (objeto_mt_me_proyecto, objeto_mt_me, ev_procesar_etiq, ev_cancelar_etiq, ancho, alto, posicion_botonera, tipo_navegacion, botonera_barra_item, con_toc, incremental, debug_eventos, activacion_procesar, activacion_cancelar, ev_procesar, ev_cancelar, objetos, post_procesar, metodo_despachador, metodo_opciones) VALUES (
+	'sagep', --objeto_mt_me_proyecto
+	'4320', --objeto_mt_me
+	NULL, --ev_procesar_etiq
+	NULL, --ev_cancelar_etiq
+	NULL, --ancho
+	NULL, --alto
+	NULL, --posicion_botonera
+	NULL, --tipo_navegacion
+	'0', --botonera_barra_item
+	'0', --con_toc
+	NULL, --incremental
+	NULL, --debug_eventos
+	NULL, --activacion_procesar
+	NULL, --activacion_cancelar
+	NULL, --ev_procesar
+	NULL, --ev_cancelar
+	NULL, --objetos
+	NULL, --post_procesar
+	NULL, --metodo_despachador
+	NULL  --metodo_opciones
 );
 
 ------------------------------------------------------------
@@ -65,71 +74,70 @@ INSERT INTO apex_objeto_datos_rel (proyecto, objeto, debug, clave, ap, punto_mon
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
-	'2909', --dep_id
-	'4000', --objeto_consumidor
-	'4225', --objeto_proveedor
-	'dt_detalleubicacion_detallecontrato', --identificador
+	'2921', --dep_id
+	'4320', --objeto_consumidor
+	'4322', --objeto_proveedor
+	'cuadro', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
-	'2'  --orden
+	NULL  --orden
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
-	'2783', --dep_id
-	'4000', --objeto_consumidor
-	'4076', --objeto_proveedor
-	'dt_fotos_servicio', --identificador
+	'2920', --dep_id
+	'4320', --objeto_consumidor
+	'4321', --objeto_proveedor
+	'filtro', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
 	NULL, --inicializar
-	'1'  --orden
+	NULL  --orden
 );
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
--- apex_objeto_datos_rel_asoc
+-- apex_objeto_ci_pantalla
 ------------------------------------------------------------
 
 --- INICIO Grupo de desarrollo 0
-INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
-	'sagep', --proyecto
-	'4000', --objeto
-	'158', --asoc_id
-	NULL, --identificador
-	'sagep', --padre_proyecto
-	'4225', --padre_objeto
-	'dt_detalleubicacion_detallecontrato', --padre_id
-	NULL, --padre_clave
-	'sagep', --hijo_proyecto
-	'4076', --hijo_objeto
-	'dt_fotos_servicio', --hijo_id
-	NULL, --hijo_clave
-	NULL, --cascada
-	'1'  --orden
+INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
+	'sagep', --objeto_ci_proyecto
+	'4320', --objeto_ci
+	'1858', --pantalla
+	'pant_inicial', --identificador
+	NULL, --orden
+	'Pantalla Inicial', --etiqueta
+	NULL, --descripcion
+	NULL, --tip
+	NULL, --imagen_recurso_origen
+	NULL, --imagen
+	NULL, --objetos
+	NULL, --eventos
+	NULL, --subclase
+	NULL, --subclase_archivo
+	NULL, --template
+	NULL, --template_impresion
+	NULL  --punto_montaje
 );
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
--- apex_objeto_rel_columnas_asoc
+-- apex_objetos_pantalla
 ------------------------------------------------------------
-INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'sagep', --proyecto
-	'4000', --objeto
-	'158', --asoc_id
-	'4225', --padre_objeto
-	'1971', --padre_clave
-	'4076', --hijo_objeto
-	'1860'  --hijo_clave
+	'1858', --pantalla
+	'4320', --objeto_ci
+	'0', --orden
+	'2920'  --dep_id
 );
-INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'sagep', --proyecto
-	'4000', --objeto
-	'158', --asoc_id
-	'4225', --padre_objeto
-	'1972', --padre_clave
-	'4076', --hijo_objeto
-	'1859'  --hijo_clave
+	'1858', --pantalla
+	'4320', --objeto_ci
+	'1', --orden
+	'2921'  --dep_id
 );

@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_gestiondecontratos - ci_agregarcontrato - ci_agregardetalle - form_ml_detalle', --nombre
-	NULL, --titulo
+	'Detalle de Contrato', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	'sagep', --fuente_datos_proyecto
@@ -143,8 +143,8 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	'1', --filas_agregar
 	'0', --filas_agregar_online
 	'0', --filas_agregar_abajo
-	NULL, --filas_agregar_texto
-	'0', --filas_borrar_en_linea
+	'Agregar', --filas_agregar_texto
+	'1', --filas_borrar_en_linea
 	NULL, --filas_undo
 	'0', --filas_ordenar
 	'0', --filas_ordenar_en_linea

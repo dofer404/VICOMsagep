@@ -1,5 +1,7 @@
 <?php
 
+require_once('parametros/direcciones/tipos_de_zonas/dao_tiposdezonas.php');
+
 class dao_gestiondeservicios{
 
   static function get_listado_servicios ($where='')
@@ -40,6 +42,26 @@ class dao_gestiondeservicios{
               WHERE t_s.parent_id_servicio=t_s.id_servicio ";
     $datos=consultar_fuente($sql);
     return $datos;
+  }
+
+  static function get_tiposZonas()
+  {
+    return dao_tiposdezonas::get_listado_tipos_zonas();
+  }
+
+  static function get_OpDescripcion($id_tipo_zona)
+  {
+    $id_tipo_zona = quote($id_tipo_zona);
+      $sql = "SELECT
+                zona.id_tipo_zona,
+                zona.descripcion
+              FROM
+                es_sagep.tipos_zonas zona
+              WHERE
+                zona.id_tipo_zona = $id_tipo_zona";
+
+      $resultado = consultar_fuente($sql);
+      return $resultado;
   }
 
 }

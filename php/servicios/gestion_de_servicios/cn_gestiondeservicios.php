@@ -23,6 +23,16 @@ class cn_gestiondeservicios extends sagep_cn
 		$this->dep('dr_servicios')->resetear();
 	}
 
+	function cargar($seleccion)
+	{
+		$this->dep('dr_servicios')->cargar($seleccion);
+	}
+
+	function eliminar()
+	{
+		$this->dep('dr_servicios')->eliminar_todo();
+	}
+
 	//----------------------------------------------------------------------------------------
 	//---- dt_servicios ----------------------------------------------------------------------
 	//----------------------------------------------------------------------------------------
@@ -37,11 +47,6 @@ class cn_gestiondeservicios extends sagep_cn
 			$fp = fopen($temp_archivo, 'rb');
 			$this->dep('dr_servicios')->tabla('dt_servicios')->set_blob('imagen', $fp);
 		}
-	}
-
-	function cargar($seleccion)
-	{
-		$this->dep('dr_servicios')->tabla('dt_servicios')->cargar($seleccion);
 	}
 
 	function get_servicios()
@@ -81,9 +86,20 @@ class cn_gestiondeservicios extends sagep_cn
 		$this->dep('dr_servicios')->tabla('dt_servicios')->set_cursor($id_fila);
 	}
 
-	function eliminar()
+	//----------------------------------------------------------------------------------------
+	//---- dt_tarifa -------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------
+
+	function procesar_filas_tarifa($datos)
 	{
-		$this->dep('dr_servicios')->tabla('dt_servicios')->eliminar_todo();
+		$this->dep('dr_servicios')->tabla('dt_tarifa')->procesar_filas($datos);
 	}
+
+	function get_tarifa()
+	{
+		$datos = $this->dep('dr_servicios')->tabla('dt_tarifa')->get_filas();
+		return $datos;
+	}
+
 }
 ?>

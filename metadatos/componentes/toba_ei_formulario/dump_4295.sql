@@ -143,16 +143,16 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'2', --orden
 	'Fecha inicio', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'Ingrese fecha de Inicio', --descripcion
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -223,7 +223,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'3', --orden
 	'Fecha fin', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'La fecha de fin se calcula de acuerdo al Tipo de Contrato', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -296,23 +296,23 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4295', --objeto_ei_formulario
 	'sagep', --objeto_ei_formulario_proyecto
 	'monto_total', --identificador
-	'ef_editable_numero', --elemento_formulario
+	'ef_editable_moneda', --elemento_formulario
 	'monto_total', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Monto total', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'El monto sera un valor calculado, según los detalles', --descripcion
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
-	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
+	'0', --estado_defecto
+	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -383,7 +383,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --orden
 	'Tipo de Contrato', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Seleccione Tipo de Contrato', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
