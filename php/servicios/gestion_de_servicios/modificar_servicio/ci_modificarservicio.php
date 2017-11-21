@@ -11,6 +11,7 @@ class ci_modificarservicio extends sagep_ci
 
 	protected $sql_state;
 	protected $s__datos = [];
+	protected $cont;
 
 	//-----------------------------------------------------------------------------------
 	//---- setters y getters ------------------------------------------------------------
@@ -93,6 +94,7 @@ class ci_modificarservicio extends sagep_ci
 				$cache_ml_tarifa->set_cache($datos);
 			}
 		}
+
 		$form_ml->set_datos($datos);
 	}
 
@@ -102,6 +104,5 @@ class ci_modificarservicio extends sagep_ci
 		$datos = $this->cn()->get_tarifa();
 		$this->get_cache_form_ml('form_ml_tarifa')->set_cache($datos);
 	}
-
 }
 ?>
