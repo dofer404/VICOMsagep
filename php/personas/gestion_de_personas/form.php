@@ -117,15 +117,21 @@ class form extends sagep_ei_formulario
 			}
 			}
 			
+			
 			//---- Procesamiento de EFs --------------------------------
 			
-			{$this->objeto_js}.evt__nro_documento__procesar = function(es_inicial)
+			{$this->objeto_js}.evt__cuil_cuit__procesar = function(es_inicial)
 			{
-			var documento = this.ef('nro_documento').get_estado();
+			var documento = this.ef('nro_documento');
+			var cuil = this.ef('cuil_cuit');
+			if(cuil.tiene_estado)
+			{
+			documento.set_estado(this.ef('cuil_cuit').get_estado().substring(2, 10));
 			}
-			
+			}
 			";
 	}
+	
 	
 }
 ?>
