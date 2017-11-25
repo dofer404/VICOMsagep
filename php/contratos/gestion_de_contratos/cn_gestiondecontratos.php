@@ -296,6 +296,21 @@ class cn_gestiondecontratos extends sagep_cn
 		$this->dep('dr_contratos')->tabla('dt_estados')->resetear_cursor();
 	}
 
+	//-----------------------------------------------------------------------------------
+	//---- dt_liquidaciones -------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function procesar_filas_liquidaciones($datos)
+	{
+		$this->dep('dr_contratos')->tabla('dt_liquidaciones')->procesar_filas($datos);
+	}
+
+	function get_liquidaciones()
+	{
+		$datos = $this->dep('dr_contratos')->tabla('dt_liquidaciones')->get_filas();
+		return $datos;
+	}
+
 
 
 }

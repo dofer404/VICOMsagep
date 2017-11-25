@@ -68,6 +68,15 @@ class dao_gestiondecontratos{
     return $datos;
   }
 
+  static function get_cantidad_meses($id_tipo_contrato)
+  {
+    $id_tipo_contrato = quote($id_tipo_contrato);
+
+    $sql = "SELECT cantidad FROM es_sagep.tipos_contratos WHERE id_tipo_contrato = $id_tipo_contrato";
+
+    return consultar_fuente($sql)[0]['cantidad'];
+  }
+
   static function get_id_detalle($id_contrato)
   {
     $id_contrato = quote($id_contrato);

@@ -183,7 +183,6 @@ class ci_detalleubicacion extends sagep_ci
     $this->get_cache_form_ml('form_ml_ubicacion')->set_pedido_registro_nuevo(true);
     $this->unset_datos_form_ubicacion();
     $this->unset_datos_form_estados();
-		$this->unset_datos_form_ml_ubicacion();
     $this->set_pantalla('pant_edicion');
   }
 
@@ -255,6 +254,8 @@ class ci_detalleubicacion extends sagep_ci
 	{
     $this->controlador()->pantalla()->eliminar_evento('procesar');
     $this->controlador()->pantalla()->eliminar_evento('cancelar');
+		$this->controlador()->controlador()->pantalla()->eliminar_tab('contrato');
+		$this->controlador()->controlador()->pantalla()->eliminar_tab('liquidaciones');
 	}
 
   function post_eventos()
@@ -300,6 +301,12 @@ class ci_detalleubicacion extends sagep_ci
 
 			$this->get_cache_form_ml('form_ml_fotos')->set_cache($datos);
 			}
+	}
+
+	function conf__pant_inicial(toba_ei_pantalla $pantalla)
+	{
+		$this->controlador()->controlador()->pantalla()->eliminar_tab('contrato');
+		$this->controlador()->controlador()->pantalla()->eliminar_tab('liquidaciones');
 	}
 
 }

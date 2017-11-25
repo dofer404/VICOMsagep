@@ -12,6 +12,11 @@ class dt_contratos extends sagep_datos_tabla
 
 
 
+
+
+
+
+
 	function get_listado()
 	{
 		$sql = "SELECT

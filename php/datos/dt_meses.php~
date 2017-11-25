@@ -1,0 +1,14 @@
+<?php
+class dt_meses extends sagep_datos_tabla
+{
+	function get_descripciones()
+	{
+		$sql = "SELECT id_mes, nombre_mes FROM meses ORDER BY nombre_mes";
+		return toba::db('sagep')->consultar($sql);
+	}
+
+
+
+
+}
+?>

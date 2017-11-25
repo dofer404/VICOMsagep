@@ -35,7 +35,7 @@ class dao_listadodepersonas{
       t_p.fecha_nacimiento,
       t_p.activo,
       t_p.logo,
-      t_ci.sigla_coniva as id_iva_nombre,
+      t_ci.nombre_coniva as id_iva_nombre,
       t_td.sigla_tipodoc as id_tipo_documento_nombre,
       t_tp.nombre_tipoper as id_tipo_persona_nombre
     FROM es_sagep.personas t_p

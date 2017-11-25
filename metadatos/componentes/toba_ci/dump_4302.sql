@@ -195,7 +195,9 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'detalle', --identificador
 	'1', --orden
 	'Detalles del Contrato', --etiqueta
-	NULL, --descripcion
+	'Ingrese Detalles del Contrato <br/>
+		 <br/> <li>Presione "Agregar" para ingresar una nueva fila</li>
+                          <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operación </li>', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -214,7 +216,9 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'ubicacion', --identificador
 	'2', --orden
 	'Ubicaciones', --etiqueta
-	NULL, --descripcion
+	'Ingrese Detalles del Contrato <br/>
+		 <br/> <li>Presione "Agregar" para ingresar una nueva fila</li>
+                          <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operación </li>', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

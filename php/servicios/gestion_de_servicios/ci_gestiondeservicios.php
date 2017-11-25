@@ -25,10 +25,11 @@ class ci_gestiondeservicios extends sagep_ci
 
 	function evt__procesar()
 	{
+		$guardado = false;
+
 		try {
 			$this->cn()->guardar();
 			$this->evt__cancelar();
-
 		} catch (toba_error_db $e) {
 			if (mensajes_error::$debug) {
 				throw $e;
@@ -37,6 +38,7 @@ class ci_gestiondeservicios extends sagep_ci
 				mensajes_error::get_mensaje_error($sql_state);
 			}
 		}
+
 	}
 
 	function evt__cancelar()

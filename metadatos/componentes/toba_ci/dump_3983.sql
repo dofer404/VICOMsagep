@@ -138,22 +138,10 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
-	'2674', --dep_id
+	'2950', --dep_id
 	'3983', --objeto_consumidor
-	'4052', --objeto_proveedor
-	'form_ml_detalle', --identificador
-	NULL, --parametros_a
-	NULL, --parametros_b
-	NULL, --parametros_c
-	NULL, --inicializar
-	NULL  --orden
-);
-INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
-	'sagep', --proyecto
-	'2652', --dep_id
-	'3983', --objeto_consumidor
-	'4064', --objeto_proveedor
-	'form_ml_detalle_ubicacion', --identificador
+	'4355', --objeto_proveedor
+	'form_ml_cuotas', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -220,10 +208,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'sagep', --objeto_ci_proyecto
 	'3983', --objeto_ci
-	'1733', --pantalla
-	'direccion', --identificador
+	'1870', --pantalla
+	'liquidaciones', --identificador
 	'3', --orden
-	'Dirección', --etiqueta
+	'Cuotas', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
@@ -234,7 +222,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --subclase_archivo
 	NULL, --template
 	NULL, --template_impresion
-	'30'  --punto_montaje
+	NULL  --punto_montaje
 );
 --- FIN Grupo de desarrollo 0
 
@@ -264,17 +252,10 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'sagep', --proyecto
-	'1733', --pantalla
+	'1870', --pantalla
 	'3983', --objeto_ci
 	'0', --orden
-	'2652'  --dep_id
-);
-INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
-	'sagep', --proyecto
-	'1733', --pantalla
-	'3983', --objeto_ci
-	'1', --orden
-	'2674'  --dep_id
+	'2950'  --dep_id
 );
 
 ------------------------------------------------------------
