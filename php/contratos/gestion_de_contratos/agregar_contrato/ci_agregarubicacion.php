@@ -250,6 +250,7 @@ class ci_agregarubicacion extends sagep_ci
 	{
     $this->controlador()->pantalla()->eliminar_evento('procesar');
     $this->controlador()->pantalla()->eliminar_evento('cancelar');
+		$this->controlador()->dep('form_detalle')->ef('cantidad')->set_solo_lectura();
 	}
 
   function post_eventos()

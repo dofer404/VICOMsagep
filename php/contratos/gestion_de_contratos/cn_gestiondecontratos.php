@@ -20,7 +20,19 @@ class cn_gestiondecontratos extends sagep_cn
 
 	function eliminar()
 	{
-		$this->dep('dr_contratos')->eliminar_todo();
+	//	$this->dep('dr_contratos')->tabla('dt_personas')->resetear();
+
+		$this->dep('dr_contratos')->tabla('dt_fotos_servicio')->eliminar_todo();
+		$this->dep('dr_contratos')->tabla('dt_historial_estado')->eliminar_todo();
+		$this->dep('dr_contratos')->tabla('dt_estados')->eliminar_todo();
+		$this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->eliminar_todo();
+		$this->dep('dr_contratos')->tabla('dt_liquidaciones')->eliminar_todo();
+		$this->dep('dr_contratos')->tabla('dt_detalles_contrato')->eliminar_todo();
+		$this->dep('dr_contratos')->tabla('dt_roles')->eliminar_todo();
+		$this->dep('dr_contratos')->tabla('dt_contratos')->eliminar_todo();
+
+		//$this->dep('dr_contratos')->eliminar_todo();
+
 	}
 
 	function cargar($seleccion)
@@ -297,7 +309,7 @@ class cn_gestiondecontratos extends sagep_cn
 	}
 
 	//-----------------------------------------------------------------------------------
-	//---- dt_liquidaciones -------------------------------------------------------------------
+	//---- dt_liquidaciones -------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
 	function procesar_filas_liquidaciones($datos)
@@ -311,6 +323,31 @@ class cn_gestiondecontratos extends sagep_cn
 		return $datos;
 	}
 
+	//-----------------------------------------------------------------------------------
+	//---- dt_personas -------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function cargar_persona($seleccion)
+	{
+		$this->dep('dr_contratos')->tabla('dt_personas')->cargar($seleccion);
+	}
+
+	function set_cursor_persona($seleccion)
+	{
+		$id_fila = $this->dep('dr_contratos')->tabla('dt_personas')->get_id_fila_condicion($seleccion)[0];
+		$this->dep('dr_contratos')->tabla('dt_personas')->set_cursor($id_fila);
+	}
+
+	function get_datos_persona()
+	{
+		$datos = $this->dep('dr_contratos')->tabla('dt_personas')->get();
+		return $datos;
+	}
+
+	function set_persona($datos)
+	{
+		$this->dep('dr_contratos')->tabla('dt_personas')->set($datos);
+	}
 
 
 }

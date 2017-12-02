@@ -119,6 +119,7 @@ class ci_detallecontrato extends sagep_ci
 	function evt__procesar()
 	{
 		$this->procesar_aceptar_pedido_registro_nuevo_detalle();
+
 		$this->set_pantalla('detalle');
 	}
 

@@ -51,13 +51,13 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'3744', --evento_id
 	'4302', --objeto
 	'cancelar', --identificador
-	'&CancelarR', --etiqueta
+	'&Volver', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	'ei-boton-izq', --estilo
 	'apex', --imagen_recurso_origen
-	NULL, --imagen
+	'deshacer.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden
@@ -84,13 +84,13 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'3743', --evento_id
 	'4302', --objeto
 	'procesar', --identificador
-	'&GuardarR', --etiqueta
+	'&Agregar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'guardar.gif', --imagen
+	'nucleo/agregar.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'2', --orden
@@ -195,9 +195,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'detalle', --identificador
 	'1', --orden
 	'Detalles del Contrato', --etiqueta
-	'Ingrese Detalles del Contrato <br/>
-		 <br/> <li>Presione "Agregar" para ingresar una nueva fila</li>
-                          <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operación </li>', --descripcion
+	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -216,9 +214,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'ubicacion', --identificador
 	'2', --orden
 	'Ubicaciones', --etiqueta
-	'Ingrese Detalles del Contrato <br/>
-		 <br/> <li>Presione "Agregar" para ingresar una nueva fila</li>
-                          <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operación </li>', --descripcion
+	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen

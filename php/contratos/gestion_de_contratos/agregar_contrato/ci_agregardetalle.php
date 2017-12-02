@@ -134,13 +134,19 @@ class ci_agregardetalle extends sagep_ci
 
 		$cache_ml = $this->get_cache_form_ml('form_ml_detalle');
 		$datos = $cache_ml->get_cache();
-		//
-		// if (!$datos) {
-		// 	if ($this->cn()->hay_cursor() ) {
-		// 		$datos = $this->cn()->get_detalle();
-		// 		$cache_ml->set_cache($datos);
-		// 	}
-		// }
+
+		if (!$datos) {
+			if ($this->cn()->hay_cursor() ) {
+				$datos = $this->cn()->get_detalle();
+				$cache_ml->set_cache($datos);
+			}
+		}
+
+		if(!$datos){
+			$this->controlador()->pantalla()->eliminar_evento('cambiar_tab__siguiente');
+			$this->controlador()->controlador()->pantalla()->agregar_notificacion('No hay registros cargados', 'warning');
+		}
+
 		$form_ml->set_datos($datos);
 		$cache_ml->set_ml_procesado();
 		$this->cn()->resetear_cursor_detalle();
@@ -295,6 +301,13 @@ class ci_agregardetalle extends sagep_ci
 		$this->controlador()->pantalla()->eliminar_evento('procesar');
 	//	$this->controlador()->pantalla()->eliminar_evento('eliminar');
 		$this->controlador()->pantalla()->eliminar_evento('cancelar');
+		$this->controlador()->pantalla()->eliminar_evento('cambiar_tab__anterior');
+		$this->controlador()->pantalla()->eliminar_evento('cambiar_tab__siguiente');
+
+		$this->controlador()->pantalla()->set_descripcion("Ingrese Detalles del Contrato <br/>
+		 <br/> <li>Presione \"Agregar\" para ingresar una nueva fila</li>
+                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
 	}
 
 	function post_eventos()
@@ -378,6 +391,13 @@ class ci_agregardetalle extends sagep_ci
 	{
 	}
 
-}
+	function conf__detalle(toba_ei_pantalla $pantalla)
+	{
+		$this->controlador()->pantalla()->set_descripcion("Ingrese Detalles del Contrato <br/>
+		 <br/> <li>Presione \"Agregar\" para ingresar una nueva fila</li>
+                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+	}
 
+}
 ?>

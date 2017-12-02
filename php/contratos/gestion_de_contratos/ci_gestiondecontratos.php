@@ -35,6 +35,9 @@ class ci_gestiondecontratos extends sagep_ci
 	{
 		//$this->dep('ci_modificarcontrato')->dep('ci_detallecontrato')->setear_todos_los_formularios();
 		try {
+			$guardado=true;
+			$this->dep('ci_modificarcontrato')->activar_persona($guardado);
+
 			$this->cn()->guardar();
 			$this->evt__cancelar();
 
@@ -52,6 +55,9 @@ class ci_gestiondecontratos extends sagep_ci
 	function evt__eliminar()
 	{
 		try {
+			$guardado=false;
+			$this->dep('ci_modificarcontrato')->activar_persona($guardado);
+			
 			$this->cn()->eliminar();
 			$this->cn()->guardar();
 			$this->evt__cancelar();

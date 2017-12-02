@@ -36,6 +36,32 @@ class ci_modificarcontrato extends sagep_ci
 	protected $s__datos = [];
 
 	//-----------------------------------------------------------------------------------
+	//---- Auxiliares -------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function activar_persona($guardado)
+	{
+		$datos_contrato = $this->get_cache_form('form')->get_cache();
+		$contratado['id_persona'] = dao_gestiondecontratos::get_contratado($datos_contrato['id_contrato']);
+
+		$this->cn()->cargar_persona($contratado);
+		$this->cn()->set_cursor_persona($contratado);
+
+		$datos = $this->cn()->get_datos_persona();
+
+		if($guardado){
+			$datos['activo'] = true;
+		} else {
+			$auxiliar = dao_gestiondecontratos::get_contrato_activo($contratado['id_persona']);
+			if($auxiliar == 1) {
+				ei_arbol($auxiliar);
+							$datos['activo'] = false;
+			}
+		}
+		$this->cn()->set_persona($datos);
+	}
+	
+	//-----------------------------------------------------------------------------------
 	//---- Form -------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
@@ -73,6 +99,8 @@ class ci_modificarcontrato extends sagep_ci
 	{
 		$this->get_cache_form_ml('form_ml_roles')->set_cache($datos);
 		$this->cn()->procesar_filas_roles($datos);
+
+		//$this->activar_persona();
 	}
 
 	function vista_jasperreports(toba_vista_jasperreports $reporte)
@@ -120,20 +148,16 @@ class ci_modificarcontrato extends sagep_ci
 		$fecha_vencimiento = new DateTime();
 		$array_cuota = [];
 		$datos = $this->cn()->get_liquidaciones();
-		//$form_ml->set_datos($datos);
 
 		$datos_contrato = $this->get_cache_form('form')->get_cache();
 
 		$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos_contrato['id_tipo_contrato']);
 
 		$fecha_inicio = strtotime(str_replace('-','/', $datos_contrato['fecha_inicio']));
-		setlocale(LC_ALL,"es_ES");
-
 
 		$mes_inicio = getdate($fecha_inicio)['mon'] - 1;
 		$anio_inicio = getdate ($fecha_inicio)['year'];
 		$anio_vencimiento = $anio_inicio;
-
 
 		for ($i=0; $i < $cantidad_meses; $i++) {
 
@@ -143,24 +167,13 @@ class ci_modificarcontrato extends sagep_ci
 				$anio_vencimiento = $anio_vencimiento + 1;
 			}
 
-
 			$mes_inicio = ($mes_inicio + 1 == 13 ? 1 : $mes_inicio + 1);
 
 			if ($mes_inicio + 1 == 13) {
-
-			//	$fecha->setDate(2001, 2, 3);
-				//echo $fecha->format('Y-m-d');
-
-				//$fecha_vencimiento =  mktime(0, 0, 0, date("$dia_vencimiento"), 1, date($anio_vencimiento));
-
 				$fecha_vencimiento =   $anio_vencimiento. "-1-" .$dia_vencimiento;
 			} else {
-				//$fecha_vencimiento =  mktime(0, 0, 0, date($dia_vencimiento), 1, date($anio_vencimiento));
-
 				$fecha_vencimiento =   $anio_vencimiento. "-" .($mes_inicio + 1). "-" .$dia_vencimiento;
 			}
-			ei_arbol($fecha_vencimiento);
-
 
 			$array_cuota[] = ['nro_cuota' => $i+1
 		                   ,'id_mes' => $mes_inicio
@@ -183,7 +196,7 @@ class ci_modificarcontrato extends sagep_ci
 		foreach ($datos as $key => $value) {
 			$datos[$key]['apex_ei_analisis_fila'] = 'A';
 		}
-		
+
 		$this->cn()->procesar_filas_liquidaciones($datos);
 		$datos = $this->cn()->get_liquidaciones();
 

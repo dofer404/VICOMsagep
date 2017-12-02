@@ -254,6 +254,8 @@ class ci_detalleubicacion extends sagep_ci
 	{
     $this->controlador()->pantalla()->eliminar_evento('procesar');
     $this->controlador()->pantalla()->eliminar_evento('cancelar');
+
+		ei_arbol($this->controlador()->controlador()->pantalla()->get_lista_tabs());
 		$this->controlador()->controlador()->pantalla()->eliminar_tab('contrato');
 		$this->controlador()->controlador()->pantalla()->eliminar_tab('liquidaciones');
 	}

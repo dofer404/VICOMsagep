@@ -72,6 +72,8 @@ class ci_agregarcontrato extends sagep_ci
 		$datos = $cache_form->get_cache();
 		$form->set_datos($datos);
 
+		$form->ef('fecha_inicio')->set_estado_defecto(date('d/m/Y'));
+
 	}
 
 	function evt__form__modificacion($datos)

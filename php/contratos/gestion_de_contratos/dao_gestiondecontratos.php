@@ -77,6 +77,34 @@ class dao_gestiondecontratos{
     return consultar_fuente($sql)[0]['cantidad'];
   }
 
+   static function get_contratado($id_contrato) {
+     $id_contrato = quote($id_contrato);
+
+     $sql = "SELECT t_roles.id_persona FROM es_sagep.roles t_roles
+                INNER JOIN es_sagep.rol t_rol ON t_roles.id_rol = t_rol.id_rol AND t_rol.nombre_rol = 'Contratado'
+            WHERE t_roles.id_contrato = $id_contrato";
+
+     return consultar_fuente($sql)[0]['id_persona'];
+
+   }
+
+   static function get_contrato_activo($contratado) {
+     $contratado = quote($contratado);
+
+     $sql = "SELECT t_roles.id_persona FROM es_sagep.roles t_roles
+              INNER JOIN es_sagep.rol t_rol ON t_roles.id_rol = t_rol.id_rol AND t_rol.nombre_rol = 'Contratado'
+              WHERE t_roles.id_persona = $contratado";
+
+      $resultado = consultar_fuente($sql);
+
+      if (count($resultado) > 0) {
+            return true;
+      } else {
+          return false;
+      }
+
+   }
+
   static function get_id_detalle($id_contrato)
   {
     $id_contrato = quote($id_contrato);

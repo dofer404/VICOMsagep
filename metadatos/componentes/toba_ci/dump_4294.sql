@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_gestiondecontratos - ci_agregarcontrato', --nombre
-	'Agregar', --titulo
+	NULL, --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
@@ -231,11 +231,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'detalles', --identificador
 	'3', --orden
 	'Detalle de Contrato', --etiqueta
-	'Ingrese Detalles del Contrato <br/>
-		 <br/> <li>Presione "Agregar" para ingresar una nueva fila</li>
-                          <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operación </li>
-
-<div style = "text-align:right">Nota: Presione "Anterior" para volver a la Pantalla de Contrato </div>', --descripcion
+	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -327,12 +323,6 @@ INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VAL
 	'1844', --pantalla
 	'4294', --objeto_ci
 	'3763', --evento_id
-	'sagep'  --proyecto
-);
-INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
-	'1845', --pantalla
-	'4294', --objeto_ci
-	'3762', --evento_id
 	'sagep'  --proyecto
 );
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
