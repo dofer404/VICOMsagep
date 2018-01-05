@@ -12,7 +12,6 @@ class ci_historialdeestados extends sagep_ci
 
 		$cuadro->desactivar_modo_clave_segura();
 	$parametro_externo = toba::memoria()->get_parametros();
-		ei_arbol($parametro_externo);
 	//
 	// // $clave_get = array (
 	// //   'id_ubicacion' => toba::memoria()->get_parametro('ubicacion');
@@ -21,7 +20,6 @@ class ci_historialdeestados extends sagep_ci
 	//
 		$id_ubicacion = toba::memoria()->get_parametro('ubicacion');
 		$id_detalle_contrato = toba::memoria()->get_parametro('detalle_contrato');
-				ei_arbol($id_detalle_contrato);
 
 
 

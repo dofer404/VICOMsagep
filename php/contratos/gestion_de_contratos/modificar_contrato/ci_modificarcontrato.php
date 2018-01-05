@@ -54,13 +54,12 @@ class ci_modificarcontrato extends sagep_ci
 		} else {
 			$auxiliar = dao_gestiondecontratos::get_contrato_activo($contratado['id_persona']);
 			if($auxiliar == 1) {
-				ei_arbol($auxiliar);
 							$datos['activo'] = false;
 			}
 		}
 		$this->cn()->set_persona($datos);
 	}
-	
+
 	//-----------------------------------------------------------------------------------
 	//---- Form -------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -158,26 +157,30 @@ class ci_modificarcontrato extends sagep_ci
 		$mes_inicio = getdate($fecha_inicio)['mon'] - 1;
 		$anio_inicio = getdate ($fecha_inicio)['year'];
 		$anio_vencimiento = $anio_inicio;
+		$periodo = $anio_inicio;
 
 		for ($i=0; $i < $cantidad_meses; $i++) {
 
 			$dia_vencimiento = 10;
 
-			if ($mes_inicio == 12) {
-				$anio_vencimiento = $anio_vencimiento + 1;
-			}
-
 			$mes_inicio = ($mes_inicio + 1 == 13 ? 1 : $mes_inicio + 1);
 
 			if ($mes_inicio + 1 == 13) {
+				$anio_vencimiento = $anio_vencimiento + 1;
 				$fecha_vencimiento =   $anio_vencimiento. "-1-" .$dia_vencimiento;
 			} else {
 				$fecha_vencimiento =   $anio_vencimiento. "-" .($mes_inicio + 1). "-" .$dia_vencimiento;
 			}
 
+			// if ($mes_inicio + 1 == 13) {
+			// 	$fecha_vencimiento =   $anio_vencimiento. "-1-" .$dia_vencimiento;
+			// } else {
+			// 	$fecha_vencimiento =   $anio_vencimiento. "-" .($mes_inicio + 1). "-" .$dia_vencimiento;
+			// }
+
 			$array_cuota[] = ['nro_cuota' => $i+1
 		                   ,'id_mes' => $mes_inicio
-										 		, 'anio' => $anio_vencimiento
+										 		, 'anio' => $periodo
 												, 'fecha_vencimiento' => $fecha_vencimiento
 												, 'monto' => 0
 												, 'descuento' => 0
@@ -185,6 +188,10 @@ class ci_modificarcontrato extends sagep_ci
 												, 'total' => 0
 												//, 'pago' => val5
 											];
+
+			if ($mes_inicio + 1 == 13) {
+							$periodo = $anio_vencimiento;
+				}
 		}
 
 		$form_ml->set_datos_defecto($array_cuota);

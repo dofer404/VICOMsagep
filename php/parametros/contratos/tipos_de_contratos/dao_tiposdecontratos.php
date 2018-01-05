@@ -19,6 +19,20 @@ class dao_tiposdecontratos{
     $datos=consultar_fuente($sql);
     return $datos;
   }
+
+  static function get_descripcion($id_tipo_contrato)
+  {
+    $id_tipo_contrato= quote($id_tipo_contrato);
+      $sql = "SELECT
+                id_tipo_contrato,
+                descripcion
+              FROM es_sagep.tipos_contratos
+              WHERE
+                id_tipo_contrato = $id_tipo_contrato";
+
+      $resultado = consultar_fuente($sql);
+      return $resultado;
+  }
 }
 
  ?>

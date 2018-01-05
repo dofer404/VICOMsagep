@@ -128,6 +128,11 @@ class dao_gestiondecontratos{
     return dao_tiposdecontratos::get_listado_tipos_contratos();
   }
 
+  static function get_descripcion()
+  {
+    return dao_tiposdecontratos::get_descripcion();
+  }
+
   static function get_tiposRol()
   {
     return dao_rol::get_listado_roles();
@@ -207,6 +212,23 @@ class dao_gestiondecontratos{
       return 'Fallo. Intente nuevamente';
     }
 
+  }
+
+  static function get_confTiposContratos($idTipoCon)
+  {
+    if (!$idTipoCon && $idTipoCon != 0) {
+      return null;
+    }
+
+    $idTipoCon = quote($idTipoCon);
+
+    $sql = "SELECT *
+              FROM es_sagep.tipos_contratos tcon
+              WHERE tcon.id_tipo_contrato = $idTipoCon";
+
+    $resultado = consultar_fuente($sql);
+
+    return $resultado[0];
   }
 
 }

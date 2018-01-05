@@ -138,12 +138,12 @@ class ci_agregarubicacion extends sagep_ci
 
 		$cache_ml = $this->get_cache_form_ml('form_ml_ubicacion');
 		$datos = $cache_ml->get_cache();
-		// if (!$datos) {
-		// 	if ($this->cn()->hay_cursor_detalle()) {
-		// 		$datos = $this->cn()->get_ubicacion();
-		// 		$cache_ml->set_cache($datos);
-		// 	}
-		// }
+		if (!$datos) {
+			if ($this->cn()->hay_cursor_detalle()) {
+				$datos = $this->cn()->get_ubicacion();
+				$cache_ml->set_cache($datos);
+			}
+		}
 		$form_ml->set_datos($datos);
 		$cache_ml->set_ml_procesado();
 		$this->cn()->resetear_cursor_ubicaciones();
@@ -186,7 +186,6 @@ class ci_agregarubicacion extends sagep_ci
 		$cache_ml_ubs = $this->get_cache_form_ml('form_ml_ubicacion');
 		if ($cache_ml_ubs->hay_pedido_registro_nuevo()) {
 			if (!$this->cn()->hay_cursor_ubicaciones()) {
-				ei_arbol($datos);
 				$id_interno_fila = $this->cn()->nueva_fila_ubicacion($datos);
 				$this->cn()->set_cursor_ubicaciones($id_interno_fila);
 			}
@@ -229,9 +228,13 @@ class ci_agregarubicacion extends sagep_ci
 		// }
 	if($datos){
 			$form_ml->set_datos($datos);
-	} //else {
-		//$form_ml->set_registro_nuevo();
-	//}
+			$form_ml->ef('fecha_cambio')->set_estado_defecto(date('d/m/Y'));
+
+	} else {
+		$form_ml->set_registro_nuevo();
+	}
+	$form_ml->ef('fecha_cambio')->set_estado_defecto(date('d/m/Y'));
+
 	}
 
   function evt__form_ml_estados__modificacion($datos)
@@ -243,6 +246,40 @@ class ci_agregarubicacion extends sagep_ci
 	}
 
 	//-----------------------------------------------------------------------------------
+	//---- form_ml_fotos ----------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_ml_fotos(sagep_ei_formulario_ml $form_ml)
+	{
+		$cache_ml_fotos = $this->get_cache_form_ml('form_ml_fotos');
+		$datos = $cache_ml_fotos->get_cache();
+		if (!$datos) {
+			if ($this->cn()->hay_cursor_ubicaciones() ) {
+				$datos = $this->cn()->get_fotos();
+				$datos = $this->cn()->get_blobs($datos);
+				$cache_ml_fotos->set_cache($datos);
+			}
+		}
+		if($datos){
+			$form_ml->set_datos($datos);
+		}
+	}
+
+	function evt__form_ml_fotos__modificacion($datos)
+	{
+
+		if ($datos){
+			$this->cn()->procesar_filas_fotos($datos);
+			$this->cn()->set_blobs($datos);
+
+			$datos = $this->cn()->get_fotos();
+			$datos = $this->cn()->get_blobs($datos);
+
+			$this->get_cache_form_ml('form_ml_fotos')->set_cache($datos);
+			}
+	}
+
+	//-----------------------------------------------------------------------------------
 	//---- Configuraciones --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
@@ -250,7 +287,12 @@ class ci_agregarubicacion extends sagep_ci
 	{
     $this->controlador()->pantalla()->eliminar_evento('procesar');
     $this->controlador()->pantalla()->eliminar_evento('cancelar');
-		$this->controlador()->dep('form_detalle')->ef('cantidad')->set_solo_lectura();
+		//$this->controlador()->dep('form_detalle')->ef('cantidad')->ocultar();
+
+		$this->controlador()->controlador()->pantalla()->set_descripcion("Ingrese Ubicación <br/>
+		 <br/>  <li>En cada ítem, se brinda una ayuda para la carga</li>
+		 <li>Presione \"Agregar\" para ingresar una Nueva Imagen</li>
+                          <li>Presione \"Aceptar\" para confirmar o \"Volver\" para ir a la Pantalla Anterior ");
 	}
 
   function post_eventos()
@@ -263,6 +305,13 @@ class ci_agregarubicacion extends sagep_ci
       $this->cn()->set_cursor_estado($cursor);
     }
   }
-}
+	function conf__pant_inicial(toba_ei_pantalla $pantalla)
+	{
+		$this->controlador()->controlador()->pantalla()->set_descripcion("Ingrese un Detalle <br/>
+		 <br/>  <li>En cada ítem, se brinda una ayuda para la carga</li>
+		 <li>Presione \"Agregar\" para ingresar una Nueva Ubicación</li>
+                          <li>Presione \"Aceptar\" para confirmar o \"Volver\" para ir a la Pantalla Anterior </li> ");
+	}
 
+}
 ?>

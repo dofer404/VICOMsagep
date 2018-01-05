@@ -144,12 +144,14 @@ class ci_gestiondepersonas extends sagep_ci
 		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/personas.jasper';
 		$reporte->set_path_reporte($path_reporte);
 
+		$filtro_reporte = $this->s__datos_filtro;
+
 		//$report='personas.jasper';
 		//$path_reporte = toba::proyecto()->get_path().'/exportaciones/jasper/'.$report;
 
 		//$reporte->set_path_reporte($path_reporte);
 		$usuario = toba::usuario()->get_nombre();
-		$reporte->set_parametro('usuarioToba', 'S', $usuario);
+	//	$reporte->set_parametro('usuarioToba', 'S', $usuario);
 
 
 		//Parametro para el titulo
@@ -160,18 +162,18 @@ class ci_gestiondepersonas extends sagep_ci
 		//$report->set_parametro('imagenprov','S',$path_imagen_provincia['path']);
 
 		//Parametros para el usuario
-		//$reporte->set_parametro('usuario', 'S', toba::usuario()->get_id());
+		$reporte->set_parametro('usuario', 'S', toba::usuario()->get_id());
 
 		//Parametros segun las opciones de filtrado
-		$filtro = '%%';
+		// $filtro = '%%';
+		//
+		// if ((trim($this->s__criterios_filtrado['apellidos']['valor']) != '')) {
+		// 	if (trim($this->s__criterios_filtrado['apellidos']['valor']) != 'nopar') {
+		// 		$filtro = utf8_encode(trim($this->s__criterios_filtrado['apellidos']['valor']));
+		// 	}
+		// }
 
-		if ((trim($this->s__criterios_filtrado['apellidos']['valor']) != '')) {
-			if (trim($this->s__criterios_filtrado['apellidos']['valor']) != 'nopar') {
-				$filtro = utf8_encode(trim($this->s__criterios_filtrado['apellidos']['valor']));
-			}
-		}
-
-		$reporte->set_parametro('apellidos', 'S', $filtro);
+	$reporte->set_parametro('idpersona', 'S', $filtro_reporte);
 		$reporte->set_parametro('nombres', 'S', $filtro);
 
 		$nombre_archivo = 'listado_personas';
@@ -201,12 +203,12 @@ class ci_gestiondepersonas extends sagep_ci
 		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/personas.jasper';
 		$reporte->set_path_reporte($path_reporte);
 		$usuario = toba::usuario()->get_nombre();
-		$apellido = $this->dep('filtro')->columna('apellidos')->get_estado();
+		//$apellido = $this->dep('filtro')->columna('apellidos')->get_estado();
 
 
 
 		$reporte->set_parametro('usuarioToba', 'S', $usuario);
-		$reporte->set_parametro('apellido', 'E', $apellido);
+		//$reporte->set_parametro('apellido', 'E', $apellido);
 
 		$nombre_archivo = 'listado_personas';
 		$reporte->set_nombre_archivo($nombre_archivo . '.pdf');

@@ -27,6 +27,7 @@ class ci_gestiondecontratos extends sagep_ci
 	{
 		unset($this->s__datos);
 		$this->dep('ci_modificarcontrato')->disparar_limpieza_memoria();
+		$this->dep('ci_agregarcontrato')->disparar_limpieza_memoria();
 		$this->cn()->reiniciar();
 		$this->set_pantalla('pant_inicial');
 	}
@@ -57,7 +58,7 @@ class ci_gestiondecontratos extends sagep_ci
 		try {
 			$guardado=false;
 			$this->dep('ci_modificarcontrato')->activar_persona($guardado);
-			
+
 			$this->cn()->eliminar();
 			$this->cn()->guardar();
 			$this->evt__cancelar();

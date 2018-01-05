@@ -73,7 +73,7 @@ class ci_agregarcontrato extends sagep_ci
 		$form->set_datos($datos);
 
 		$form->ef('fecha_inicio')->set_estado_defecto(date('d/m/Y'));
-
+		$form->ef('fecha_fin')->set_estado_defecto(date('10/01/2019'));
 	}
 
 	function evt__form__modificacion($datos)
@@ -88,11 +88,21 @@ class ci_agregarcontrato extends sagep_ci
 
 	function conf__form_ml_roles(sagep_ei_formulario_ml $form_ml)
 	{
+		$array_contratante= [];
+
 		$cache_ml_roles = $this->get_cache_form_ml('form_ml_roles');
 		$datos = $cache_ml_roles->get_cache();
 		if($datos){
 			$form_ml->set_datos($datos);
 		} else {
+
+			$array_contratante[] = ['id_persona' => 14
+		                   ,'id_rol' => 1
+											];
+
+
+			$form_ml->set_datos_defecto($array_contratante);
+			//$form_ml->set_registro_nuevo($array_contratante);
 			$form_ml->set_registro_nuevo();
 		}
 
@@ -100,6 +110,10 @@ class ci_agregarcontrato extends sagep_ci
 
 	function evt__form_ml_roles__modificacion($datos)
 	{
+		foreach ($datos as $key => $value) {
+			$datos[$key]['apex_ei_analisis_fila'] = 'A';
+		}
+		
 		$this->cn()->procesar_filas_roles($datos);
 		$datos = $this->cn()->get_roles();
 		$this->get_cache_form_ml('form_ml_roles')->set_cache($datos);
@@ -117,26 +131,6 @@ class ci_agregarcontrato extends sagep_ci
 		$datos = $this->cn()->get_detalle();
 		return $datos;
 	}
-
-	//-----------------------------------------------------------------------------------
-	//---- form_ml_detalle_ubicacion ----------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__form_ml_detalle_ubicacion(sagep_ei_formulario_ml $form_ml)
-	{
-		$cache_form_ml_detalle_ubicacion = $this->get_cache_form_ml('form_ml_detalle_ubicacion');
-		$datos = $cache_form_ml_detalle_ubicacion->get_cache();
-		$form_ml->set_datos($datos);
-
-	}
-
-	function evt__form_ml_detalle_ubicacion__modificacion($datos)
-	{
-		$this->get_cache_form_ml('form_ml_detalle_ubicacion')->set_cache($datos);
-		$this->cn()->procesar_filas_ubicacion($datos);
-	}
-
-
 
 }
 ?>

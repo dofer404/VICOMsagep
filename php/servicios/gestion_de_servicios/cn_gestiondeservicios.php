@@ -65,6 +65,7 @@ class cn_gestiondeservicios extends sagep_cn
 			fclose($temp_imagen);
 			$tamanio_imagen = round(filesize($temp_archivo['path']) / 1024);
 			$datos['imagen_vista'] = "<img src = '{$temp_archivo['url']}' alt=\"Imagen\" WIDTH=180 HEIGHT=150 >";
+			ei_arbol($temp_archivo['url']);
 			$datos['imagen'] = 'Tamaño foto actual: '.$tamanio_imagen.' KB';
 		} else {
 			$datos['imagen'] = null;
