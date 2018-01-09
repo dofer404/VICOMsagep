@@ -192,6 +192,7 @@ class ci_detalleubicacion extends sagep_ci
 
 	function evt__form_ubicacion__modificacion($datos)
 	{
+
 		$cache_ml_ubs = $this->get_cache_form_ml('form_ml_ubicacion');
 		if ($cache_ml_ubs->hay_pedido_registro_nuevo()) {
 			if (!$this->cn()->hay_cursor_ubicaciones()) {
@@ -217,7 +218,10 @@ class ci_detalleubicacion extends sagep_ci
 					$this->set_cache_form_ubicacion($datos);
 				}
 		}
+
 			$form->set_datos($datos);
+
+			//$datos_contrato['id_tipo_contrato']
 	}
 
   //-----------------------------------------------------------------------------------
@@ -226,7 +230,6 @@ class ci_detalleubicacion extends sagep_ci
 
 	function conf__form_ml_estados(sagep_ei_formulario_ml $form_ml)
 	{
-
 		$cache_ml_estado = $this->get_cache_form_ml('form_ml_estados');
 		$datos = $cache_ml_estado->get_cache();
 		if (!$datos) {
@@ -240,9 +243,7 @@ class ci_detalleubicacion extends sagep_ci
 		} else {
 			$form_ml->set_registro_nuevo();
 		}
-
 		$form_ml->ef('fecha_cambio')->set_estado_defecto(date('d/m/Y'));
-
 	}
 
   function evt__form_ml_estados__modificacion($datos)
@@ -262,13 +263,13 @@ class ci_detalleubicacion extends sagep_ci
     $this->controlador()->pantalla()->eliminar_evento('procesar');
     $this->controlador()->pantalla()->eliminar_evento('cancelar');
 
+		$this->controlador()->dep('form_detalle')->desactivar_efs('cantidad');
+		$this->controlador()->dep('form_detalle')->desactivar_efs('monto_total');
+
 		$this->controlador()->controlador()->pantalla()->eliminar_tab('contrato');
 		$this->controlador()->controlador()->pantalla()->eliminar_tab('liquidaciones');
 
-		//$this->controlador()->dep('form_detalle')->desactivar_efs('cantidad');
-	//	$this->controlador()->dep('form_detalle')->desactivar_efs('monto_total');
-		//$this->controlador()->dep('form_detalle')->desactivar_efs('observaciones');
-
+		$this->controlador()->dep('form_detalle')->ef('id_servicio')->set_solo_lectura();
 	}
 
 	function conf__pant_inicial(toba_ei_pantalla $pantalla)

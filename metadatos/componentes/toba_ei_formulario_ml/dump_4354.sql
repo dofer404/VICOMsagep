@@ -616,7 +616,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4354', --objeto_ei_formulario
 	'sagep', --objeto_ei_formulario_proyecto
 	'descuento', --identificador
-	'ef_editable', --elemento_formulario
+	'ef_oculto', --elemento_formulario
 	'descuento', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -696,7 +696,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4354', --objeto_ei_formulario
 	'sagep', --objeto_ei_formulario_proyecto
 	'recargo', --identificador
-	'ef_editable', --elemento_formulario
+	'ef_oculto', --elemento_formulario
 	'recargo', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio

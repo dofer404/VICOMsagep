@@ -190,18 +190,21 @@ class dao_gestiondecontratos{
               bar.nombre_bar,
               prov.nombre_prov,
               pais.nombre_pais,
-              det.direccion || ' al ' || det.altura ||' - Barrio '|| bar.nombre_bar ||' - '||loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais as direccion_localidad
+              zona.nombre_tipozona,
+              det.direccion || ' al ' || det.altura ||' - Barrio '|| bar.nombre_bar ||' - '|| zona.nombre_tipozona ||' - '||loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais as direccion_localidad
             FROM
               es_sagep.detalle_ubicacion det,
               es_sagep.localidades loc,
               es_sagep.barrios bar,
               es_sagep.provincias prov,
-              es_sagep.pais pais
+              es_sagep.pais pais,
+              es_sagep.tipos_zonas zona
             WHERE
             bar.id_barrio = det.id_barrio and
             loc.id_localidad = bar.id_localidad and
             prov.id_provincia = loc.id_provincia and
             pais.id_pais = prov.id_pais and
+            zona.id_tipo_zona = det.id_zona and
             det.id_ubicacion = $id_ubicacion";
 
     $resultado = consultar_fuente($sql);

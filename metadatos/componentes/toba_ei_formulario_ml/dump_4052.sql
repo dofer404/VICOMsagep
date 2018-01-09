@@ -185,7 +185,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --permitir_html
 	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	'0', --solo_lectura
+	'1', --solo_lectura
 	'0', --solo_lectura_modificacion
 	'get_servicios', --carga_metodo
 	'dao_gestiondecontratos', --carga_clase
@@ -249,7 +249,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4052', --objeto_ei_formulario
 	'sagep', --objeto_ei_formulario_proyecto
 	'cantidad', --identificador
-	'ef_fijo', --elemento_formulario
+	'ef_editable_numero', --elemento_formulario
 	'cantidad', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -257,15 +257,15 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'Cantidad', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
-	NULL, --total
+	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
-	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
+	'0', --estado_defecto
+	'1', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -409,7 +409,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4052', --objeto_ei_formulario
 	'sagep', --objeto_ei_formulario_proyecto
 	'observaciones', --identificador
-	'ef_editable_textarea', --elemento_formulario
+	'ef_oculto', --elemento_formulario
 	'observaciones', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -425,7 +425,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --permitir_html
 	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	'0', --solo_lectura
+	'1', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
 	NULL, --carga_clase

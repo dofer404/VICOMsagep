@@ -51,13 +51,13 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'3747', --evento_id
 	'4305', --objeto
 	'cancelar', --identificador
-	'&CancelarRR', --etiqueta
+	'&Volver', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	'ei-boton-izq', --estilo
 	'apex', --imagen_recurso_origen
-	NULL, --imagen
+	'deshacer.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden
@@ -84,13 +84,13 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'3746', --evento_id
 	'4305', --objeto
 	'procesar', --identificador
-	'&GuardarRR', --etiqueta
+	'&Aceptar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'guardar.gif', --imagen
+	'nucleo/agregar.gif', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'2', --orden
@@ -203,10 +203,10 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'sagep', --objeto_ci_proyecto
 	'4305', --objeto_ci
-	'1849', --pantalla
-	'pant_inicial', --identificador
-	'1', --orden
-	'Pantalla Inicial', --etiqueta
+	'1850', --pantalla
+	'pant_edicion', --identificador
+	'2', --orden
+	'Pantalla Edición', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
@@ -222,10 +222,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'sagep', --objeto_ci_proyecto
 	'4305', --objeto_ci
-	'1850', --pantalla
-	'pant_edicion', --identificador
-	'2', --orden
-	'Pantalla Edición', --etiqueta
+	'1872', --pantalla
+	'pant_inicial', --identificador
+	'1', --orden
+	'Ubicación', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
@@ -245,17 +245,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 ------------------------------------------------------------
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'sagep', --proyecto
-	'1849', --pantalla
+	'1850', --pantalla
 	'4305', --objeto_ci
-	'1', --orden
+	'2', --orden
 	'2904'  --dep_id
-);
-INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
-	'sagep', --proyecto
-	'1849', --pantalla
-	'4305', --objeto_ci
-	'0', --orden
-	'2905'  --dep_id
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'sagep', --proyecto
@@ -270,6 +263,13 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'4305', --objeto_ci
 	'0', --orden
 	'2907'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1872', --pantalla
+	'4305', --objeto_ci
+	'0', --orden
+	'2905'  --dep_id
 );
 
 ------------------------------------------------------------

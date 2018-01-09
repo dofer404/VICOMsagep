@@ -265,7 +265,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'3741', --popup_item
 	'sagep', --popup_proyecto
 	'0', --popup_editable
-	'scrollbars:yes', --popup_ventana
+	NULL, --popup_ventana
 	'get_descPopUpPersonas', --popup_carga_desc_metodo
 	'dao_gestiondecontratos', --popup_carga_desc_clase
 	'contratos/gestion_de_contratos/dao_gestiondecontratos.php', --popup_carga_desc_include

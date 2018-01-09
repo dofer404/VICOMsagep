@@ -312,7 +312,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Activo', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-	'1', --inicial
+	'0', --inicial
 	'7', --orden
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple

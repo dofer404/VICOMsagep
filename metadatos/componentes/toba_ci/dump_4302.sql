@@ -84,7 +84,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'3743', --evento_id
 	'4302', --objeto
 	'procesar', --identificador
-	'&Agregar', --etiqueta
+	'&Aceptar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
@@ -159,9 +159,9 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
-	'2908', --dep_id
+	'2955', --dep_id
 	'4302', --objeto_consumidor
-	'4310', --objeto_proveedor
+	'4094', --objeto_proveedor
 	'form_detalle', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
@@ -250,7 +250,7 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'1848', --pantalla
 	'4302', --objeto_ci
 	'0', --orden
-	'2908'  --dep_id
+	'2955'  --dep_id
 );
 
 ------------------------------------------------------------

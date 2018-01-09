@@ -302,7 +302,7 @@ class ci_agregardetalle extends sagep_ci
 	//	$this->controlador()->pantalla()->eliminar_evento('eliminar');
 		$this->controlador()->pantalla()->eliminar_evento('cancelar');
 		$this->controlador()->pantalla()->eliminar_evento('cambiar_tab__anterior');
-		//$this->controlador()->pantalla()->eliminar_evento('cambiar_tab__siguiente');
+		$this->controlador()->pantalla()->eliminar_evento('cambiar_tab__siguiente');
 
 		$this->controlador()->pantalla()->set_descripcion("Detalles del Contrato <br/>
 		 <br/> <li>Presione \"Agregar\" para ingresar un nuevo detalle</li>

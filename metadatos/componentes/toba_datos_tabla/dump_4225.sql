@@ -72,7 +72,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'sagep', --objeto_proyecto
 	'4225', --objeto
-	'1971', --col_id
+	'2057', --col_id
 	'id_ubicacion', --columna
 	'E', --tipo
 	'1', --pk
@@ -86,7 +86,7 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'sagep', --objeto_proyecto
 	'4225', --objeto
-	'1972', --col_id
+	'2058', --col_id
 	'id_detalle_contrato', --columna
 	'E', --tipo
 	'1', --pk
@@ -94,6 +94,48 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
+	'0', --externa
+	'detalleubicacion_detallecontrato'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'sagep', --objeto_proyecto
+	'4225', --objeto
+	'2059', --col_id
+	'cantidad', --columna
+	'E', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0', --externa
+	'detalleubicacion_detallecontrato'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'sagep', --objeto_proyecto
+	'4225', --objeto
+	'2060', --col_id
+	'monto_unitario', --columna
+	'N', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	'0', --externa
+	'detalleubicacion_detallecontrato'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'sagep', --objeto_proyecto
+	'4225', --objeto
+	'2061', --col_id
+	'monto_total', --columna
+	'N', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
 	'0', --externa
 	'detalleubicacion_detallecontrato'  --tabla
 );

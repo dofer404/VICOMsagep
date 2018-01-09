@@ -51,13 +51,13 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'3678', --evento_id
 	'4247', --objeto
 	'procesar', --identificador
-	'&GuardarRR', --etiqueta
+	'&Aceptar', --etiqueta
 	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
-	'guardar.gif', --imagen
+	'aplicar.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'1', --orden
@@ -84,13 +84,13 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'3679', --evento_id
 	'4247', --objeto
 	'cancelar', --identificador
-	'&CancelarRR', --etiqueta
+	'&Volver', --etiqueta
 	'0', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	'ei-boton-izq', --estilo
 	'apex', --imagen_recurso_origen
-	'prohibido.png', --imagen
+	'deshacer.png', --imagen
 	'1', --en_botonera
 	NULL, --ayuda
 	'2', --orden
@@ -171,9 +171,9 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
-	'2841', --dep_id
+	'2957', --dep_id
 	'4247', --objeto_consumidor
-	'4051', --objeto_proveedor
+	'4357', --objeto_proveedor
 	'form_ml_ubicacion', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
@@ -183,9 +183,9 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
-	'2842', --dep_id
+	'2959', --dep_id
 	'4247', --objeto_consumidor
-	'4248', --objeto_proveedor
+	'4358', --objeto_proveedor
 	'form_ubicacion', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
@@ -226,7 +226,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'pant_edicion', --identificador
 	'2', --orden
 	'Agregar', --etiqueta
-	'Agregar Ubicación', --descripcion
+	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -248,14 +248,7 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'1812', --pantalla
 	'4247', --objeto_ci
 	'0', --orden
-	'2841'  --dep_id
-);
-INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
-	'sagep', --proyecto
-	'1813', --pantalla
-	'4247', --objeto_ci
-	'0', --orden
-	'2842'  --dep_id
+	'2957'  --dep_id
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'sagep', --proyecto
@@ -270,6 +263,13 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'4247', --objeto_ci
 	'2', --orden
 	'2911'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1813', --pantalla
+	'4247', --objeto_ci
+	'0', --orden
+	'2959'  --dep_id
 );
 
 ------------------------------------------------------------

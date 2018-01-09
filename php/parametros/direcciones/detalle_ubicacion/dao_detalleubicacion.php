@@ -20,19 +20,21 @@ class dao_detalleubicacion{
               det.id_ubicacion,
               det.direccion,
               det.altura,
+              zona.nombre_tipozona as tipo_zona,
               loc.id_localidad,
               bar.id_barrio,
               bar.nombre_bar as nombre_barrio,
               prov.id_provincia,
               pais.id_pais,
               loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais as pais_provincia_localidad,
-              det.direccion || ', ' || loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais as direccion_localidad
+              det.direccion || ' - ' || zona.nombre_tipozona ||' - '||loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais as direccion_localidad
             FROM es_sagep.detalle_ubicacion det
 
             JOIN es_sagep.barrios bar ON det.id_barrio = bar.id_barrio
             JOIN es_sagep.localidades loc ON loc.id_localidad = bar.id_localidad
             JOIN es_sagep.provincias prov ON loc.id_provincia = prov.id_provincia
             JOIN es_sagep.pais pais ON prov.id_pais = pais.id_pais
+            JOIN es_sagep.tipos_zonas zona ON zona.id_tipo_zona = det.id_zona
 
               $where_armado";
 

@@ -209,7 +209,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'Contrato', --etiqueta
 	'Ingrese Datos del Contrato <br/>
 		 <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
-                          <li>Presione "Agregar" para ingresar una nueva fila</li>
+                          <li>Presione "Agregar" para ingresar un nuevo Rol</li>
                           <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operación </li>
 
 <div style = "text-align:right">Nota: Presione "Anterior" para volver a la Pantalla Inicial </div>', --descripcion
@@ -266,7 +266,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'sagep', --objeto_ci_proyecto
 	'4294', --objeto_ci
-	'1869', --pantalla
+	'1871', --pantalla
 	'liquidaciones', --identificador
 	'4', --orden
 	'Cuotas', --etiqueta
@@ -280,7 +280,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --subclase_archivo
 	NULL, --template
 	NULL, --template_impresion
-	NULL  --punto_montaje
+	'30'  --punto_montaje
 );
 --- FIN Grupo de desarrollo 0
 
@@ -310,7 +310,7 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'sagep', --proyecto
-	'1869', --pantalla
+	'1871', --pantalla
 	'4294', --objeto_ci
 	'0', --orden
 	'2949'  --dep_id
@@ -328,6 +328,18 @@ INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VAL
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
 	'1845', --pantalla
 	'4294', --objeto_ci
+	'3762', --evento_id
+	'sagep'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1845', --pantalla
+	'4294', --objeto_ci
 	'3763', --evento_id
+	'sagep'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1871', --pantalla
+	'4294', --objeto_ci
+	'3762', --evento_id
 	'sagep'  --proyecto
 );

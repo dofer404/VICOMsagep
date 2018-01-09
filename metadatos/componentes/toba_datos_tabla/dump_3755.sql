@@ -72,20 +72,6 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'sagep', --objeto_proyecto
 	'3755', --objeto
-	'1542', --col_id
-	'cantidad', --columna
-	'N', --tipo
-	'0', --pk
-	'', --secuencia
-	NULL, --largo
-	NULL, --no_nulo
-	'1', --no_nulo_db
-	'0', --externa
-	'tipos_contratos'  --tabla
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
-	'sagep', --objeto_proyecto
-	'3755', --objeto
 	'1543', --col_id
 	'descripcion', --columna
 	'C', --tipo
@@ -124,5 +110,19 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	'1', --no_nulo_db
 	'0', --externa
 	'tipos_contratos'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'sagep', --objeto_proyecto
+	'3755', --objeto
+	'2053', --col_id
+	'cantidad', --columna
+	'E', --tipo
+	'0', --pk
+	NULL, --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	'0', --externa
+	NULL  --tabla
 );
 --- FIN Grupo de desarrollo 0

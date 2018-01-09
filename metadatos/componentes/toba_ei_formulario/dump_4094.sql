@@ -122,7 +122,23 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --analisis_cambios
 	'0', --no_imprimir_efs_sin_estado
 	'0', --resaltar_efs_con_estado
-	NULL, --template
+	'<table>
+	<tbody>
+		<tr>
+			<td>
+				[ef id=id_servicio]</td>
+			<td>
+				[ef id=cantidad]</td>
+			<td>
+				[ef id=monto_total]</td>
+		</tr>
+		<tr>
+			<td>
+				[ef id=observaciones]</td>
+		</tr>
+	</tbody>
+</table>
+<p>&nbsp;</p>', --template
 	NULL  --template_impresion
 );
 
@@ -143,7 +159,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --orden
 	'Servico', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'Seleccione un Servicio', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -221,18 +237,18 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
-	'Cantidad', --etiqueta
+	'Cantidad Total', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'La cantidad sera un valor calculado, según los detalles', --descripcion
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
-	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
+	'0', --estado_defecto
+	'1', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -301,9 +317,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'3', --orden
-	'Monto total', --etiqueta
+	'Monto Total', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
+	'El monto sera un valor calculado, según los detalles', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -311,8 +327,8 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --inicializacion
 	'0', --permitir_html
 	'0', --deshabilitar_rest_func
-	NULL, --estado_defecto
-	'0', --solo_lectura
+	'0', --estado_defecto
+	'1', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -376,23 +392,23 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4094', --objeto_ei_formulario
 	'sagep', --objeto_ei_formulario_proyecto
 	'observaciones', --identificador
-	'ef_editable_textarea', --elemento_formulario
+	'ef_oculto', --elemento_formulario
 	'observaciones', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'4', --orden
 	'Observaciones', --etiqueta
 	NULL, --etiqueta_estilo
-	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'Opcionalmente, puede agregar una descripción del servicio contratado.', --descripcion
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
 	NULL, --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -415,11 +431,11 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_mascara
 	NULL, --edit_unidad
 	NULL, --edit_rango
-	NULL, --edit_filas
-	NULL, --edit_columnas
+	'6', --edit_filas
+	'40', --edit_columnas
 	NULL, --edit_wrap
-	NULL, --edit_resaltar
-	NULL, --edit_ajustable
+	'0', --edit_resaltar
+	'0', --edit_ajustable
 	NULL, --edit_confirmar_clave
 	NULL, --edit_expreg
 	NULL, --popup_item

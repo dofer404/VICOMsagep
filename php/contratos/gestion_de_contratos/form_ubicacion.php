@@ -1,5 +1,5 @@
 <?php
-class form_detalle extends sagep_ei_formulario
+class form_ubicacion extends sagep_ei_formulario
 {
 	//-----------------------------------------------------------------------------------
 	//---- JAVASCRIPT -------------------------------------------------------------------
@@ -10,22 +10,32 @@ class form_detalle extends sagep_ei_formulario
 		echo "
 		//---- Procesamiento de EFs --------------------------------
 
-		{$this->objeto_js}.evt__cantidad__procesar = function(es_inicial)
+		{$this->objeto_js}.evt__monto_unitario__procesar = function(es_inicial)
 		{
-			var parametro = this.dep('form_flickr').ef('tag').get_estado();
+			var direccion=this.ef('id_ubicacion');
+
+      if(direccion.tiene_estado)
+      {
+      this.ef('monto_unitario').set_estado(100);
+      }
+
 		}
 
 		{$this->objeto_js}.evt__monto_total__procesar = function(es_inicial)
 		{
-					var cantidad = this.ef('cantidad').valor();
-					this.ef('monto_total').cambiar_valor(cantidad*200);
-		}
+			var cantidad=this.ef('cantidad');
+			var monto=this.ef('monto_unitario');
 
-		{$this->objeto_js}.evt__observaciones__procesar = function(es_inicial)
-		{
+
+			if(cantidad.tiene_estado)
+			{
+			this.ef('monto_total').set_estado(cantidad.get_estado()*monto.get_estado());
+			}
+
 		}
 		";
 	}
 
 }
+
 ?>
