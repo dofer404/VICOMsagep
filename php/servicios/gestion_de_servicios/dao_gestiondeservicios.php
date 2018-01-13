@@ -88,7 +88,12 @@ class dao_gestiondeservicios{
                 WHERE serv.id_servicio = tar.id_servicio AND det_ub.id_zona = tar.id_tipo_zona AND tar.id_tipo_zona = zona.id_tipo_zona AND det_ub.id_ubicacion = $id_ubicacion AND serv.id_servicio = $id_servicio ";
 
         $resultado = consultar_fuente($sql);
-        return $resultado[0];
+
+        if(count($resultado)){
+          return $resultado[0];
+        } else {
+          return ['monto' => -1];
+        }
   }
 
 }

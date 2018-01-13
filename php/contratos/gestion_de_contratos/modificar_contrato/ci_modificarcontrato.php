@@ -74,6 +74,10 @@ class ci_modificarcontrato extends sagep_ci
 				$cache_form->set_cache($datos);
 			}
 		}
+		$monto_total = $this->dep('ci_detallecontrato')->calcular_monto();
+
+		$datos = array_merge($datos, $monto_total);
+
 		$form->set_datos($datos);
 
 	}
