@@ -211,9 +211,9 @@ class ci_detallecontrato extends sagep_ci
 			if (!$datos) {
 				$datos = $this->cn()->get_unDetalle();
 			}
-		//	$cant_total = $this->dep('ci_detalleubicacion')->calcular_cantidad();
+			$cant_total = $this->dep('ci_detalleubicacion')->calcular_cantidad();
 
-			//$datos = array_merge($datos, $cant_total);
+			$datos = array_merge($datos, $cant_total);
 
 			$form->set_datos($datos);
 		}

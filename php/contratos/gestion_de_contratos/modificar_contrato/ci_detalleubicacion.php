@@ -199,7 +199,7 @@ class ci_detalleubicacion extends sagep_ci
 				$id_interno_fila = $this->cn()->nueva_fila_ubicacion($datos);
 				$this->cn()->set_cursor_ubicaciones($id_interno_fila);
 			} else {
-				//$this->cn()->set_ubicacion($datos);
+				$this->cn()->set_ubicacion($datos);
 			}
 		} else {
 			$this->set_cache_form_ubicacion($datos);
@@ -207,9 +207,9 @@ class ci_detalleubicacion extends sagep_ci
 				$id_fila = $cache_ml_ubs->get_cursor_cache();
 				$cache_ml_ubs->set_cache_fila($id_fila, $datos);
 			} else {
-				//if($this->cn()->hay_cursor_ubicaciones()){
-					//$this->cn()->set_ubicacion($datos);
-				//} 
+				if($this->cn()->hay_cursor_ubicaciones()){
+					$this->cn()->set_ubicacion($datos);
+				}
 			}
 		}
 	}
@@ -275,16 +275,16 @@ class ci_detalleubicacion extends sagep_ci
 
 			function calcular_cantidad()
 			{
-			//  $datos_ubicaciones = $this->get_cache_form_ml('form_ml_ubicacion')->get_cache();
-			//  $cant = 0;
-			//  $monto = 0;
-			 //
-			//  foreach ($datos_ubicaciones as $key => $value) {
-			//  	$cant += $value['cantidad'];
-			// 	$monto += $value['monto_total'];
-			//  }
-			 //
-			//  return ['cantidad'=>$cant, 'monto_total'=>$monto];
+			 $datos_ubicaciones = $this->get_cache_form_ml('form_ml_ubicacion')->get_cache();
+			 $cant = 0;
+			 $monto = 0;
+
+			 foreach ($datos_ubicaciones as $key => $value) {
+			 	$cant += $value['cantidad'];
+				$monto += $value['monto_total'];
+			 }
+
+			 return ['cantidad'=>$cant, 'monto_total'=>$monto];
 		}
 
 	//-----------------------------------------------------------------------------------
