@@ -150,6 +150,11 @@ class cn_gestiondecontratos extends sagep_cn
 	//---- dt_detalleubicacion_detallecontrato -------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
+	function set_ubicacion($datos)
+	{
+		$this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->set($datos);
+	}
+
 	function eliminar_fila_cursor_ubicacion()
 	{
 		$id_interno = $this->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato')->get_cursor();

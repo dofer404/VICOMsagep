@@ -64,6 +64,33 @@ class dao_gestiondeservicios{
       return $resultado;
   }
 
+  static function get_zona($id_ubicacion) {
+
+    $id_ubicacion = quote($id_ubicacion);
+
+    $sql = "SELECT id_zona FROM es_sagep.tarifa WHERE id_servicio = $id_servicio AND id_tipo_zona = $id_tipo_zona";
+
+    return consultar_fuente($sql)[0]['monto'];
+
+  }
+
+  static function get_tarifa($id_ubicacion, $id_servicio) {
+
+    if (!$id_ubicacion && $id_ubicacion != 0) {
+          return null;
+        }
+
+        $id_ubicacion = quote($id_ubicacion);
+        $id_servicio = quote($id_servicio);
+
+        $sql = "SELECT tar.monto
+                FROM es_sagep.tarifa tar, es_sagep.detalle_ubicacion det_ub, es_sagep.servicios serv, es_sagep.tipos_zonas zona
+                WHERE serv.id_servicio = tar.id_servicio AND det_ub.id_zona = tar.id_tipo_zona AND tar.id_tipo_zona = zona.id_tipo_zona AND det_ub.id_ubicacion = $id_ubicacion AND serv.id_servicio = $id_servicio ";
+
+        $resultado = consultar_fuente($sql);
+        return $resultado[0];
+  }
+
 }
 
  ?>

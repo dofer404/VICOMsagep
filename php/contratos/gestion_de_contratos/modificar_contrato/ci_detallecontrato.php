@@ -110,6 +110,8 @@ class ci_detallecontrato extends sagep_ci
 
 	function evt__cancelar()
 	{
+		$this->procesar_cacnelar_pedido_registro_nuevo_detalle();
+
 		$this->borrar_memoria();
 		unset($this->s__datos);
 		$this->dep('ci_detalleubicacion')->unset_datos_form_ml_ubicacion();
@@ -119,7 +121,6 @@ class ci_detallecontrato extends sagep_ci
 	function evt__procesar()
 	{
 		$this->procesar_aceptar_pedido_registro_nuevo_detalle();
-
 		$this->set_pantalla('detalle');
 	}
 
@@ -134,7 +135,6 @@ class ci_detallecontrato extends sagep_ci
 
 		$cache_ml = $this->get_cache_form_ml('form_ml_detalle');
 		$datos = $cache_ml->get_cache();
-
 		if (!$datos) {
 			if ($this->cn()->hay_cursor() ) {
 				$datos = $this->cn()->get_detalle();
@@ -162,7 +162,7 @@ class ci_detallecontrato extends sagep_ci
 
 		if ($this->cn()->existe_fila_detalle($seleccion) ) {
 			$this->cn()->set_cursor_detalle($seleccion);
-			$datos_ubicaciones = $this->cn()->get_ubicacion();
+		$datos_ubicaciones = $this->cn()->get_ubicacion();
 			$this->get_cache_form_ml('form_ml_ubicacion')->set_cache($datos_ubicaciones);
 		}
 		$this->set_pantalla('ubicacion');
@@ -183,20 +183,26 @@ class ci_detallecontrato extends sagep_ci
 
 	function evt__form_detalle__modificacion($datos)
 	{
+		$this->set_cache_form_detalle($datos);
 		$cache_ml_dets = $this->get_cache_form_ml('form_ml_detalle');
 		if ($cache_ml_dets->hay_pedido_registro_nuevo()) {
 			if (!$this->cn()->hay_cursor_detalle()) {
 				$id_interno_fila = $this->cn()->nueva_fila_detalle($datos);
 				$this->cn()->set_cursor_detalle($id_interno_fila);
+			} else {
+				$this->cn()->set_detalle($datos); //nueva linea
 			}
 		} else {
-			$this->set_cache_form_detalle($datos);
 			if ($cache_ml_dets->hay_cursor_cache()) {
 				$id_fila = $cache_ml_dets->get_cursor_cache();
 				$cache_ml_dets->set_cache_fila($id_fila, $datos);
+			} else {
+				if($this->cn()->hay_cursor_detalle()){
+					$this->cn()->set_detalle($datos);
 			}
 		}
 	}
+}
 
 	function conf__form_detalle(sagep_ei_formulario $form)
 	{
@@ -205,6 +211,10 @@ class ci_detallecontrato extends sagep_ci
 			if (!$datos) {
 				$datos = $this->cn()->get_unDetalle();
 			}
+		//	$cant_total = $this->dep('ci_detalleubicacion')->calcular_cantidad();
+
+			//$datos = array_merge($datos, $cant_total);
+
 			$form->set_datos($datos);
 		}
 	}

@@ -123,15 +123,16 @@ class ci_detalleubicacion extends sagep_ci
 	{
 		$this->borrar_memoria();
 		unset($this->s__datos);
+		$this->unset_datos_form_ubicacion();
+		$this->unset_datos_form_ml_ubicacion();
 		//$this->unset_datos_form_ml_fotos();
-		//$this->cn()->resetear_cursor_estados();
 		$this->set_pantalla('pant_inicial');
 	}
 
 	function evt__procesar()
 	{
 		$this->procesar_aceptar_pedido_registro_nueva_ubicacion();
-		$this->evt__cancelar();
+		$this->set_pantalla('pant_inicial');
 	}
 
   //-----------------------------------------------------------------------------------
@@ -192,18 +193,23 @@ class ci_detalleubicacion extends sagep_ci
 
 	function evt__form_ubicacion__modificacion($datos)
 	{
-
 		$cache_ml_ubs = $this->get_cache_form_ml('form_ml_ubicacion');
 		if ($cache_ml_ubs->hay_pedido_registro_nuevo()) {
 			if (!$this->cn()->hay_cursor_ubicaciones()) {
 				$id_interno_fila = $this->cn()->nueva_fila_ubicacion($datos);
 				$this->cn()->set_cursor_ubicaciones($id_interno_fila);
+			} else {
+				//$this->cn()->set_ubicacion($datos);
 			}
 		} else {
 			$this->set_cache_form_ubicacion($datos);
 			if ($cache_ml_ubs->hay_cursor_cache()) {
 				$id_fila = $cache_ml_ubs->get_cursor_cache();
 				$cache_ml_ubs->set_cache_fila($id_fila, $datos);
+			} else {
+				//if($this->cn()->hay_cursor_ubicaciones()){
+					//$this->cn()->set_ubicacion($datos);
+				//} 
 			}
 		}
 	}
@@ -253,6 +259,33 @@ class ci_detalleubicacion extends sagep_ci
 
 		$this->get_cache_form_ml('form_ml_estados')->set_cache($datos);
 	}
+
+	//-----------------------------------------------------------------------------------
+	//---- Funciones Auxiliares --------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+      function ajax__get_tarifa($id, toba_ajax_respuesta $respuesta)
+      {
+				$datos_detalle = $this->controlador()->get_cache_form_detalle();
+
+				$datos = dao_gestiondeservicios::get_tarifa($id, $datos_detalle['id_servicio']);
+        $respuesta->set($datos);
+      }
+
+
+			function calcular_cantidad()
+			{
+			//  $datos_ubicaciones = $this->get_cache_form_ml('form_ml_ubicacion')->get_cache();
+			//  $cant = 0;
+			//  $monto = 0;
+			 //
+			//  foreach ($datos_ubicaciones as $key => $value) {
+			//  	$cant += $value['cantidad'];
+			// 	$monto += $value['monto_total'];
+			//  }
+			 //
+			//  return ['cantidad'=>$cant, 'monto_total'=>$monto];
+		}
 
 	//-----------------------------------------------------------------------------------
 	//---- Configuraciones --------------------------------------------------------------
