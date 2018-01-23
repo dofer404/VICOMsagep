@@ -328,12 +328,6 @@ INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VAL
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
 	'1845', --pantalla
 	'4294', --objeto_ci
-	'3762', --evento_id
-	'sagep'  --proyecto
-);
-INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
-	'1845', --pantalla
-	'4294', --objeto_ci
 	'3763', --evento_id
 	'sagep'  --proyecto
 );

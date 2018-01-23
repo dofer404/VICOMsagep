@@ -69,6 +69,7 @@ class ci_agregarcontrato extends sagep_ci
 
 	function conf__form(sagep_ei_formulario $form)
 	{
+		$cantidad_meses = 0;
 		$cache_form = $this->get_cache_form('form');
 		$datos = $cache_form->get_cache();
 
@@ -79,14 +80,18 @@ class ci_agregarcontrato extends sagep_ci
 			}
 		}
 
-		$monto_total = $this->dep('ci_agregardetalle')->calcular_monto();
+		if($datos) {
+			$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos['id_tipo_contrato']);
+		}
+
+		$monto_total = $this->dep('ci_agregardetalle')->calcular_monto($cantidad_meses);
 
 		$datos = array_merge($datos, $monto_total);
 
 		$form->set_datos($datos);
 
 		$form->ef('fecha_inicio')->set_estado_defecto(date('d/m/Y'));
-		$form->ef('fecha_fin')->set_estado_defecto(date('10/01/2019'));
+		//$form->ef('fecha_fin')->set_estado_defecto(date('10/01/2019'));
 	}
 
 	function evt__form__modificacion($datos)
@@ -101,23 +106,25 @@ class ci_agregarcontrato extends sagep_ci
 
 	function conf__form_ml_roles(sagep_ei_formulario_ml $form_ml)
 	{
-		$array_contratante= [];
+		//$array_contratante= [];
 
 		$cache_ml_roles = $this->get_cache_form_ml('form_ml_roles');
 		$datos = $cache_ml_roles->get_cache();
-		if($datos){
-			$form_ml->set_datos($datos);
-		} else {
+		$form_ml->set_datos($datos);
 
-			$array_contratante[0] = ['id_persona' => 14
-		                   ,'id_rol' => 1
-											];
-
-
-			$form_ml->set_datos_defecto($array_contratante);
-			//$form_ml->set_registro_nuevo($array_contratante);
-			$form_ml->set_registro_nuevo();
-		}
+		// if($datos){
+		// 	$form_ml->set_datos($datos);
+		// } else {
+		//
+		// 	// $array_contratante[0] = ['id_persona' => 14
+		//   //                  ,'id_rol' => 1
+		// 	// 								];
+		// 	//
+		// 	//
+		// 	// $form_ml->set_datos_defecto($array_contratante);
+		// 	// //$form_ml->set_registro_nuevo($array_contratante);
+		// 	// $form_ml->set_registro_nuevo();
+		// }
 
 	}
 
@@ -143,6 +150,78 @@ class ci_agregarcontrato extends sagep_ci
 	{
 		$datos = $this->cn()->get_detalle();
 		return $datos;
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form_ml_cuotas ---------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_ml_cuotas(sagep_ei_formulario_ml $form_ml)
+	{
+		$fecha_vencimiento = new DateTime();
+		$array_cuota = [];
+		$monto_total = 0;
+		$datos = $this->cn()->get_liquidaciones();
+
+		$datos_contrato = $this->get_cache_form('form')->get_cache();
+		$datos_detalle = $this->dep('ci_agregardetalle')->get_cache_form_ml('form_ml_detalle')->get_cache();
+
+
+		//ei_arbol($datos_contrato);
+
+		$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos_contrato['id_tipo_contrato']);
+
+		$fecha_inicio = strtotime(str_replace('-','/', $datos_contrato['fecha_inicio']));
+
+		$mes_inicio = getdate($fecha_inicio)['mon'] - 1;
+		$anio_inicio = getdate ($fecha_inicio)['year'];
+		$anio_vencimiento = $anio_inicio;
+		$periodo = $anio_inicio;
+
+		foreach ($datos_detalle as $key => $value) {
+		 $monto_total += $value['monto_total'];
+		}
+		$monto_total=$monto_total*$cantidad_meses;
+
+		for ($i=0; $i < $cantidad_meses; $i++) {
+
+			$dia_vencimiento = 10;
+
+			$mes_inicio = ($mes_inicio + 1 == 13 ? 1 : $mes_inicio + 1);
+
+			if ($mes_inicio + 1 == 13) {
+				$anio_vencimiento = $anio_vencimiento + 1;
+				$fecha_vencimiento =   $anio_vencimiento. "-1-" .$dia_vencimiento;
+			} else {
+				$fecha_vencimiento =   $anio_vencimiento. "-" .($mes_inicio + 1). "-" .$dia_vencimiento;
+			}
+
+			$array_cuota[] = ['nro_cuota' => $i+1
+											 ,'id_mes' => $mes_inicio
+												, 'anio' => $periodo
+												, 'fecha_vencimiento' => $fecha_vencimiento
+												, 'monto' => $monto_total
+											];
+
+
+			if ($mes_inicio + 1 == 13) {
+							$periodo = $anio_vencimiento;
+				}
+		}
+
+		$form_ml->set_datos_defecto($array_cuota);
+	}
+
+	function evt__form_ml_cuotas__modificacion($datos)
+	{
+		foreach ($datos as $key => $value) {
+			$datos[$key]['apex_ei_analisis_fila'] = 'A';
+		}
+
+		$this->cn()->procesar_filas_liquidaciones($datos);
+		$datos = $this->cn()->get_liquidaciones();
+
+		$this->get_cache_form_ml('form_ml_cuotas')->set_cache($datos);
 	}
 
 }

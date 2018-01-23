@@ -233,7 +233,7 @@ class ci_agregardetalle extends sagep_ci
 	//---- Auxiliares --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function calcular_monto()
+	function calcular_monto($meses)
 	{
 	 $datos_detalle = $this->get_cache_form_ml('form_ml_detalle')->get_cache();
 	 $monto = 0;
@@ -241,6 +241,7 @@ class ci_agregardetalle extends sagep_ci
 	 foreach ($datos_detalle as $key => $value) {
 		$monto += $value['monto_total'];
 	 }
+	 $monto=$monto*$meses;
 
 	 return ['monto_total'=>$monto];
 }
