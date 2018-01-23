@@ -40,9 +40,9 @@ class form_ubicacion extends sagep_ei_formulario
 		        }
 
 		{$this->objeto_js}.actualizar_subtotal = function(cantidad)
-				{
-					this.ef('monto_total').set_estado(this.ef('monto_unitario').get_estado()*cantidad);
-				}
+		{
+			this.ef('monto_total').set_estado(this.ef('monto_unitario').get_estado()*cantidad);
+		}
 		//---- Procesamiento de EFs --------------------------------
 
 		{$this->objeto_js}.evt__cantidad__procesar = function(es_inicial)

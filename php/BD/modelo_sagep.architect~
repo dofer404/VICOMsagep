@@ -206,7 +206,7 @@
     <column id="COL61" populated="true" UUID="560394f8-cfa1-4d6b-8a5c-20aefb914c29" autoIncrement="false" autoIncrementSequenceName="detalles_contrato_id_servicio_seq" defaultValue="" name="id_servicio" nullable="0" physicalName="id_servicio" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
      <remarks></remarks>
     </column>
-    <column id="COL62" populated="true" UUID="80e2e766-99cc-461f-b550-5c8a4f989e0c" autoIncrement="false" autoIncrementSequenceName="detalles_contrato_id_contrato_seq" defaultValue="" name="id_contrato" nullable="0" physicalName="id_contrato" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+    <column id="COL62" populated="true" UUID="80e2e766-99cc-461f-b550-5c8a4f989e0c" autoIncrement="false" autoIncrementSequenceName="detalles_contrato_id_contrato_seq" defaultValue="" name="id_contrato" nullable="0" physicalName="id_contrato" precision="0" referenceCount="1" scale="0" source-column-ref="COL43" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
      <remarks></remarks>
     </column>
     <column id="COL63" populated="true" UUID="16b08921-94ee-4114-8750-292c2f592af7" autoIncrement="false" autoIncrementSequenceName="DetalleContrato_Cantidad_seq" defaultValue="" name="cantidad" nullable="0" physicalName="cantidad" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
@@ -489,7 +489,7 @@
     <column id="COL147" populated="true" UUID="bb56a2c7-e088-475a-901c-128b8801a85c" autoIncrement="false" autoIncrementSequenceName="liquidaciones_monto_seq" defaultValue="" name="monto" nullable="0" physicalName="monto" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="3" userDefinedTypeUUID="cc1304ea-628a-4fc5-a84a-06ba14759152" >
      <remarks></remarks>
     </column>
-    <column id="COL148" populated="true" UUID="64fb9bb8-a7db-438d-9572-ae646dd6b3cd" autoIncrement="false" autoIncrementSequenceName="liquidaciones_id_contrato_seq" defaultValue="" name="id_contrato" nullable="0" physicalName="id_contrato" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+    <column id="COL148" populated="true" UUID="64fb9bb8-a7db-438d-9572-ae646dd6b3cd" autoIncrement="false" autoIncrementSequenceName="liquidaciones_id_contrato_seq" defaultValue="" name="id_contrato" nullable="0" physicalName="id_contrato" precision="0" referenceCount="1" scale="0" source-column-ref="COL43" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
      <remarks></remarks>
     </column>
     </folder>
@@ -812,7 +812,7 @@
   <table id="TAB247" populated="true" UUID="f6f70cbc-3ade-4304-928f-e9ce852e1c97" name="pagos_liquidaciones_contrato" objectType="TABLE" physicalName="pagos_liquidaciones_contrato" >
    <remarks></remarks>
    <folder id="FOLTAB2471" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL248" populated="true" UUID="a8779b06-ce5f-43ff-8b39-73ae988f57d5" autoIncrement="false" autoIncrementSequenceName="pagos_liquidaciones_contrato_id_liquidacion_seq" defaultValue="" name="id_liquidacion" nullable="0" physicalName="id_liquidacion" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
+    <column id="COL248" populated="true" UUID="a8779b06-ce5f-43ff-8b39-73ae988f57d5" autoIncrement="false" autoIncrementSequenceName="pagos_liquidaciones_contrato_id_liquidacion_seq" defaultValue="" name="id_liquidacion" nullable="0" physicalName="id_liquidacion" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" source-column-ref="COL140" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
      <remarks></remarks>
     </column>
     <column id="COL249" populated="true" UUID="bca56bdf-a7a2-4624-8eed-ac2072d2c1a0" autoIncrement="false" autoIncrementSequenceName="detalles_contrato_id_detalle_contrato_seq_1" defaultValue="" name="id_detalle_contrato" nullable="0" physicalName="id_detalle_contrato" precision="0" primaryKeySeq="1" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-5" userDefinedTypeUUID="433cc8af-284d-4abb-8ef7-08ebcb34dbf1" >
@@ -1335,7 +1335,7 @@
  <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="true" target-schema="es_sagep"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
- <play-pen zoom="0.6203856749311291" viewportX="894" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+ <play-pen zoom="0.6203856749311291" viewportX="903" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB1" x="800" y="352" bgColor="0xbfd6ff" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB20" x="906" y="150" bgColor="0xbfd6ff" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB28" x="1381" y="354" bgColor="0xc8b7ea" fgColor="0x000000" rounded="true" dashed="false"/>
@@ -1350,7 +1350,7 @@
   <table-pane table-ref="TAB108" x="1532" y="1155" bgColor="0xc8dccc" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB118" x="1322" y="790" bgColor="0xc8dccc" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB126" x="2427" y="1075" bgColor="0xe8cfdb" fgColor="0x000000" rounded="true" dashed="false"/>
-  <table-pane table-ref="TAB139" x="2300" y="162" bgColor="0xc8b7ea" fgColor="0x000000" rounded="true" dashed="false"/>
+  <table-pane table-ref="TAB139" x="2348" y="106" bgColor="0xc8b7ea" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB151" x="1081" y="1121" bgColor="0xc8dccc" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB162" x="981" y="1295" bgColor="0xc8dccc" fgColor="0x000000" rounded="true" dashed="false"/>
   <table-pane table-ref="TAB172" x="1466" y="1304" bgColor="0xc8dccc" fgColor="0x000000" rounded="true" dashed="false"/>

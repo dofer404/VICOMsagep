@@ -136,7 +136,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'2045', --objeto_cuadro_col
 	'nro_recibo', --clave
 	'1', --orden
-	'Nro recibo', --titulo
+	'Numero de recibo', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
 	NULL, --ancho

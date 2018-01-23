@@ -60,7 +60,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'sagep', --fuente_datos_proyecto
 	'sagep', --fuente_datos
 	'1', --permite_actualizacion_automatica
-	NULL, --esquema
+	'es_sagep', --esquema
 	'es_sagep'  --esquema_ext
 );
 

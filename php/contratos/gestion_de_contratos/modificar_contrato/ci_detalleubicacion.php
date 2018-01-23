@@ -165,7 +165,7 @@ class ci_detalleubicacion extends sagep_ci
 
   function evt__form_ml_ubicacion__ver_ubicacion($seleccion)
   {
-   $datos_fila = $this->get_cache_form_ml('form_ml_ubicacion')->get_cache_fila($seleccion);
+    $datos_fila = $this->get_cache_form_ml('form_ml_ubicacion')->get_cache_fila($seleccion);
     $this->set_cache_form_ubicacion($datos_fila);
 
     if ($this->cn()->existe_fila_ubicacion($seleccion) ) {

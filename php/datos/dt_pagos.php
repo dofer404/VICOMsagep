@@ -8,5 +8,4 @@ class dt_pagos extends sagep_datos_tabla
 	}
 
 }
-
 ?>

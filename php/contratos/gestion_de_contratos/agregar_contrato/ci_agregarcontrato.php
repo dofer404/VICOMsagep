@@ -47,7 +47,7 @@ class ci_agregarcontrato extends sagep_ci
 
 		} catch (toba_error_db $e) {
 			if (!mensajes_error::$debug) {
-				//$this->cn()->reiniciar();
+				$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
 				mensajes_error::get_mensaje_error($sql_state);
 				throw $e;
@@ -58,6 +58,7 @@ class ci_agregarcontrato extends sagep_ci
 	function evt__cancelar()
 	{
 		unset($this->s__datos);
+		$this->disparar_limpieza_memoria();
 		$this->cn()->reiniciar();
 		$this->controlador()->set_pantalla('pant_inicial');
 	}
@@ -70,6 +71,18 @@ class ci_agregarcontrato extends sagep_ci
 	{
 		$cache_form = $this->get_cache_form('form');
 		$datos = $cache_form->get_cache();
+
+		if (!$datos) {
+			if ($this->cn()->hay_cursor() ) {
+				$datos = $this->cn()->get_contratos();
+				$cache_form->set_cache($datos);
+			}
+		}
+
+		$monto_total = $this->dep('ci_agregardetalle')->calcular_monto();
+
+		$datos = array_merge($datos, $monto_total);
+
 		$form->set_datos($datos);
 
 		$form->ef('fecha_inicio')->set_estado_defecto(date('d/m/Y'));
@@ -96,7 +109,7 @@ class ci_agregarcontrato extends sagep_ci
 			$form_ml->set_datos($datos);
 		} else {
 
-			$array_contratante[] = ['id_persona' => 14
+			$array_contratante[0] = ['id_persona' => 14
 		                   ,'id_rol' => 1
 											];
 
@@ -113,7 +126,7 @@ class ci_agregarcontrato extends sagep_ci
 		foreach ($datos as $key => $value) {
 			$datos[$key]['apex_ei_analisis_fila'] = 'A';
 		}
-		
+
 		$this->cn()->procesar_filas_roles($datos);
 		$datos = $this->cn()->get_roles();
 		$this->get_cache_form_ml('form_ml_roles')->set_cache($datos);

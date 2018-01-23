@@ -1,7 +1,6 @@
 <?php
 require_once('contratos/gestion_de_contratos/dao_gestiondecontratos.php');
 require_once('comunes/cache_form_ml.php');
-require_once('comunes/cache_form.php');
 
 class ci_agregarubicacion extends sagep_ci
 {
@@ -118,6 +117,8 @@ class ci_agregarubicacion extends sagep_ci
 	{
 		$this->borrar_memoria();
 		unset($this->s__datos);
+		$this->unset_datos_form_ubicacion();
+		$this->unset_datos_form_ml_ubicacion();
 		//$this->cn()->resetear_cursor_estados();
 		$this->set_pantalla('pant_inicial');
 	}
@@ -188,27 +189,33 @@ class ci_agregarubicacion extends sagep_ci
 			if (!$this->cn()->hay_cursor_ubicaciones()) {
 				$id_interno_fila = $this->cn()->nueva_fila_ubicacion($datos);
 				$this->cn()->set_cursor_ubicaciones($id_interno_fila);
+			} else {
+				$this->cn()->set_ubicacion($datos);
 			}
 		} else {
-			//$this->s__datos['form_ubicacion'] = $datos;
 			$this->set_cache_form_ubicacion($datos);
 			if ($cache_ml_ubs->hay_cursor_cache()) {
 				$id_fila = $cache_ml_ubs->get_cursor_cache();
 				$cache_ml_ubs->set_cache_fila($id_fila, $datos);
-			}
+			} else {
+				if($this->cn()->hay_cursor_ubicaciones()){
+					$this->cn()->set_ubicacion($datos);
+				}
 		}
 	}
+}
 
   function conf__form_ubicacion(sagep_ei_formulario $form)
 	{
-		if ($this->cn()->hay_cursor_ubicaciones()) {
-			$datos = $this->get_cache_form_ubicacion();
-		//	$datos = $this->get_cache_form_ubicacion('form_ubicacion');
-			if (!$datos) {
-				$datos = $this->cn()->get_unaUbicacion();
-			}
-			$form->set_datos($datos);
+		$datos = $this->get_cache_form_ubicacion();
+
+		if(!$datos){
+			if ($this->cn()->hay_cursor_ubicaciones()) {
+					$datos = $this->cn()->get_unaUbicacion();
+					$this->set_cache_form_ubicacion($datos);
+				}
 		}
+			$form->set_datos($datos);
 	}
 
   //-----------------------------------------------------------------------------------
@@ -244,6 +251,33 @@ class ci_agregarubicacion extends sagep_ci
 
 		$this->get_cache_form_ml('form_ml_estados')->set_cache($datos);
 	}
+
+	//-----------------------------------------------------------------------------------
+	//---- Funciones Auxiliares --------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+			function ajax__get_tarifa($id, toba_ajax_respuesta $respuesta)
+			{
+				$datos_detalle = $this->controlador()->get_cache_form_detalle();
+
+				$datos = dao_gestiondeservicios::get_tarifa($id, $datos_detalle['id_servicio']);
+				$respuesta->set($datos);
+			}
+
+
+			function calcular_cantidad()
+			{
+			 $datos_ubicaciones = $this->get_cache_form_ml('form_ml_ubicacion')->get_cache();
+			 $cant = 0;
+			 $monto = 0;
+
+			 foreach ($datos_ubicaciones as $key => $value) {
+				$cant += $value['cantidad'];
+				$monto += $value['monto_total'];
+			 }
+
+			 return ['cantidad'=>$cant, 'monto_total'=>$monto];
+		}
 
 	//-----------------------------------------------------------------------------------
 	//---- form_ml_fotos ----------------------------------------------------------------

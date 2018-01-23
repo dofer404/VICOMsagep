@@ -68,6 +68,7 @@ class ci_modificarcontrato extends sagep_ci
 	{
 		$cache_form = $this->get_cache_form('form');
 		$datos = $cache_form->get_cache();
+
 		if (!$datos) {
 			if ($this->cn()->hay_cursor() ) {
 				$datos = $this->cn()->get_contratos();
@@ -186,7 +187,7 @@ class ci_modificarcontrato extends sagep_ci
 		                   ,'id_mes' => $mes_inicio
 										 		, 'anio' => $periodo
 												, 'fecha_vencimiento' => $fecha_vencimiento
-												, 'monto' => 0
+												, 'monto' => $datos_contrato['monto_total']
 												, 'descuento' => 0
 												, 'recargo' => 0
 												, 'total' => 0
