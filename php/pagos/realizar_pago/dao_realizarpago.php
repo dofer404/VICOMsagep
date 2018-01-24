@@ -1,5 +1,7 @@
 <?php
 
+require_once('parametros/pagos/tipos_de_pagos/dao_tiposdepagos.php');
+require_once('parametros/pagos/entidades_financieras/dao_entidadesfinancieras.php');
 require_once('personas/gestion_de_personas/dao_gestiondepersonas.php');
 
 class dao_realizarpago{
@@ -89,6 +91,33 @@ class dao_realizarpago{
 
     return consultar_fuente($sql);
   }
+
+  static function get_tiposPagos()
+  {
+    return dao_tiposdepagos::get_listado_tipos_pagos();
+  }
+
+  static function get_entidadFInanciera()
+  {
+    return dao_entidadesfinancieras::get_listado_entidades_financieras();
+  }
+
+  static function get_confTiposPagos($idTipoPago)
+{
+  if (!$idTipoPago && $idTipoPago != 0) {
+    return null;
+  }
+
+  $idTipoPago = quote($idTipoPago);
+
+  $sql = "SELECT *
+            FROM es_sagep.tipos_pagos t_pago
+            WHERE t_pago.id_tipo_pago = $idTipoPago";
+
+  $resultado = consultar_fuente($sql);
+
+  return $resultado[0];
+}
 
 }
 
