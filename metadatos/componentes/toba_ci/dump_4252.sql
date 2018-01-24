@@ -220,8 +220,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'2', --orden
 	'Datos Personales', --etiqueta
 	'Ingrese los datos personales <br/>
-		 <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
-                         <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operación </li>
+		 <br/> <li>En cada \EDtem, se brinda una ayuda para la carga</li>
+                         <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operaci\F3n </li>
 
 <div style = "text-align:right">Nota: Presione "Anterior" para volver a la Pantalla Inicial </div>', --descripcion
 	NULL, --tip
@@ -242,10 +242,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'direccion', --identificador
 	'3', --orden
 	'Direcciones', --etiqueta
-	'Ingrese Información de Direcciones <br/>
-		 <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
+	'Ingrese Informaci\F3n de Direcciones <br/>
+		 <br/> <li>En cada \EDtem, se brinda una ayuda para la carga</li>
                          <li>Presione "Agregar" para ingresar una nueva fila  </li>
-                         <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operación </li>
+                         <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operaci\F3n </li>
 
 <div style = "text-align:right">Nota: Presione "Anterior" para volver a la Pantalla de Datos Personales </div>', --descripcion
 	NULL, --tip
@@ -266,10 +266,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'contacto', --identificador
 	'4', --orden
 	'Contacto', --etiqueta
-	'Ingrese Información de Contacto <br/>
-                         <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
+	'Ingrese Informaci\F3n de Contacto <br/>
+                         <br/> <li>En cada \EDtem, se brinda una ayuda para la carga</li>
                          <li>Presione "Agregar" para ingresar una nueva fila  </li>
-                         <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operación </li>
+                         <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operaci\F3n </li>
 
 <div style = "text-align:right">Nota: Presione "Anterior" para volver a la Pantalla de Direcciones </div>', --descripcion
 	NULL, --tip
@@ -290,10 +290,10 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'cuenta', --identificador
 	'5', --orden
 	'Cuenta', --etiqueta
-	'Ingrese Información de la Cuenta Bancaria <br/>
-                         <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
+	'Ingrese Informaci\F3n de la Cuenta Bancaria <br/>
+                         <br/> <li>En cada \EDtem, se brinda una ayuda para la carga</li>
                          <li>Presione "Agregar" para ingresar una nueva fila  </li>
-                         <li>Presione "Guardar" para finalizar o "Cancelar" para anular la operación </li>
+                         <li>Presione "Guardar" para finalizar o "Cancelar" para anular la operaci\F3n </li>
 
 <div style = "text-align:right">Nota: Presione "Anterior" para volver a la Pantalla de Contactos </div>', --descripcion
 	NULL, --tip
@@ -313,8 +313,8 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1851', --pantalla
 	'introduccion', --identificador
 	'1', --orden
-	'Introducción', --etiqueta
-	'Creación de una persona  <br/>
+	'Introducci\F3n', --etiqueta
+	'Creaci\F3n de una persona  <br/>
 		 <br/> <li>Presione "Siguiente" para continuar</li>', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
