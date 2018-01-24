@@ -282,6 +282,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
+	'2983', --dep_id
+	'4374', --objeto_consumidor
+	'4386', --objeto_proveedor
+	'form_ml_formas_pago', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
 	'2978', --dep_id
 	'4374', --objeto_consumidor
 	'4380', --objeto_proveedor
@@ -447,16 +459,17 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'0', --orden
 	'2980'  --dep_id
 );
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1886', --pantalla
+	'4374', --objeto_ci
+	'0', --orden
+	'2983'  --dep_id
+);
 
 ------------------------------------------------------------
 -- apex_eventos_pantalla
 ------------------------------------------------------------
-INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
-	'1883', --pantalla
-	'4374', --objeto_ci
-	'3820', --evento_id
-	'sagep'  --proyecto
-);
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
 	'1884', --pantalla
 	'4374', --objeto_ci

@@ -77,6 +77,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
+	'2982', --dep_id
+	'4376', --objeto_consumidor
+	'4385', --objeto_proveedor
+	'dt_formas_pago', --identificador
+	'', --parametros_a
+	'', --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
 	'2975', --dep_id
 	'4376', --objeto_consumidor
 	'4335', --objeto_proveedor
@@ -122,6 +134,22 @@ INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador
 	NULL, --cascada
 	'1'  --orden
 );
+INSERT INTO apex_objeto_datos_rel_asoc (proyecto, objeto, asoc_id, identificador, padre_proyecto, padre_objeto, padre_id, padre_clave, hijo_proyecto, hijo_objeto, hijo_id, hijo_clave, cascada, orden) VALUES (
+	'sagep', --proyecto
+	'4376', --objeto
+	'175', --asoc_id
+	NULL, --identificador
+	'sagep', --padre_proyecto
+	'4262', --padre_objeto
+	'dt_pagos', --padre_id
+	NULL, --padre_clave
+	'sagep', --hijo_proyecto
+	'4385', --hijo_objeto
+	'dt_formas_pago', --hijo_id
+	NULL, --hijo_clave
+	NULL, --cascada
+	'2'  --orden
+);
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
@@ -135,4 +163,13 @@ INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_obje
 	'1840', --padre_clave
 	'4335', --hijo_objeto
 	'2043'  --hijo_clave
+);
+INSERT INTO apex_objeto_rel_columnas_asoc (proyecto, objeto, asoc_id, padre_objeto, padre_clave, hijo_objeto, hijo_clave) VALUES (
+	'sagep', --proyecto
+	'4376', --objeto
+	'175', --asoc_id
+	'4262', --padre_objeto
+	'1983', --padre_clave
+	'4385', --hijo_objeto
+	'2075'  --hijo_clave
 );
