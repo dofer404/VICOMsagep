@@ -41,16 +41,23 @@ class ci_agregarcontrato extends sagep_ci
 
 	function evt__procesar()
 	{
+		if (mensajes_error::$debug) { // para los desarrolladores
+			// Hacemos un ei_arbol de lo que el cn intentara sincronizar
+			$this->cn()->debug_arbol_datos_en_cache_cn();
+		}
 		try {
 			$this->cn()->guardar();
 			$this->evt__cancelar();
-
 		} catch (toba_error_db $e) {
-			if (!mensajes_error::$debug) {
-				$this->cn()->reiniciar();
+			if (mensajes_error::$debug) {
+				// Aquí los mensajes que levantemos son para los desarrolladores ($debug == true)
+        // $this->cn()->reiniciar(); tal vez no conviene reiniciar el CN si estamos haciendo debug
 				$sql_state = $e->get_sqlstate();
 				mensajes_error::get_mensaje_error($sql_state);
 				throw $e;
+			} else {
+        // Aquí hay que enviarle un mensaje al usuario como último recurso
+        //   Es decir, ocurrió un error inesperado al intentar guardar los datos en la base de datos.
 			}
 		}
 	}

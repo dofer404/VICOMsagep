@@ -354,6 +354,26 @@ class cn_gestiondecontratos extends sagep_cn
 		$this->dep('dr_contratos')->tabla('dt_personas')->set($datos);
 	}
 
+	function debug_arbol_datos_en_cache_cn()
+	{
+		$datos['dt_contratos'] = $this->dep('dr_contratos')->tabla('dt_contratos')->get();
+
+		$dts = [
+			'dt_roles',
+			'dt_liquidaciones',
+			'dt_detalles_contrato',
+			'dt_detalleubicacion_detallecontrato',
+			'dt_estados',
+			'dt_fotos_servicio',
+			'dt_historial_estado',
+		];
+
+		foreach ($dts as $dt) {
+			$datos[$dt] = $this->dep('dr_contratos')->tabla($dt)->get_filas();
+		}
+		
+		ei_arbol(array('a sincronizar en cn:' => $datos));
+	}
 
 }
 ?>
