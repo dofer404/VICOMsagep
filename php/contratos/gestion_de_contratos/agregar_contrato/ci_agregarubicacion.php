@@ -224,31 +224,23 @@ class ci_agregarubicacion extends sagep_ci
 
 	function conf__form_ml_estados(sagep_ei_formulario_ml $form_ml)
 	{
-
 		$cache_ml_estado = $this->get_cache_form_ml('form_ml_estados');
 		$datos = $cache_ml_estado->get_cache();
-		// if (!$datos) {
-		// 	if ($this->cn()->hay_cursor_ubicaciones() ) {
-		// 		$datos = $this->cn()->get_estado();
-		// 		$cache_ml_estado->set_cache($datos);
-		// 	}
-		// }
-	if($datos){
+
+		if ($datos) {
 			$form_ml->set_datos($datos);
-			$form_ml->ef('fecha_cambio')->set_estado_defecto(date('d/m/Y'));
+			$form_ml->ef('fecha_cambio')->set_estado_defecto(date('Y-m-d'));
+		} else {
+			$form_ml->set_registro_nuevo();
+		}
 
-	} else {
-		$form_ml->set_registro_nuevo();
-	}
-	$form_ml->ef('fecha_cambio')->set_estado_defecto(date('d/m/Y'));
-
+		$form_ml->ef('fecha_cambio')->set_estado_defecto(date('Y-m-d'));
 	}
 
   function evt__form_ml_estados__modificacion($datos)
 	{
 		$this->cn()->procesar_filas_estados($datos);
 		$datos = $this->cn()->get_estado();
-
 		$this->get_cache_form_ml('form_ml_estados')->set_cache($datos);
 	}
 

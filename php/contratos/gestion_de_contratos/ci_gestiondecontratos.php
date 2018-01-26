@@ -119,5 +119,14 @@ class ci_gestiondecontratos extends sagep_ci
 		$this->set_pantalla('pant_edicion');
 	}
 
+	//-----------------------------------------------------------------------------------
+	//---- Configuraciones --------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__pant_nueva(toba_ei_pantalla $pantalla)
+	{
+		// $this->cn()->debug_arbol_datos_en_cache_cn();
+	}
+
 }
 ?>

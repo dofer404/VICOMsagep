@@ -41,23 +41,19 @@ class ci_agregarcontrato extends sagep_ci
 
 	function evt__procesar()
 	{
-		if (mensajes_error::$debug) { // para los desarrolladores
-			// Hacemos un ei_arbol de lo que el cn intentara sincronizar
-			$this->cn()->debug_arbol_datos_en_cache_cn();
-		}
 		try {
 			$this->cn()->guardar();
 			$this->evt__cancelar();
 		} catch (toba_error_db $e) {
 			if (mensajes_error::$debug) {
 				// Aquí los mensajes que levantemos son para los desarrolladores ($debug == true)
-        // $this->cn()->reiniciar(); tal vez no conviene reiniciar el CN si estamos haciendo debug
+				// $this->cn()->reiniciar(); tal vez no conviene reiniciar el CN si estamos haciendo debug
 				$sql_state = $e->get_sqlstate();
 				mensajes_error::get_mensaje_error($sql_state);
 				throw $e;
 			} else {
-        // Aquí hay que enviarle un mensaje al usuario como último recurso
-        //   Es decir, ocurrió un error inesperado al intentar guardar los datos en la base de datos.
+				// Aquí hay que enviarle un mensaje al usuario como último recurso
+				//   Es decir, ocurrió un error inesperado al intentar guardar los datos en la base de datos.
 			}
 		}
 	}
@@ -137,10 +133,6 @@ class ci_agregarcontrato extends sagep_ci
 
 	function evt__form_ml_roles__modificacion($datos)
 	{
-		foreach ($datos as $key => $value) {
-			$datos[$key]['apex_ei_analisis_fila'] = 'A';
-		}
-
 		$this->cn()->procesar_filas_roles($datos);
 		$datos = $this->cn()->get_roles();
 		$this->get_cache_form_ml('form_ml_roles')->set_cache($datos);
@@ -163,7 +155,7 @@ class ci_agregarcontrato extends sagep_ci
 	//---- form_ml_cuotas ---------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function conf__form_ml_cuotas(sagep_ei_formulario_ml $form_ml)
+	function generarArrayCuota()
 	{
 		$fecha_vencimiento = new DateTime();
 		$array_cuota = [];
@@ -172,9 +164,6 @@ class ci_agregarcontrato extends sagep_ci
 
 		$datos_contrato = $this->get_cache_form('form')->get_cache();
 		$datos_detalle = $this->dep('ci_agregardetalle')->get_cache_form_ml('form_ml_detalle')->get_cache();
-
-
-		//ei_arbol($datos_contrato);
 
 		$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos_contrato['id_tipo_contrato']);
 
@@ -216,19 +205,24 @@ class ci_agregarcontrato extends sagep_ci
 				}
 		}
 
+		return $array_cuota;
+	}
+
+	function conf__form_ml_cuotas(sagep_ei_formulario_ml $form_ml)
+	{
+		$array_cuota = $this->generarArrayCuota();
 		$form_ml->set_datos_defecto($array_cuota);
 	}
 
 	function evt__form_ml_cuotas__modificacion($datos)
 	{
+		$this->cn()->eliminar_cuotas();
+
 		foreach ($datos as $key => $value) {
 			$datos[$key]['apex_ei_analisis_fila'] = 'A';
 		}
 
 		$this->cn()->procesar_filas_liquidaciones($datos);
-		$datos = $this->cn()->get_liquidaciones();
-
-		$this->get_cache_form_ml('form_ml_cuotas')->set_cache($datos);
 	}
 
 }

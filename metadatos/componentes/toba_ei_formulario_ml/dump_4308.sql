@@ -136,7 +136,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4308', --objeto_ei_formulario
 	'sagep', --objeto_ei_formulario_proyecto
 	'fecha_cambio', --identificador
-	'ef_editable', --elemento_formulario
+	'ef_editable_fecha', --elemento_formulario
 	'fecha_cambio', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
