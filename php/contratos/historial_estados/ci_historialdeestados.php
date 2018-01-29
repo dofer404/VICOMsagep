@@ -21,11 +21,8 @@ class ci_historialdeestados extends sagep_ci
 		$id_ubicacion = toba::memoria()->get_parametro('ubicacion');
 		$id_detalle_contrato = toba::memoria()->get_parametro('detalle_contrato');
 
-
-
 		$datos = dao_historialdeestados::get_listado_estados($id_ubicacion, $id_detalle_contrato);
 		$cuadro->set_datos($datos);
-
 	}
 }
 ?>

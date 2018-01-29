@@ -423,7 +423,7 @@ class ci_agregardetalle extends sagep_ci
 
 	function conf__detalle(toba_ei_pantalla $pantalla)
 	{
-		$this->controlador()->pantalla()->set_descripcion("Ingrese Detalles del Contrato <br/>
+		$this->controlador()->pantalla('detalle')->set_descripcion("Ingrese Detalles del Contrato <br/>
 		 <br/> <li>Presione \"Agregar\" para ingresar un Nuevo Detalle</li>
                           <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
 													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");

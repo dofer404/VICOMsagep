@@ -1,4 +1,4 @@
-﻿INSERT INTO es_sagep.pais(id_pais, sigla_pais, nombre_pais)VALUES
+﻿INSERT INTO es_final.pais(id_pais, sigla_pais, nombre_pais)VALUES
 (1 ,  'AFG' ,  'Afganistán' ),
 (2 ,  'ALB' ,  'Albania' ),
 (3 ,  'ATA' ,  'Antártida' ),

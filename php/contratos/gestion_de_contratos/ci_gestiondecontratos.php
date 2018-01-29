@@ -44,6 +44,7 @@ class ci_gestiondecontratos extends sagep_ci
 
 		} catch (toba_error_db $e) {
 			if (mensajes_error::$debug) {
+				$this->cn()->debug_arbol_datos_en_cache_cn();
 				throw $e;
 			} else {
 				$this->cn()->reiniciar();

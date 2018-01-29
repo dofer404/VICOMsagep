@@ -179,6 +179,8 @@ class ci_modificarcontrato extends sagep_ci
 				$fecha_vencimiento =   $anio_vencimiento. "-" .($mes_inicio + 1). "-" .$dia_vencimiento;
 			}
 
+			$monto = $datos_contrato['monto_total'] / $cantidad_meses;
+
 			// if ($mes_inicio + 1 == 13) {
 			// 	$fecha_vencimiento =   $anio_vencimiento. "-1-" .$dia_vencimiento;
 			// } else {
@@ -189,10 +191,7 @@ class ci_modificarcontrato extends sagep_ci
 		                   ,'id_mes' => $mes_inicio
 										 		, 'anio' => $periodo
 												, 'fecha_vencimiento' => $fecha_vencimiento
-												, 'monto' => $datos_contrato['monto_total']
-												, 'descuento' => 0
-												, 'recargo' => 0
-												, 'total' => 0
+												, 'monto' => $monto
 												//, 'pago' => val5
 											];
 
