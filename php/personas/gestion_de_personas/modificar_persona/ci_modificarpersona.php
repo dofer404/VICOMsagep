@@ -180,9 +180,8 @@ class ci_modificarpersona extends sagep_ci
 		$path_toba = '/home/marianofrezz/proyectos/toba_2_7_2';
 		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/reporte_personas.jasper';
 		$reporte->set_path_reporte($path_reporte);
-		//$usuario = toba::usuario()->get_nombre();
+		$usuario = toba::usuario()->get_nombre();
 		$idPersona = $this->traer_persona();
-		ei_arbol($idPersona);
 
 		$reporte->set_parametro('usuarioToba', 'S', $usuario);
 		$reporte->set_parametro('idPersona', 'E', $idPersona);
@@ -201,7 +200,8 @@ class ci_modificarpersona extends sagep_ci
 
 	function traer_persona()
 	{
-		$idPersona = $this->s__datos['id_persona'];
+		$datos_persona = $this->get_cache_form_persona();
+		$idPersona = $datos_persona['id_persona'];
 		return $idPersona;
 	}
 

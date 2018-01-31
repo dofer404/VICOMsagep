@@ -221,7 +221,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'6', --orden
-	'Raz\F3n social', --etiqueta
+	'Razón social', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	'0', --colapsado
@@ -463,7 +463,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'9', --orden
 	'Fecha nacimiento', --etiqueta
 	NULL, --etiqueta_estilo
-	'En caso de Personas Jur\EDdicas, ingrese la fecha de inicio de actividad', --descripcion
+	'En caso de Personas Jurídicas, ingrese la fecha de inicio de actividad', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -728,7 +728,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado
 	'1', --carga_permite_no_seteado
-	'-- Seleccione una opci\F3n --', --carga_no_seteado
+	'-- Seleccione una Opción --', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
@@ -808,7 +808,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --carga_cascada_relaj
 	'0', --cascada_mantiene_estado
 	'1', --carga_permite_no_seteado
-	'-- Seleccione una opci\F3n --', --carga_no_seteado
+	'-- Seleccione una Opción --', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
@@ -863,7 +863,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'1', --orden
 	'Tipo de Persona', --etiqueta
 	NULL, --etiqueta_estilo
-	'Seleccione un Tipo de Persona y continu\E9 con la carga seg\FAn lo ingresado', --descripcion
+	'Seleccione un Tipo de Persona y continu\E9 con la carga según lo ingresado', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo
@@ -888,7 +888,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --carga_cascada_relaj
 	'1', --cascada_mantiene_estado
 	'1', --carga_permite_no_seteado
-	'-- Seleccione una opci\F3n --', --carga_no_seteado
+	'-- Seleccione una Opción --', --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
 	NULL, --edit_tamano
 	NULL, --edit_maximo
@@ -943,7 +943,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'5', --orden
 	'Nro. Documento', --etiqueta
 	NULL, --etiqueta_estilo
-	'El numero de documento se carga autom\E1ticamente con el numero de CUIL', --descripcion
+	'El numero de documento se carga automáticamente con el numero de CUIL', --descripcion
 	'0', --colapsado
 	'0', --desactivado
 	NULL, --estilo

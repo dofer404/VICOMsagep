@@ -13,8 +13,6 @@ class dao_configurarempresa{
               per.cuil_cuit,
               emp.id_empresa,
               emp.id_persona,
-              emp.id_correo,
-              emp.id_telefono,
               emp.nombre_formal
             FROM es_sagep.datos_empresa emp
             JOIN  es_sagep.personas per on emp.id_persona=per.id_persona";
@@ -85,9 +83,7 @@ class dao_configurarempresa{
   {
     $id_persona = quote($id_persona);
       $sql = "SELECT
-                tel.id_telefono,
-                tel.caracteristica || ' - ' || tel.numero telefono,
-                per.id_persona
+	              text_concat(coalesce(tel.caracteristica ||' - '|| tel.numero) ||''||  ',') as telefono
               FROM
                 es_sagep.telefonos tel
               JOIN es_sagep.personas per ON tel.id_persona = per.id_persona
@@ -95,16 +91,14 @@ class dao_configurarempresa{
                 tel.id_persona = $id_persona";
 
       $resultado = consultar_fuente($sql);
-      return $resultado;
+      return $resultado[0];
   }
 
   static function get_opcionesCorreo($id_persona)
   {
     $id_persona = quote($id_persona);
       $sql = "SELECT
-                cor.id_correo,
-                cor.direccion,
-                per.id_persona
+                text_concat(coalesce(cor.direccion) ||''||  ',') as correo
               FROM
                 es_sagep.correos cor
               JOIN es_sagep.personas per ON cor.id_persona = per.id_persona
@@ -112,21 +106,14 @@ class dao_configurarempresa{
                 cor.id_persona = $id_persona";
 
       $resultado = consultar_fuente($sql);
-      return $resultado;
+      return $resultado[0];
   }
 
   static function get_opcionesUbicacion($id_persona)
   {
     $id_persona = quote($id_persona);
       $sql = "SELECT
-                ub_per.id_ubicacion,
-                ub_det.direccion,
-                ub_det.altura,
-                loc.nombre_loc,
-                bar.nombre_bar,
-                prov.nombre_prov,
-                pais.nombre_pais,
-                ub_det.direccion || ' al ' || ub_det.altura ||' - Barrio '|| bar.nombre_bar ||' - '||loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais as direccion_localidad
+                text_concat( ub_det.direccion || ' al ' || ub_det.altura ||' - Barrio '|| bar.nombre_bar ||' - '||loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais ||''||  ' / ') as ubicacion
               FROM
                 es_sagep.personas_detalleubicacion ub_per
               JOIN es_sagep.detalle_ubicacion ub_det ON ub_per.id_ubicacion = ub_det.id_ubicacion
@@ -138,7 +125,7 @@ class dao_configurarempresa{
                 ub_per.id_persona = $id_persona";
 
       $resultado = consultar_fuente($sql);
-      return $resultado;
+      return $resultado[0];
   }
 
 }

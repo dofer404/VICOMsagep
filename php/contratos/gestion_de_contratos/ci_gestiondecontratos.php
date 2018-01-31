@@ -44,6 +44,7 @@ class ci_gestiondecontratos extends sagep_ci
 
 		} catch (toba_error_db $e) {
 			if (mensajes_error::$debug) {
+				$this->cn()->debug_arbol_datos_en_cache_cn();
 				throw $e;
 			} else {
 				$this->cn()->reiniciar();
@@ -117,15 +118,6 @@ class ci_gestiondecontratos extends sagep_ci
 		$this->s__datos['modo_edicion'] = 'modificacion';
 		$this->s__datos['sel_seleccion'] = $seleccion;
 		$this->set_pantalla('pant_edicion');
-	}
-
-	//-----------------------------------------------------------------------------------
-	//---- Configuraciones --------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__pant_nueva(toba_ei_pantalla $pantalla)
-	{
-		// $this->cn()->debug_arbol_datos_en_cache_cn();
 	}
 
 }

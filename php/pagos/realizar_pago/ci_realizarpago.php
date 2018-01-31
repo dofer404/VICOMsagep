@@ -116,60 +116,33 @@ class ci_realizarpago extends sagep_ci
 
 	function conf__form_ml_contratos(sagep_ei_formulario_ml $form_ml)
 	{
+		$array_meses = '';
 		$cache_ml_contratos= $this->get_cache_form_ml('form_ml_contratos');
 		$datos = $cache_ml_contratos->get_cache();
 
 		$datos_persona = $this->get_cache_form('form')->get_cache();
-		$persona = dao_realizarpago::get_contratos($datos_persona['id_persona']);
+		$contrato = dao_realizarpago::get_contratos($datos_persona['id_persona']);
 
-		if (isset($persona)) {
-				foreach ($persona as $key => $valor) {
-					$array_cuota[] = ['id_contrato' => $persona[$key]['id_contrato']
-														, 'fecha_contrato' => $persona[$key]['fecha_inicio']	];
-					//	if (!isset($this->s__datos['frm_ml_detCuotas'][$clave])) {
-								//$datos[$clave]['cantidad_cuota'] = '1';
-						//}
-						//$datos[$clave]['total'] = dao_liquidaciones_asistente::get_total_sin_recargo($valor['id_inscripcion'], $datos[$clave]['cantidad_cuota']);
+		if (isset($contrato)) {
+				foreach ($contrato as $key => $valor) {
+					$array_meses = '';
+					$cantidad_impaga=dao_realizarpago::get_cantidad_impagas($contrato[$key]['id_contrato']);
+					$cuotas_impagas = dao_realizarpago::get_cuotas_impagas($contrato[$key]['id_contrato']);
+					for($i=0;$i<$cantidad_impaga;$i++){
+						if($array_meses == ''){
+							$array_meses = $cuotas_impagas[$i]['periodo'];
+						}else {
+							$array_meses = $array_meses . ', ' . $cuotas_impagas[$i]['periodo'];
+						}
+					}
+					$array_cuota[] = ['id_contrato' => $contrato[$key]['id_contrato']
+														, 'fecha_contrato' => $contrato[$key]['fecha_inicio']
+													, 'cuota_pendiente' => $array_meses];
 				}
-				//$this->s__datos['frm_detAlumnos'] = $datos;
 		}
-		//$datos = array_merge($persona[$key]['id_contrato'], $id_contrato);
-
-		//$datos = array_merge($array_cuota, $id_contrato);
-
 		if($array_cuota){
 			$form_ml->set_datos($array_cuota);
 		}
-
-		//$form_ml->set_datos($datos)
-		//
-		//
-		//
-		// if(!$datos){
-		// 	$datos = dao_realizarpago::get_contratos($this->s__datos['sel_grupofam']);
-		//
-		// 	$form_ml->set_datos($datos);
-		// }
-		//
-		// $datos = [];
-		// if (isset($this->s__datos['frm_detAlumnos'])) {
-		// 		$datos = $this->s__datos['frm_detAlumnos'];
-		// } else {
-		// 		$datos = dao_liquidaciones_asistente::get_datos_familiares($this->s__datos['sel_grupofam']);
-		// 		if (isset($datos)) {
-		// 				foreach ($datos as $clave => $valor) {
-		// 						if (!isset($this->s__datos['frm_ml_detCuotas'][$clave])) {
-		// 								$datos[$clave]['cantidad_cuota'] = '1';
-		// 						}
-		// 						$datos[$clave]['total'] = dao_liquidaciones_asistente::get_total_sin_recargo($valor['id_inscripcion'], $datos[$clave]['cantidad_cuota']);
-		// 				}
-		// 				$this->s__datos['frm_detAlumnos'] = $datos;
-		// 		}
-		// }
-		// foreach ($datos as $key => $value) {
-		// 		$this->aux_cargarFilaDetalleInscripcion($key, true);
-		// }
-		// $form_ml->set_datos($datos);
 	}
 
 	function evt__form_ml_contratos__modificacion($datos)
@@ -190,7 +163,8 @@ class ci_realizarpago extends sagep_ci
 
 	function conf__form_ml_cuotas(sagep_ei_formulario_ml $form_ml)
 	{
-		$datos_contrato = $this->get_cache_form_ml('form_ml_contratos')->get_cache();
+		$cache_ml_contratos= $this->get_cache_form_ml('form_ml_contratos');
+		$datos_contrato = $cache_ml_contratos->get_cache();
 
 		$id_contrato = $datos_contrato['id_contrato'];
 

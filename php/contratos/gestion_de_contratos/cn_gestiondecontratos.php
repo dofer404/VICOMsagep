@@ -1,5 +1,4 @@
 <?php
-require_once('comunes/mensajes_error.php');
 class cn_gestiondecontratos extends sagep_cn
 {
 	protected $s__datos;
@@ -17,11 +16,6 @@ class cn_gestiondecontratos extends sagep_cn
 	{
 		$this->dep('dr_contratos')->sincronizar();
 		$this->dep('dr_contratos')->resetear();
-	}
-
-	function eliminar_cuotas()
-	{
-		$this->dep('dr_contratos')->tabla('dt_liquidaciones')->eliminar_todo();
 	}
 
 	function eliminar()
@@ -334,6 +328,11 @@ class cn_gestiondecontratos extends sagep_cn
 		return $datos;
 	}
 
+	function eliminar_liquidaciones()
+	{
+		$this->dep('dr_contratos')->tabla('dt_liquidaciones')->eliminar_todo();
+	}
+
 	//-----------------------------------------------------------------------------------
 	//---- dt_personas -------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -360,28 +359,25 @@ class cn_gestiondecontratos extends sagep_cn
 		$this->dep('dr_contratos')->tabla('dt_personas')->set($datos);
 	}
 
-	function debug_arbol_datos_en_cache_cn()
+	function  debug_arbol_datos_en_cache_cn()
 	{
-		if (mensajes_error::$debug) {
-			$datos['dt_contratos'] = $this->dep('dr_contratos')->tabla('dt_contratos')->get();
-
-			$dts = [
-				'dt_roles',
-				'dt_liquidaciones',
-				'dt_detalles_contrato',
-				'dt_detalleubicacion_detallecontrato',
-				'dt_estados',
-				'dt_fotos_servicio',
-				'dt_historial_estado',
-			];
-
-			foreach ($dts as $dt) {
-				$datos[$dt] = $this->dep('dr_contratos')->tabla($dt)->get_filas();
-			}
-
-			ei_arbol(array('a sincronizar en cn:' => $datos));
+		$datos [' dt_contratos' ] =  $this->dep('dr_contratos')-> tabla('dt_contratos')->get();
+		$dts = [
+			'dt_roles' ,
+			'dt_liquidaciones' ,
+			'dt_detalles_contrato' ,
+			'dt_detalleubicacion_detallecontrato' ,
+			'dt_estados' ,
+			'dt_fotos_servicio' ,
+			'dt_historial_estado' ,
+		];
+		foreach ( $dts  as  $dt ) {
+			$datos[$dt] =  $this->dep('dr_contratos')->tabla($dt)->get_filas();
 		}
+
+		ei_arbol( array ( ' a sincronizar en cn: '  =>  $datos ));
 	}
+
 
 }
 ?>

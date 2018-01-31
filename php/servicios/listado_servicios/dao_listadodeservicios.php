@@ -2,7 +2,7 @@
 
 require_once('parametros/direcciones/tipos_de_zonas/dao_tiposdezonas.php');
 
-class dao_gestiondeservicios{
+class dao_listadodeservicios{
 
   static function get_listado_servicios ($where='')
   {
@@ -24,7 +24,7 @@ class dao_gestiondeservicios{
                   t_sr.nombre_serv as parent_id_servicio_nombre
 
           FROM es_sagep.servicios t_s
-          JOIN es_sagep.servicios t_sr ON t_s.parent_id_servicio = t_sr.id_servicio
+          JOIN es_sagep.servicios t_sr ON t_s.parent_id_servicio = t_sr.id_servicio 
 
               $where_armado";
 

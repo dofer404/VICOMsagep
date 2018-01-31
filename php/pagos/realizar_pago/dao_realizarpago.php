@@ -92,6 +92,30 @@ class dao_realizarpago{
     return consultar_fuente($sql);
   }
 
+  static function get_cuotas_impagas($id_contrato)
+  {
+    $id_contrato = quote($id_contrato);
+
+    $sql = "SELECT liq.nro_cuota,
+	                 mes.nombre_mes as periodo,
+	                  liq.anio
+            FROM es_sagep.liquidaciones liq, es_sagep.meses mes
+            WHERE liq.id_contrato = $id_contrato AND liq.pago='false' AND liq.id_mes = mes.id_mes AND liq.fecha_vencimiento < now()";
+
+    return consultar_fuente($sql);
+  }
+
+  static function get_cantidad_impagas($id_contrato)
+  {
+    $id_contrato = quote($id_contrato);
+
+    $sql = "SELECT count(*) as contador
+            FROM es_sagep.liquidaciones
+            WHERE id_contrato = $id_contrato and pago='false' and fecha_vencimiento < now()";
+
+    return consultar_fuente($sql)[0]['contador'];
+  }
+
   static function get_tiposPagos()
   {
     return dao_tiposdepagos::get_listado_tipos_pagos();
@@ -118,6 +142,8 @@ class dao_realizarpago{
 
   return $resultado[0];
 }
+
+
 
 }
 

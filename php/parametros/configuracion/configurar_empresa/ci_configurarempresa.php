@@ -12,13 +12,15 @@ class ci_configurarempresa extends sagep_ci
 
 	protected $sql_state;
 	protected $s__datos_filtro;
-	protected $s__datos;
+	protected $s__datos = [];
 
 	//-----------------------------------------------------------------------------------
 	//---- setters y getters ------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function get_cache($nombre)
+	// getter form_cache
+
+	function get_cache_form($nombre)
 	{
 		if (!isset($this->s__datos[$nombre])) {
 			$this->s__datos[$nombre] = new cache_form();
@@ -32,7 +34,6 @@ class ci_configurarempresa extends sagep_ci
 
 	function conf__form_muestra(sagep_ei_formulario $form)
 	{
-
 		if (isset(dao_configurarempresa::get_listado_empresa()[0])) {
 			$datos = dao_configurarempresa::get_listado_empresa()[0];
 			$id_empresa = ['id_empresa' => $datos['id_empresa']];
@@ -42,6 +43,33 @@ class ci_configurarempresa extends sagep_ci
 			$datos = $this->cn()->get_empresa();
 			$form->set_datos($datos);
 		}
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form -------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form(sagep_ei_formulario $form)
+	{
+		$cache_form = $this->get_cache_form('form');
+		$datos = $cache_form->get_cache();
+
+		if (!$datos) {
+			if ($this->cn()->hay_cursor() ) {
+				$datos = $this->cn()->get_empresa();
+				$cache_form->set_cache($datos);
+			} else {
+				$this->pantalla()->eliminar_evento('eliminar');
+			}
+		}
+
+		$form->set_datos($datos);
+	}
+
+	function evt__form__modificacion($datos)
+	{
+		$this->cn()->set_empresa($datos);
+		$this->get_cache_form('form')->set_cache($datos);
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -55,62 +83,36 @@ class ci_configurarempresa extends sagep_ci
 
 	function evt__procesar()
 	{
-		$this->cn()->dep('dr_datos_empresa')->sincronizar();
-		$this->cn()->dep('dr_datos_empresa')->resetear();
+		$this->cn()->guardar();
 		$this->set_pantalla('pant_inicial');
-
 	}
 
 	function evt__cancelar()
 	{
 		$this->cn()->reiniciar();
-		$this->get_cache('form')->unset_cache();
 		$this->set_pantalla('pant_inicial');
 	}
 
 	//-----------------------------------------------------------------------------------
-	//---- Cuadro -----------------------------------------------------------------------
+	//---- Auxiliares -------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function conf__cuadro(sagep_ei_cuadro $cuadro)
+	function ajax__setear_telefonos($id, toba_ajax_respuesta $respuesta)
 	{
-		$cuadro->desactivar_modo_clave_segura();
-
-		$datos = dao_configurarempresa::get_listado_empresa();
-		$cuadro->set_datos($datos);
+		$datos = dao_configurarempresa::get_opcionesTelefonos($id);
+		$respuesta->set($datos);
 	}
 
-	function evt__cuadro__seleccion($seleccion)
+	function ajax__setear_correos($id, toba_ajax_respuesta $respuesta)
 	{
-		$this->cn()->cargar($seleccion);
-		$this->cn()->set_cursor($seleccion);
-		$this->set_pantalla('pant_edicion');
+		$datos = dao_configurarempresa::get_opcionesCorreo($id);
+		$respuesta->set($datos);
 	}
 
-	//-----------------------------------------------------------------------------------
-	//---- form -------------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__form(sagep_ei_formulario $form)
+	function ajax__setear_direcciones($id, toba_ajax_respuesta $respuesta)
 	{
-
-		$cache_form = $this->get_cache('form');
-		$datos = $cache_form->get_cache();
-		if (!$datos) {
-			if ($this->cn()->hay_cursor() ) {
-				$datos = $this->cn()->get_empresa();
-				$cache_form->set_cache($datos);
-			} else {
-				$this->pantalla()->eliminar_evento('eliminar');
-			}
-		}
-		$form->set_datos($datos);
-	}
-
-	function evt__form__modificacion($datos)
-	{
-		$this->get_cache('form')->set_cache($datos);
-		$this->cn()->set_empresa($datos);
+		$datos = dao_configurarempresa::get_opcionesUbicacion($id);
+		$respuesta->set($datos);
 	}
 
 }

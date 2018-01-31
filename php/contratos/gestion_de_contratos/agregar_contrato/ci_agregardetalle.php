@@ -334,10 +334,10 @@ class ci_agregardetalle extends sagep_ci
 		$this->controlador()->pantalla()->eliminar_evento('cambiar_tab__anterior');
 		$this->controlador()->pantalla()->eliminar_evento('cambiar_tab__siguiente');
 
-		$this->controlador()->pantalla()->set_descripcion("Detalles del Contrato <br/>
-		 <br/> <li>Presione \"Agregar\" para ingresar un nuevo detalle</li>
-                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
-													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+	// 	$this->controlador()->pantalla()->set_descripcion("Detalles del Contrato <br/>
+	// 	 <br/> <li>Presione \"Agregar\" para ingresar un nuevo detalle</li>
+  //                         <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+	// 												<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
 	}
 
 	function post_eventos()
@@ -421,12 +421,24 @@ class ci_agregardetalle extends sagep_ci
 	{
 	}
 
-	function conf__detalle(toba_ei_pantalla $pantalla)
+	// function conf__detalle(toba_ei_pantalla $pantalla)
+	// {
+	// 	if($pantalla->get_etiqueta() == 'Detalles del Contrato'){
+	// 		$this->controlador()->pantalla('detalle')->set_descripcion("Ingrese Detalles del Contrato <br/>
+	// 		 <br/> <li>Presione \"Agregar\" para ingresar un Nuevo Detalle</li>
+	//                           <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+	// 													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+	// 	}
+	// }
+
+	function conf()
 	{
-		$this->controlador()->pantalla()->set_descripcion("Ingrese Detalles del Contrato <br/>
-		 <br/> <li>Presione \"Agregar\" para ingresar un Nuevo Detalle</li>
-                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
-													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+			// if($this->pantalla()->get_etiqueta() == 'Detalles del Contrato'){
+			// 	$this->controlador()->pantalla('detalle')->set_descripcion("Ingrese Detalles del Contrato <br/>
+			// 	 <br/> <li>Presione \"Agregar\" para ingresar un Nuevo Detalle</li>
+		  //                         <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+			// 												<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+			// }
 	}
 
 }

@@ -44,16 +44,17 @@ class ci_agregarcontrato extends sagep_ci
 		try {
 			$this->cn()->guardar();
 			$this->evt__cancelar();
+
 		} catch (toba_error_db $e) {
-			if (mensajes_error::$debug) {
-				// Aquí los mensajes que levantemos son para los desarrolladores ($debug == true)
-				// $this->cn()->reiniciar(); tal vez no conviene reiniciar el CN si estamos haciendo debug
+			if (!mensajes_error::$debug) {
+				$this->cn()->reiniciar();
 				$sql_state = $e->get_sqlstate();
 				mensajes_error::get_mensaje_error($sql_state);
 				throw $e;
 			} else {
-				// Aquí hay que enviarle un mensaje al usuario como último recurso
-				//   Es decir, ocurrió un error inesperado al intentar guardar los datos en la base de datos.
+				throw $e;
+
+				$this->cn()->debug_arbol_datos_en_cache_cn();
 			}
 		}
 	}
@@ -94,7 +95,6 @@ class ci_agregarcontrato extends sagep_ci
 		$form->set_datos($datos);
 
 		$form->ef('fecha_inicio')->set_estado_defecto(date('d/m/Y'));
-		//$form->ef('fecha_fin')->set_estado_defecto(date('10/01/2019'));
 	}
 
 	function evt__form__modificacion($datos)
@@ -114,21 +114,6 @@ class ci_agregarcontrato extends sagep_ci
 		$cache_ml_roles = $this->get_cache_form_ml('form_ml_roles');
 		$datos = $cache_ml_roles->get_cache();
 		$form_ml->set_datos($datos);
-
-		// if($datos){
-		// 	$form_ml->set_datos($datos);
-		// } else {
-		//
-		// 	// $array_contratante[0] = ['id_persona' => 14
-		//   //                  ,'id_rol' => 1
-		// 	// 								];
-		// 	//
-		// 	//
-		// 	// $form_ml->set_datos_defecto($array_contratante);
-		// 	// //$form_ml->set_registro_nuevo($array_contratante);
-		// 	// $form_ml->set_registro_nuevo();
-		// }
-
 	}
 
 	function evt__form_ml_roles__modificacion($datos)
@@ -155,7 +140,27 @@ class ci_agregarcontrato extends sagep_ci
 	//---- form_ml_cuotas ---------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function generarArrayCuota()
+	function conf__form_ml_cuotas(sagep_ei_formulario_ml $form_ml)
+	{
+		$array_cuota = $this->generarArrayCuota();
+		$form_ml->set_datos_defecto($array_cuota);
+	}
+
+	function evt__form_ml_cuotas__modificacion($datos)
+	{
+		$this->cn()->eliminar_liquidaciones();
+		foreach ($datos as $key => $value) {
+			$datos[$key]['apex_ei_analisis_fila'] = 'A';
+		}
+
+		$this->cn()->procesar_filas_liquidaciones($datos);
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- Auxiliares -------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function generarArrayCuota ()
 	{
 		$fecha_vencimiento = new DateTime();
 		$array_cuota = [];
@@ -164,6 +169,7 @@ class ci_agregarcontrato extends sagep_ci
 
 		$datos_contrato = $this->get_cache_form('form')->get_cache();
 		$datos_detalle = $this->dep('ci_agregardetalle')->get_cache_form_ml('form_ml_detalle')->get_cache();
+
 
 		$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos_contrato['id_tipo_contrato']);
 
@@ -206,24 +212,161 @@ class ci_agregarcontrato extends sagep_ci
 		}
 
 		return $array_cuota;
+
 	}
 
-	function conf__form_ml_cuotas(sagep_ei_formulario_ml $form_ml)
+// ----------------------Pantalla Resumen ---------------------------------------------
+
+	//-----------------------------------------------------------------------------------
+	//---- form_contrato ----------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_contrato(sagep_ei_formulario $form)
 	{
-		$array_cuota = $this->generarArrayCuota();
-		$form_ml->set_datos_defecto($array_cuota);
+		$cantidad_meses = 0;
+		$cache_form = $this->get_cache_form('form');
+		$datos = $cache_form->get_cache();
+
+		if (!$datos) {
+			if ($this->cn()->hay_cursor() ) {
+				$datos = $this->cn()->get_contratos();
+				$cache_form->set_cache($datos);
+			}
+	}
+			if($datos) {
+				$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos['id_tipo_contrato']);
+			}
+
+			$monto_total = $this->dep('ci_agregardetalle')->calcular_monto($cantidad_meses);
+
+			$datos = array_merge($datos, $monto_total);
+
+	$form->set_datos($datos);
 	}
 
-	function evt__form_ml_cuotas__modificacion($datos)
-	{
-		$this->cn()->eliminar_cuotas();
+	//-----------------------------------------------------------------------------------
+	//---- form_resumen_roles -----------------------------------------------------------
+	//-----------------------------------------------------------------------------------
 
-		foreach ($datos as $key => $value) {
-			$datos[$key]['apex_ei_analisis_fila'] = 'A';
+	function conf__form_resumen_roles(sagep_ei_formulario_ml $form_ml)
+	{
+		$datos_roles = $this->get_cache_form_ml('form_ml_roles')->get_cache();
+		$form_ml->set_datos($datos_roles);
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form_ml_detalle --------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_ml_detalle(sagep_ei_formulario_ml $form_ml)
+	{
+		$datos_detalle = $this->dep('ci_agregardetalle')->get_cache_form_ml('form_ml_detalle')->get_cache();
+
+		if (!$datos_detalle) {
+			if ($this->cn()->hay_cursor() ) {
+				$datos_detalle = $this->cn()->get_detalle();
+			}
 		}
 
-		$this->cn()->procesar_filas_liquidaciones($datos);
+		$form_ml->set_datos($datos_detalle);
 	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form_ml_ubicacion ------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_ml_ubicacion(sagep_ei_formulario_ml $form_ml)
+	{
+		$cache_ml_ubicacion = $this->get_cache_form_ml('form_ml_ubicacion');
+		$datos = $cache_ml_ubicacion->get_cache();
+		$datos_ubicaciones = $this->dep('ci_agregardetalle')->dep('ci_agregarubicacion')->get_cache_form_ml('form_ml_ubicacion')->get_cache();
+		ei_arbol($datos_ubicaciones);
+		$datos = array_merge($datos, $datos_ubicaciones);
+		$cache_ml_ubicacion->set_cache($datos);
+
+		$form_ml->set_datos($datos);
+	}
+
+	// function evt__form_ml_detalle__modificacion($datos)
+	// {
+	// 	$this->cn()->procesar_filas_detalle($datos);
+	// 	$this->get_cache_form_ml('form_ml_detalle')->set_cache($datos);
+	// }
+	//
+	// function evt__form_ml_ubicacion__modificacion($datos)
+	// {
+	// 	$this->cn()->procesar_filas_ubicacion($datos);
+	// 	//$this->cn()->resetear_cursor_detalle();
+	// }
+
+	//-----------------------------------------------------------------------------------
+	//---- Configuraciones --------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	// function conf__liquidaciones(toba_ei_pantalla $pantalla)
+	// {
+	// 	$pantalla->set_descripcion("Liquidaciones <br/>
+	// 	 <br/> <li>Cuotas que se generan</li>
+  //                         <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+	// 												<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+	// }
+
+	function conf__resumen(toba_ei_pantalla $pantalla)
+	{
+	 	$this->pantalla()->set_descripcion("Resumen <br/>
+	 <br/> <li>Resumen del Contrato</li>
+                      <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+	}
+
+	// function conf__contrato(toba_ei_pantalla $pantalla)
+	// {
+	// 	$this->controlador()->pantalla()->set_descripcion("Liquidaciones <br/>
+	// 	 <br/> <li>Cuotas que se generan</li>
+  //                         <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+	// 												<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+	// }
+
+	function conf()
+	{
+		if($this->pantalla()->get_etiqueta() == 'Contrato'){
+			$this->pantalla()->set_descripcion("Ingrese Datos del Contrato  <br/>
+			<br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
+                          <li>Presione \"Agregar\" para ingresar un nuevo Rol</li>
+                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Inicial </div> ");
+		}
+
+		if($this->pantalla()->get_etiqueta() == 'Detalle de Contrato'){
+			$this->pantalla()->set_descripcion("Ingrese Detalles del Contrato <br/>
+			 <br/> <li>Presione \"Agregar\" para ingresar un Nuevo Detalle</li>
+														<li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+														<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+		}
+
+		if($this->dep('ci_agregardetalle')->pantalla()->get_etiqueta() == 'Ubicaciones'){
+			$this->pantalla()->set_descripcion("Ingrese un Detalle <br/>
+			 <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
+			 <li>Presione \"Agregar\" para ingresar un Nueva Ubicación</li>
+	                          <li>Presione \"Aceptar\" para confirmar o \"Volver\" para ir a la Pantalla Anterior </li> ");
+
+		}
+		if($this->pantalla()->get_etiqueta() == 'Cuotas'){
+			$this->pantalla()->set_descripcion("Liquidaciones <br/>
+			 <br/> <li>Cuotas que se generan</li>
+	                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+														<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+
+		}
+		if($this->dep('ci_agregardetalle')->dep('ci_agregarubicacion')->pantalla()->get_etiqueta() == 'Pantalla Edición'){
+			$this->pantalla()->set_descripcion("Ingrese Ubicación <br/>
+			 <br/>  <li>En cada ítem, se brinda una ayuda para la carga</li>
+		 <li>Presione \"Siguiente\" para continuar o \"Volver\" para ir a la Pantalla Anterior </li>");
+
+		}
+	}
+
+
 
 }
 ?>
