@@ -323,9 +323,9 @@ class ci_agregarubicacion extends sagep_ci
 		$this->controlador()->dep('form_detalle')->ef('id_servicio')->set_solo_lectura();
 
 
-		$this->controlador()->controlador()->pantalla()->set_descripcion("Ingrese Ubicación <br/>
-		 <br/>  <li>En cada ítem, se brinda una ayuda para la carga</li>
-	 <li>Presione \"Siguiente\" para continuar o \"Volver\" para ir a la Pantalla Anterior </li>");
+	// 	$this->controlador()->controlador()->pantalla()->set_descripcion("Ingrese Ubicación <br/>
+	// 	 <br/>  <li>En cada ítem, se brinda una ayuda para la carga</li>
+	//  <li>Presione \"Siguiente\" para continuar o \"Volver\" para ir a la Pantalla Anterior </li>");
 	}
 
   function post_eventos()
@@ -338,28 +338,28 @@ class ci_agregarubicacion extends sagep_ci
       $this->cn()->set_cursor_estado($cursor);
     }
   }
-	function conf__pant_detalle(toba_ei_pantalla $pantalla)
-	{
-		//$pantalla->set_etiqueta(' ');
-		$this->controlador()->pantalla()->eliminar_evento('procesar');
-		$this->controlador()->pantalla()->eliminar_evento('cancelar');
+// 	function conf__pant_detalle(toba_ei_pantalla $pantalla)
+// 	{
+// 		//$pantalla->set_etiqueta(' ');
+// 		$this->controlador()->pantalla()->eliminar_evento('procesar');
+// 		$this->controlador()->pantalla()->eliminar_evento('cancelar');
+//
+// 		//$this->controlador()->controlador()->pantalla('detalles')->set_etiqueta('Servicio');
+//
+// 		$this->controlador()->controlador()->pantalla()->set_descripcion("Ingrese un Servicio <br/>
+// <br/> <li>Presione \"Aceptar\" para confirmar o \"Volver\" para ir a la Pantalla Anterior </li> ");
+// 	}
 
-		//$this->controlador()->controlador()->pantalla('detalles')->set_etiqueta('Servicio');
-
-		$this->controlador()->controlador()->pantalla()->set_descripcion("Ingrese un Servicio <br/>
-<br/> <li>Presione \"Aceptar\" para confirmar o \"Volver\" para ir a la Pantalla Anterior </li> ");
-	}
-
-	function conf__pant_inicial(toba_ei_pantalla $pantalla)
-	{
-		//$this->controlador()->pantalla()->eliminar_evento('procesar');
-		//$this->controlador()->pantalla()->eliminar_evento('cancelar');
-
-		$this->controlador()->controlador()->pantalla()->set_descripcion("Ingrese un Detalle <br/>
-		 <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
-		 <li>Presione \"Agregar\" para ingresar un Nueva Ubicación</li>
-                          <li>Presione \"Aceptar\" para confirmar o \"Volver\" para ir a la Pantalla Anterior </li> ");
-	}
+	// function conf__pant_inicial(toba_ei_pantalla $pantalla)
+	// {
+	// 	//$this->controlador()->pantalla()->eliminar_evento('procesar');
+	// 	//$this->controlador()->pantalla()->eliminar_evento('cancelar');
+	//
+	// 	$this->controlador()->controlador()->pantalla()->set_descripcion("Ingrese un Detalle <br/>
+	// 	 <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
+	// 	 <li>Presione \"Agregar\" para ingresar un Nueva Ubicación</li>
+  //                         <li>Presione \"Aceptar\" para confirmar o \"Volver\" para ir a la Pantalla Anterior </li> ");
+	// }
 
 }
 ?>

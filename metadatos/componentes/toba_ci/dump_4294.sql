@@ -229,6 +229,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	NULL, --inicializar
 	NULL  --orden
 );
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
+	'3003', --dep_id
+	'4294', --objeto_consumidor
+	'4405', --objeto_proveedor
+	'form_resumen_roles', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
@@ -243,12 +255,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'contrato', --identificador
 	'2', --orden
 	'Contrato', --etiqueta
-	'Ingrese Datos del Contrato <br/>
-		 <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
-                          <li>Presione "Agregar" para ingresar un nuevo Rol</li>
-                          <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operación </li>
-
-<div style = "text-align:right">Nota: Presione "Anterior" para volver a la Pantalla Inicial </div>', --descripcion
+	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -306,12 +313,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'liquidaciones', --identificador
 	'4', --orden
 	'Cuotas', --etiqueta
-	'Cuotas que se generan <br/>
-		 <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
-                          <li>Presione "Agregar" para ingresar un nuevo Rol</li>
-                          <li>Presione "Siguiente" para continuar o "Cancelar" para anular la operación </li>
-
-<div style = "text-align:right">Nota: Presione "Anterior" para volver a la Pantalla Inicial </div>', --descripcion
+	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -386,15 +388,22 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'sagep', --proyecto
 	'1895', --pantalla
 	'4294', --objeto_ci
-	'1', --orden
+	'2', --orden
 	'3001'  --dep_id
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'sagep', --proyecto
 	'1895', --pantalla
 	'4294', --objeto_ci
-	'2', --orden
+	'3', --orden
 	'3002'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1895', --pantalla
+	'4294', --objeto_ci
+	'1', --orden
+	'3003'  --dep_id
 );
 
 ------------------------------------------------------------
@@ -415,6 +424,18 @@ INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VAL
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
 	'1871', --pantalla
 	'4294', --objeto_ci
+	'3763', --evento_id
+	'sagep'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1895', --pantalla
+	'4294', --objeto_ci
 	'3762', --evento_id
+	'sagep'  --proyecto
+);
+INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
+	'1895', --pantalla
+	'4294', --objeto_ci
+	'3763', --evento_id
 	'sagep'  --proyecto
 );

@@ -225,7 +225,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	'1872', --pantalla
 	'pant_inicial', --identificador
 	'1', --orden
-	'Ubicación', --etiqueta
+	'Ubicacion', --etiqueta
 	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen

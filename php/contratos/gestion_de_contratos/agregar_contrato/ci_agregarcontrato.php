@@ -215,7 +215,7 @@ class ci_agregarcontrato extends sagep_ci
 
 	}
 
-// ----------------------Pantalla Resumen ----------------------------------------------
+// ----------------------Pantalla Resumen ---------------------------------------------
 
 	//-----------------------------------------------------------------------------------
 	//---- form_contrato ----------------------------------------------------------------
@@ -245,6 +245,16 @@ class ci_agregarcontrato extends sagep_ci
 	}
 
 	//-----------------------------------------------------------------------------------
+	//---- form_resumen_roles -----------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_resumen_roles(sagep_ei_formulario_ml $form_ml)
+	{
+		$datos_roles = $this->get_cache_form_ml('form_ml_roles')->get_cache();
+		$form_ml->set_datos($datos_roles);
+	}
+
+	//-----------------------------------------------------------------------------------
 	//---- form_ml_detalle --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
@@ -255,7 +265,6 @@ class ci_agregarcontrato extends sagep_ci
 		if (!$datos_detalle) {
 			if ($this->cn()->hay_cursor() ) {
 				$datos_detalle = $this->cn()->get_detalle();
-				$cache_ml->set_cache($datos_detalle);
 			}
 		}
 
@@ -268,37 +277,24 @@ class ci_agregarcontrato extends sagep_ci
 
 	function conf__form_ml_ubicacion(sagep_ei_formulario_ml $form_ml)
 	{
-		$datos_ubicaciones = $this->dep('ci_agregardetalle')->dep('ci_agregarubicacion')->get_cache_form_ml('form_ml_detalle')->get_cache();
-			// if ($this->cn()->hay_cursor_detalle()) {
-			// 	$datos = $this->cn()->get_ubicacion();
-			// 	ei_arbol($datos);
-			// 	//ei_arbol($datos_ubicaciones);
-			// 	//$cache_ml->set_cache($datos);
-			// 	$form_ml->set_datos($datos);
-			// }
-
-		if (!$datos_ubicaciones) {
-			if ($this->cn()->hay_cursor_ubicaciones() ) {
-				$datos_detalle = $this->cn()->get_ubicacion();
-				$cache_ml->set_cache($datos_ubicaciones);
-			}
-		}
+		$cache_ml_ubicacion = $this->get_cache_form_ml('form_ml_ubicacion');
+		$datos = $cache_ml_ubicacion->get_cache();
+		$datos_ubicaciones = $this->dep('ci_agregardetalle')->dep('ci_agregarubicacion')->get_cache_form_ml('form_ml_ubicacion')->get_cache();
 		ei_arbol($datos_ubicaciones);
+		$datos = array_merge($datos, $datos_ubicaciones);
+		$cache_ml_ubicacion->set_cache($datos);
 
-		$form_ml->set_datos($datos_ubicaciones);
-
+		$form_ml->set_datos($datos);
 	}
 
 	// function evt__form_ml_detalle__modificacion($datos)
 	// {
-	// 	//ei_arbol($datos);
 	// 	$this->cn()->procesar_filas_detalle($datos);
 	// 	$this->get_cache_form_ml('form_ml_detalle')->set_cache($datos);
 	// }
 	//
 	// function evt__form_ml_ubicacion__modificacion($datos)
 	// {
-	// 	//ei_arbol($datos);
 	// 	$this->cn()->procesar_filas_ubicacion($datos);
 	// 	//$this->cn()->resetear_cursor_detalle();
 	// }
@@ -307,21 +303,70 @@ class ci_agregarcontrato extends sagep_ci
 	//---- Configuraciones --------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	function conf__liquidaciones(toba_ei_pantalla $pantalla)
-	{
-		$pantalla->set_descripcion("Liquidaciones <br/>
-		 <br/> <li>Cuotas que se generan</li>
-                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
-													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
-	}
+	// function conf__liquidaciones(toba_ei_pantalla $pantalla)
+	// {
+	// 	$pantalla->set_descripcion("Liquidaciones <br/>
+	// 	 <br/> <li>Cuotas que se generan</li>
+  //                         <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+	// 												<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+	// }
 
 	function conf__resumen(toba_ei_pantalla $pantalla)
 	{
-	 	$this->controlador()->pantalla()->set_descripcion("Resumen <br/>
-	 <br/> <li>Resumen del COntrato</li>
+	 	$this->pantalla()->set_descripcion("Resumen <br/>
+	 <br/> <li>Resumen del Contrato</li>
                       <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
 													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
 	}
+
+	// function conf__contrato(toba_ei_pantalla $pantalla)
+	// {
+	// 	$this->controlador()->pantalla()->set_descripcion("Liquidaciones <br/>
+	// 	 <br/> <li>Cuotas que se generan</li>
+  //                         <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+	// 												<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+	// }
+
+	function conf()
+	{
+		if($this->pantalla()->get_etiqueta() == 'Contrato'){
+			$this->pantalla()->set_descripcion("Ingrese Datos del Contrato  <br/>
+			<br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
+                          <li>Presione \"Agregar\" para ingresar un nuevo Rol</li>
+                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Inicial </div> ");
+		}
+
+		if($this->pantalla()->get_etiqueta() == 'Detalle de Contrato'){
+			$this->pantalla()->set_descripcion("Ingrese Detalles del Contrato <br/>
+			 <br/> <li>Presione \"Agregar\" para ingresar un Nuevo Detalle</li>
+														<li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+														<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+		}
+
+		if($this->dep('ci_agregardetalle')->pantalla()->get_etiqueta() == 'Ubicaciones'){
+			$this->pantalla()->set_descripcion("Ingrese un Detalle <br/>
+			 <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
+			 <li>Presione \"Agregar\" para ingresar un Nueva Ubicación</li>
+	                          <li>Presione \"Aceptar\" para confirmar o \"Volver\" para ir a la Pantalla Anterior </li> ");
+
+		}
+		if($this->pantalla()->get_etiqueta() == 'Cuotas'){
+			$this->pantalla()->set_descripcion("Liquidaciones <br/>
+			 <br/> <li>Cuotas que se generan</li>
+	                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
+														<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
+
+		}
+		if($this->dep('ci_agregardetalle')->dep('ci_agregarubicacion')->pantalla()->get_etiqueta() == 'Pantalla Edición'){
+			$this->pantalla()->set_descripcion("Ingrese Ubicación <br/>
+			 <br/>  <li>En cada ítem, se brinda una ayuda para la carga</li>
+		 <li>Presione \"Siguiente\" para continuar o \"Volver\" para ir a la Pantalla Anterior </li>");
+
+		}
+	}
+
+
 
 }
 ?>
