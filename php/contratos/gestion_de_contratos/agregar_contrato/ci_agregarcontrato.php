@@ -277,12 +277,30 @@ class ci_agregarcontrato extends sagep_ci
 
 	function conf__form_ml_ubicacion(sagep_ei_formulario_ml $form_ml)
 	{
-		$cache_ml_ubicacion = $this->get_cache_form_ml('form_ml_ubicacion');
-		$datos = $cache_ml_ubicacion->get_cache();
-		$datos_ubicaciones = $this->dep('ci_agregardetalle')->dep('ci_agregarubicacion')->get_cache_form_ml('form_ml_ubicacion')->get_cache();
-		ei_arbol($datos_ubicaciones);
-		$datos = array_merge($datos, $datos_ubicaciones);
-		$cache_ml_ubicacion->set_cache($datos);
+		/* No hace falta
+		 * $cache_ml_ubicacion = $this->get_cache_form_ml('form_ml_ubicacion');
+	 	 * $datos = $cache_ml_ubicacion->get_cache();
+	 	 * $datos_ubicaciones = $this->dep('ci_agregardetalle')->dep('ci_agregarubicacion')->get_cache_form_ml('form_ml_ubicacion')->get_cache();
+	 	 * ei_arbol($datos_ubicaciones);
+	 	 * $datos = array_merge($datos, $datos_ubicaciones);
+	 	 * $cache_ml_ubicacion->set_cache($datos);
+		 */
+		// Acá uso el cn directamente pero toda esta lógica se debería pasar al cn->get_ubicaciones_aplanado (de todos los detalles sin importar a cual)
+		$tabla_detalles = $this->cn()->dep('dr_contratos')->tabla('dt_detalles_contrato');
+		$tabla_ubicaciones = $this->cn()->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato');
+		$cache_cn_detalles = $tabla_detalles->get_filas();
+		$datos = [];
+		// por cada detalle pueden haber muchas ubicaciones, así que recorremos los detalles para obtenerlas
+		foreach ($cache_cn_detalles as $detalle) {
+			$tabla_detalles->set_cursor($detalle['x_dbr_clave']); //< vamos a obtener todas las ubicaciones de este detalle
+			$id_servicio = ['id_servicio' => $detalle['id_servicio']]; //< nos guardamos el id_servicio de este detalle
+			$filas_ubics_detalle = $tabla_ubicaciones->get_filas(); //< obtenemos las ubicaciones
+			// en $filas_ubics_detalle tenemos todas las ubicaciones de este detalle, pero tenemos que modificar cada fila antes de agregarla al formulario, así que las recorremos
+			foreach ($filas_ubics_detalle as $ubicacion) {
+				unset($ubicacion['x_dbr_clave']); //< Solo se va a mostrar, no se van a setear los valores desde este formulario
+				$datos[] = array_merge($id_servicio, $ubicacion); //< Le agregamos el id_servicio correspondiente
+			}
+		}
 
 		$form_ml->set_datos($datos);
 	}
@@ -293,6 +311,12 @@ class ci_agregarcontrato extends sagep_ci
 	// 	$this->get_cache_form_ml('form_ml_detalle')->set_cache($datos);
 	// }
 	//
+
+	/* form_ml_ubicaciones debe ser de solo lectura,
+	 *  o se debe implementar un procedimiento especial que lleve un seguimiento
+	 *  de cada ubicación y a qué detalle pertence,
+	 *  o se debe implementar lógica para cargar los detalles de una sola ubicación a la vez
+	 */
 	// function evt__form_ml_ubicacion__modificacion($datos)
 	// {
 	// 	$this->cn()->procesar_filas_ubicacion($datos);
