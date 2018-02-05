@@ -234,17 +234,28 @@ class dao_gestiondecontratos{
     return $resultado[0];
   }
 
-  // static function get_detalles_contrato($id_detalle_contrato)
-  // {
-  //   $id_detalle_contrato = quote($id_detalle_contrato);
-  //
-  //   $sql = "SELECT det.id_servicio,
-  //                 ser.nombre_serv servicio
-  //                 FROM es_sagep.detalles_contrato det, es_sagep.servicios ser
-  //                 WHERE det.id_servicio = ser.id_servicio AND det.id_detalle_contrato = $id_detalle_contrato";
-  //
-  //   return consultar_fuente($sql)[0]['servicio'];
-  // }
+  static function get_servicio_detalle($id_servicio)
+  {
+    $id_servicio = quote($id_servicio);
+
+    $sql = "SELECT ser.id_servicio,
+                  ser.nombre_serv as servicio
+                  FROM es_sagep.servicios ser
+                  WHERE ser.id_servicio= $id_servicio";
+
+    return consultar_fuente($sql)[0];
+  }
+
+  static function get_mes($id_mes)
+  {
+    $id_mes = quote($id_mes);
+
+    $sql = "SELECT nombre_mes
+                  FROM es_sagep.meses
+                  WHERE id_mes= $id_mes";
+
+    return consultar_fuente($sql)[0]['nombre_mes'];
+  }
 
 }
 

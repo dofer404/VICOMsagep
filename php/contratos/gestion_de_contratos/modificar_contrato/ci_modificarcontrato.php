@@ -77,7 +77,6 @@ class ci_modificarcontrato extends sagep_ci
 		}
 		$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos['id_tipo_contrato']);
 		$monto_total = $this->dep('ci_detallecontrato')->calcular_monto($cantidad_meses);
-		ei_arbol($monto_total);
 
 		$datos = array_merge($datos, $monto_total);
 

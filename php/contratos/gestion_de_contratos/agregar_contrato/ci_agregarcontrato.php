@@ -34,6 +34,7 @@ class ci_agregarcontrato extends sagep_ci
 	//-----------------------------------------------------------------------------------
 
 	protected $s__datos = [];
+	protected  $guardado = 0;
 
 	//-----------------------------------------------------------------------------------
 	//---- Eventos ----------------------------------------------------------------------
@@ -41,21 +42,68 @@ class ci_agregarcontrato extends sagep_ci
 
 	function evt__procesar()
 	{
-		try {
-			$this->cn()->guardar();
-			$this->evt__cancelar();
+			try {
+				$this->cn()->guardar();
+				$this->guardado=1;
+				//$this->evt__cancelar();
+			} catch (toba_error_db $e) {
+				if (!mensajes_error::$debug) {
+					$this->cn()->reiniciar();
+					$sql_state = $e->get_sqlstate();
+					mensajes_error::get_mensaje_error($sql_state);
+					throw $e;
+				} else {
+					throw $e;
 
-		} catch (toba_error_db $e) {
-			if (!mensajes_error::$debug) {
-				$this->cn()->reiniciar();
-				$sql_state = $e->get_sqlstate();
-				mensajes_error::get_mensaje_error($sql_state);
-				throw $e;
-			} else {
-				throw $e;
-
-				$this->cn()->debug_arbol_datos_en_cache_cn();
+					$this->cn()->debug_arbol_datos_en_cache_cn();
+				}
 			}
+
+			$this->guardado=2;
+			//ei_arbol($this->guardado);
+			//$modo = $this->cambiar_modo(true);
+			//ei_arbol('Se guardo. Mostrar evento');
+			// $this->pantalla()->evento('imprimir')->mostrar();
+			// $this->pantalla()->eliminar_evento('cambiar_tab__anterior');
+			// $this->pantalla()->eliminar_evento('cancelar');
+			// $this->pantalla()->evento('procesar')->set_etiqueta('Guardar');
+			//$this->evt__cancelar();
+
+	}
+
+	function evt__aceptar()
+	{
+			try {
+				$this->evt__cancelar();
+			} catch (toba_error_db $e) {
+				if (!mensajes_error::$debug) {
+					$this->cn()->reiniciar();
+					$sql_state = $e->get_sqlstate();
+					mensajes_error::get_mensaje_error($sql_state);
+					throw $e;
+				} else {
+					throw $e;
+
+					$this->cn()->debug_arbol_datos_en_cache_cn();
+				}
+			}
+			//ei_arbol($this->guardado);
+			//$modo = $this->cambiar_modo(true);
+			//ei_arbol('Se guardo. Mostrar evento');
+			// $this->pantalla()->evento('imprimir')->mostrar();
+			// $this->pantalla()->eliminar_evento('cambiar_tab__anterior');
+			// $this->pantalla()->eliminar_evento('cancelar');
+			// $this->pantalla()->evento('procesar')->set_etiqueta('Guardar');
+			//$this->evt__cancelar();
+
+	}
+
+	function cambiar_modo($valor)
+	{
+		if($valor){
+			return 0;
+		} else {
+			return 1;
 		}
 	}
 
@@ -89,6 +137,9 @@ class ci_agregarcontrato extends sagep_ci
 		}
 
 		$monto_total = $this->dep('ci_agregardetalle')->calcular_monto($cantidad_meses);
+
+		//$fecha_inicio = date('d/m/Y');
+		//$fecha_fin = $this->calcular_fecha_fin($fecha_inicio, $cantidad_meses);
 
 		$datos = array_merge($datos, $monto_total);
 
@@ -142,7 +193,7 @@ class ci_agregarcontrato extends sagep_ci
 
 	function conf__form_ml_cuotas(sagep_ei_formulario_ml $form_ml)
 	{
-		$array_cuota = $this->generarArrayCuota();
+		$array_cuota = $this->generarPeriodos();
 		$form_ml->set_datos_defecto($array_cuota);
 	}
 
@@ -156,9 +207,130 @@ class ci_agregarcontrato extends sagep_ci
 		$this->cn()->procesar_filas_liquidaciones($datos);
 	}
 
+
+		//-----------------------------------------------------------------------------------
+		//---- form_cuotas ------------------------------------------------------------------
+		//-----------------------------------------------------------------------------------
+
+		function conf__form_cuotas(sagep_ei_formulario $form)
+		{
+			$array_monto = [];
+			$monto_total = 0;
+
+			$datos_contrato = $this->get_cache_form('form')->get_cache();
+			$datos_detalle = $this->dep('ci_agregardetalle')->get_cache_form_ml('form_ml_detalle')->get_cache();
+			$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos_contrato['id_tipo_contrato']);
+
+
+			foreach ($datos_detalle as $key => $value) {
+			 $monto_total += $value['monto_total'];
+			}
+			$monto_total=$monto_total;
+
+			$array_monto = ['cantidad' => $cantidad_meses
+											, 'monto' => $monto_total
+											];
+
+			$form->set_datos($array_monto);
+		}
+
+
 	//-----------------------------------------------------------------------------------
 	//---- Auxiliares -------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
+
+	function calcular_fecha_fin($fecha_ini, $cantidad_meses)
+	{
+		$fecha_inicio = date('d/m/Y');
+
+		$mes_inicio = getdate($fecha_inicio)['mon'] - 1;
+		$anio = getdate ($fecha_inicio)['year'];
+		$dia_inicio = getdate($fecha_inicio)['wday'];
+		ei_arbol($fecha_inicio);
+		ei_arbol($dia_inicio);
+		$mes_fin = $mes_inicio;
+		$anio_vencimiento = $anio;
+		$mes_inicio = ($mes_inicio + 1 == 13 ? 1 : $mes_inicio + 1);
+
+		$i=0;
+		ei_arbol($cantidad_meses);
+		while($i < $cantidad_meses) {
+			$mes_fin = ($mes_fin + 1 == 13 ? 1 : $mes_fin + 1);
+			$fecha_vencimiento_fin =   $anio. "-" .($mes_fin). "-" .$dia_inicio;
+			//$i=$i+1;
+
+
+			if ($mes_fin + 1 == 13) {
+				$anio = $anio + 1;
+				$fecha_vencimiento_fin =   $anio. "-" .$mes_fin. "-" .$dia_inicio;
+			} else {
+				$fecha_vencimiento_fin =   $anio. "-" .$mes_fin. "-" .$dia_inicio;
+			}
+			$i=$i+1;
+		}
+
+		ei_arbol($fecha_vencimiento_fin);
+
+	}
+
+	function generarPeriodos ()
+	{
+		$array_cuota = [];
+
+		$datos_contrato = $this->get_cache_form('form')->get_cache();
+		$datos_detalle = $this->dep('ci_agregardetalle')->get_cache_form_ml('form_ml_detalle')->get_cache();
+		$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos_contrato['id_tipo_contrato']);
+
+		$fecha_inicio = strtotime(str_replace('-','/', $datos_contrato['fecha_inicio']));
+		$mes_inicio = getdate($fecha_inicio)['mon'] - 1;
+		$anio_inicio = getdate ($fecha_inicio)['year'];
+		$mes_fin = $mes_inicio;
+
+		$anio_vencimiento = $anio_inicio;
+		$mes_inicio = ($mes_inicio + 1 == 13 ? 1 : $mes_inicio + 1);
+		$dia_vencimiento = 10;
+
+		if ($mes_inicio + 1 == 13) {
+			$anio_vencimiento = $anio_vencimiento + 1;
+			$fecha_vencimiento_inicio =   $anio_vencimiento. "-1-" .$dia_vencimiento;
+		} else {
+			$fecha_vencimiento_inicio =   $anio_vencimiento. "-" .($mes_inicio + 1). "-" .$dia_vencimiento;
+		}
+
+		$i=0;
+		while($i < $cantidad_meses) {
+			$mes_fin = ($mes_fin + 1 == 13 ? 1 : $mes_fin + 1);
+
+			if ($mes_fin + 1 == 13) {
+				$anio_vencimiento = $anio_vencimiento + 1;
+				$fecha_vencimiento_fin =   $anio_vencimiento. "-1-" .$dia_vencimiento;
+			} else {
+				$fecha_vencimiento_fin =   $anio_vencimiento. "-" .($mes_fin + 1). "-" .$dia_vencimiento;
+			}
+			$i=$i+1;
+		}
+
+		$periodo_i = dao_gestiondecontratos::get_mes($mes_inicio);
+		$periodo_inicio = $periodo_i. " " .$anio_inicio;
+
+		$periodo_f = dao_gestiondecontratos::get_mes($mes_fin);
+		$periodo_fin = $periodo_f. " " .$anio_vencimiento;
+
+
+		$array_cuota[0] = ['descripcion' => 'Inicio'
+										, 'id_mes' => 'Inicio: ' .$periodo_inicio
+										, 'anio' => $anio_inicio
+										, 'fecha_vencimiento' => 'Vencimiento Primer Cuota: ' .$fecha_vencimiento_inicio
+										];
+
+		$array_cuota[1] = ['descripcion' => 'Fin'
+										, 'id_mes' => 'Fin: ' .$periodo_fin
+										, 'anio' => $anio_vencimiento
+										, 'fecha_vencimiento' => 'Vencimiento Ultima Cuota: ' .$fecha_vencimiento_fin
+										];
+
+		return $array_cuota;
+	}
 
 	function generarArrayCuota ()
 	{
@@ -183,7 +355,7 @@ class ci_agregarcontrato extends sagep_ci
 		foreach ($datos_detalle as $key => $value) {
 		 $monto_total += $value['monto_total'];
 		}
-		$monto_total=$monto_total*$cantidad_meses;
+		$monto_total=$monto_total;
 
 		for ($i=0; $i < $cantidad_meses; $i++) {
 
@@ -255,49 +427,30 @@ class ci_agregarcontrato extends sagep_ci
 	}
 
 	//-----------------------------------------------------------------------------------
-	//---- form_ml_detalle --------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__form_ml_detalle(sagep_ei_formulario_ml $form_ml)
-	{
-		$datos_detalle = $this->dep('ci_agregardetalle')->get_cache_form_ml('form_ml_detalle')->get_cache();
-
-		if (!$datos_detalle) {
-			if ($this->cn()->hay_cursor() ) {
-				$datos_detalle = $this->cn()->get_detalle();
-			}
-		}
-
-		$form_ml->set_datos($datos_detalle);
-	}
-
-	//-----------------------------------------------------------------------------------
 	//---- form_ml_ubicacion ------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
 	function conf__form_ml_ubicacion(sagep_ei_formulario_ml $form_ml)
 	{
-		$cache_ml_ubicacion = $this->get_cache_form_ml('form_ml_ubicacion');
-		$datos = $cache_ml_ubicacion->get_cache();
-		$datos_ubicaciones = $this->dep('ci_agregardetalle')->dep('ci_agregarubicacion')->get_cache_form_ml('form_ml_ubicacion')->get_cache();
-		ei_arbol($datos_ubicaciones);
-		$datos = array_merge($datos, $datos_ubicaciones);
-		$cache_ml_ubicacion->set_cache($datos);
+		$tabla_ubicaciones = $this->cn()->dep('dr_contratos')->tabla('dt_detalleubicacion_detallecontrato');
+		$cache_cn_detalles = $this->cn()->get_detalle();
+		$datos = [];
+		foreach ($cache_cn_detalles as $detalle) {
+			$this->cn()->set_cursor_detalle($detalle ['x_dbr_clave']);
+			//$tabla_detalles->set_cursor($detalle ['x_dbr_clave']); // <vamos a obtener todas las ubicaciones de este detalle
+			$id_servicio = ['id_servicio'=>$detalle['id_servicio']]; // <nos guardamos el id_servicio de este detalle
+			$dato_servicio = dao_gestiondecontratos::get_servicio_detalle($detalle['id_servicio']);
+			$servicio = ['id_servicio'=>$dato_servicio['servicio']];
+			//$filas_ubics_detalle = $tabla_ubicaciones->get_filas(); // <obtenemos las ubicaciones
+			$filas_ubics_detalle = $this->cn()->get_ubicacion();
+		 	foreach ($filas_ubics_detalle as $ubicacion) {
+		 		unset ($ubicacion['x_dbr_clave']); // <Solo se va a mostrar, no se van a setear los valores desde este formulario
+				$datos[] = array_merge($servicio, $ubicacion);
+		 	}
+		 }
 
-		$form_ml->set_datos($datos);
+		 		$form_ml->set_datos($datos);
 	}
-
-	// function evt__form_ml_detalle__modificacion($datos)
-	// {
-	// 	$this->cn()->procesar_filas_detalle($datos);
-	// 	$this->get_cache_form_ml('form_ml_detalle')->set_cache($datos);
-	// }
-	//
-	// function evt__form_ml_ubicacion__modificacion($datos)
-	// {
-	// 	$this->cn()->procesar_filas_ubicacion($datos);
-	// 	//$this->cn()->resetear_cursor_detalle();
-	// }
 
 	//-----------------------------------------------------------------------------------
 	//---- Configuraciones --------------------------------------------------------------
@@ -313,6 +466,17 @@ class ci_agregarcontrato extends sagep_ci
 
 	function conf__resumen(toba_ei_pantalla $pantalla)
 	{
+		if($this->guardado){
+			$pantalla->evento('imprimir')->mostrar();
+			$pantalla->evento('aceptar')->mostrar();
+			$this->pantalla()->eliminar_evento('cambiar_tab__anterior');
+			$this->pantalla()->eliminar_evento('cancelar');
+			$this->pantalla()->eliminar_evento('procesar');
+		} else {
+			$pantalla->evento('imprimir')->ocultar();
+			$pantalla->evento('aceptar')->ocultar();
+		}
+
 	 	$this->pantalla()->set_descripcion("Resumen <br/>
 	 <br/> <li>Resumen del Contrato</li>
                       <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
