@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_servicios" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81e2cd22-74bb-4b16-94da-cde4f082466c">
+	<property name="ireport.zoom" value="1.6105100000000068"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="144"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="tarifa_servicio_data" uuid="f4638b07-d117-4ac6-a036-22d37202f1a3">
+		<parameter name="id_servicio_sub" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="id_servicio" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT zon.nombre_tipozona, tar.monto, tar.id_servicio
+FROM es_sagep.tarifa tar, es_sagep.tipos_zonas zon
+WHERE tar.id_tipo_zona = zon.id_tipo_zona]]>
+		</queryString>
+		<field name="nombre_tipozona" class="java.lang.String"/>
+		<field name="monto" class="java.math.BigDecimal"/>
+		<field name="id_servicio" class="java.lang.Long"/>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_servicio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT t_s.id_servicio,
+                  t_s.sigla_serv,
+                  t_s.nombre_serv,
+                  t_s.descripcion,
+                  t_s.tamano,
+                  t_s.imagen,
+                  t_sr.parent_id_servicio,
+                  t_sr.nombre_serv || ' : ' || t_s.nombre_serv  servicios,
+                  t_sr.nombre_serv as parent_id_servicio_nombre
+
+          FROM es_sagep.servicios t_s
+          JOIN es_sagep.servicios t_sr ON t_s.parent_id_servicio = t_sr.id_servicio
+	WHERE t_s.id_servicio = $P{id_servicio}]]>
+	</queryString>
+	<field name="id_servicio" class="java.lang.Long"/>
+	<field name="sigla_serv" class="java.lang.String"/>
+	<field name="nombre_serv" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="tamano" class="java.lang.String"/>
+	<field name="imagen" class="java.lang.Object"/>
+	<field name="parent_id_servicio" class="java.lang.Long"/>
+	<field name="servicios" class="java.lang.String"/>
+	<field name="parent_id_servicio_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="79" uuid="e93cbd1f-3951-4a51-9893-79b424716092"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "encabezado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="35" uuid="179338fa-c5f1-4a04-9d80-51a0bf3e760e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Servicios]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="bf048166-2bc4-4460-a5b7-0f4dab93f535"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="-210" y="3" width="100" height="20" uuid="08c1e96a-92a0-4011-b5a6-a2398d7334b0"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empleado:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="132" splitType="Stretch">
+			<rectangle>
+				<reportElement x="275" y="0" width="280" height="70" uuid="49a62edd-cc81-4de0-8343-04aa670226fb"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="200" height="45" uuid="8aaee209-11a5-4d7f-b890-cfcea7ae5c83"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_serv}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="275" y="28" width="280" height="1" uuid="1a47ba9c-562c-4d0b-8216-72a6e1928ecc"/>
+			</line>
+			<staticText>
+				<reportElement x="275" y="29" width="65" height="41" uuid="c9b29bdc-58c1-4ebf-acff-e1b88a7969a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Descripción:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="29" width="215" height="41" uuid="f14ef931-f0c3-4b34-adfe-25c702289c32"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="275" y="70" width="280" height="20" uuid="d4b0dbd9-cd70-4bc6-800d-14b31d05c150"/>
+			</rectangle>
+			<textField>
+				<reportElement x="352" y="70" width="203" height="20" uuid="27a45e93-77a0-4515-8253-5392d1e2e649"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{parent_id_servicio_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="275" y="70" width="77" height="20" uuid="b955c675-0813-4375-bfff-7769de3c9170"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Servicio Padre:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="416" y="0" width="1" height="29" uuid="07bdd837-5ab2-4c3c-bfd5-48e1e2bf38a7"/>
+			</line>
+			<staticText>
+				<reportElement x="275" y="0" width="53" height="28" uuid="ec753995-eea9-4b5f-a895-ae96b213e001"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Sigla:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="328" y="0" width="88" height="28" uuid="fd261639-1ba9-471b-88f3-6690bb739b64"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sigla_serv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="491" y="0" width="64" height="28" uuid="4607c145-e389-4a29-99e4-fd4f0d71f2eb"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tamano}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="417" y="0" width="74" height="28" uuid="db17598f-74da-4ef3-8c7d-07dfb5cf5deb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Tamaño:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="110" width="555" height="1" uuid="4749e9d0-8e22-45b0-a92b-dba68c8c6385"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="72" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

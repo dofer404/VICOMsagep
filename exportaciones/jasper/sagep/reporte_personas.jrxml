@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="personas_reporte" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="404bd23b-df8d-4603-85a1-5a8f78b6dcb3">
+	<property name="ireport.zoom" value="3.1384283767210137"/>
+	<property name="ireport.x" value="21"/>
+	<property name="ireport.y" value="191"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#FAEBD7">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#FFE4BF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="datos_personas" uuid="57cc841b-1f96-4f91-98af-bee66a22571b">
+		<queryString>
+			<![CDATA[SELECT
+      t_p.id_persona,
+      t_ci.id_iva,
+      t_td.id_tipo_documento,
+      t_tp.id_tipo_persona,
+      t_p.cuil_cuit,
+      coalesce(t_p.razon_social, t_p.apellidos || ', ' || t_p.nombres) entidad,
+      t_p.razon_social,
+      t_p.nro_documento,
+      t_td.sigla_tipodoc || ' ' || t_p.nro_documento tipo_y_numero,
+      t_p.fecha_nacimiento,
+      t_p.activo,
+      t_p.logo,
+      t_ci.sigla_coniva as id_iva_nombre,
+      t_td.sigla_tipodoc as id_tipo_documento_nombre,
+      t_tp.nombre_tipoper as id_tipo_persona_nombre
+    FROM es_sagep.personas t_p
+
+    JOIN es_sagep.condicion_iva t_ci on t_p.id_iva = t_ci.id_iva
+    JOIN es_sagep.tipos_personas t_tp ON t_p.id_tipo_persona = t_tp.id_tipo_persona
+    LEFT JOIN es_sagep.tipos_documentos t_td ON t_p.id_tipo_documento = t_td.id_tipo_documento]]>
+		</queryString>
+		<field name="id_persona" class="java.lang.Long"/>
+		<field name="id_iva" class="java.lang.Long"/>
+		<field name="id_tipo_documento" class="java.lang.Long"/>
+		<field name="id_tipo_persona" class="java.lang.Long"/>
+		<field name="cuil_cuit" class="java.math.BigDecimal"/>
+		<field name="entidad" class="java.lang.String"/>
+		<field name="razon_social" class="java.lang.String"/>
+		<field name="nro_documento" class="java.lang.Integer"/>
+		<field name="tipo_y_numero" class="java.lang.String"/>
+		<field name="fecha_nacimiento" class="java.sql.Date"/>
+		<field name="activo" class="java.lang.Boolean"/>
+		<field name="logo" class="java.lang.Object"/>
+		<field name="id_iva_nombre" class="java.lang.String"/>
+		<field name="id_tipo_documento_nombre" class="java.lang.String"/>
+		<field name="id_tipo_persona_nombre" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="personas_fisicas" uuid="ad73ce9a-2311-4c31-a9aa-275f325b56b8">
+		<queryString>
+			<![CDATA[SELECT
+      t_p.id_persona,
+      t_ci.id_iva,
+      t_td.id_tipo_documento,
+      t_tp.id_tipo_persona,
+      t_p.cuil_cuit,
+      coalesce(t_p.razon_social, t_p.apellidos || ', ' || t_p.nombres) entidad,
+      t_p.razon_social,
+      t_p.nro_documento,
+      t_td.sigla_tipodoc || ' ' || t_p.nro_documento tipo_y_numero,
+      t_p.fecha_nacimiento,
+      t_p.activo,
+      t_p.logo,
+      t_ci.nombre_coniva as id_iva_nombre,
+      t_td.sigla_tipodoc as id_tipo_documento_nombre,
+      t_tp.nombre_tipoper as id_tipo_persona_nombre
+    FROM es_sagep.personas t_p
+
+    JOIN es_sagep.condicion_iva t_ci on t_p.id_iva = t_ci.id_iva
+    JOIN es_sagep.tipos_personas t_tp ON t_p.id_tipo_persona = t_tp.id_tipo_persona AND t_p.id_tipo_persona = 1
+    LEFT JOIN es_sagep.tipos_documentos t_td ON t_p.id_tipo_documento = t_td.id_tipo_documento
+ORDER BY (t_tp.nombre_tipoper, coalesce(t_p.razon_social, t_p.apellidos || ', ' || t_p.nombres))]]>
+		</queryString>
+		<field name="id_persona" class="java.lang.Long"/>
+		<field name="id_iva" class="java.lang.Long"/>
+		<field name="id_tipo_documento" class="java.lang.Long"/>
+		<field name="id_tipo_persona" class="java.lang.Long"/>
+		<field name="cuil_cuit" class="java.math.BigDecimal"/>
+		<field name="entidad" class="java.lang.String"/>
+		<field name="razon_social" class="java.lang.String"/>
+		<field name="nro_documento" class="java.lang.Integer"/>
+		<field name="tipo_y_numero" class="java.lang.String"/>
+		<field name="fecha_nacimiento" class="java.sql.Date"/>
+		<field name="activo" class="java.lang.Boolean"/>
+		<field name="logo" class="java.lang.Object"/>
+		<field name="id_iva_nombre" class="java.lang.String"/>
+		<field name="id_tipo_documento_nombre" class="java.lang.String"/>
+		<field name="id_tipo_persona_nombre" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="personas_juridicas" uuid="a80ecb38-5f5f-4821-bde6-26c874a9a892">
+		<queryString>
+			<![CDATA[SELECT
+      t_p.id_persona,
+      t_ci.id_iva,
+      t_td.id_tipo_documento,
+      t_tp.id_tipo_persona,
+      t_p.cuil_cuit,
+      coalesce(t_p.razon_social, t_p.apellidos || ', ' || t_p.nombres) entidad,
+      t_p.razon_social,
+      t_p.nro_documento,
+      t_td.sigla_tipodoc || ' ' || t_p.nro_documento tipo_y_numero,
+      t_p.fecha_nacimiento,
+      t_p.activo,
+      t_p.logo,
+      t_ci.nombre_coniva as id_iva_nombre,
+      t_td.sigla_tipodoc as id_tipo_documento_nombre,
+      t_tp.nombre_tipoper as id_tipo_persona_nombre
+    FROM es_sagep.personas t_p
+
+    JOIN es_sagep.condicion_iva t_ci on t_p.id_iva = t_ci.id_iva
+    JOIN es_sagep.tipos_personas t_tp ON t_p.id_tipo_persona = t_tp.id_tipo_persona AND t_p.id_tipo_persona = 2
+    LEFT JOIN es_sagep.tipos_documentos t_td ON t_p.id_tipo_documento = t_td.id_tipo_documento
+ORDER BY (t_tp.nombre_tipoper, coalesce(t_p.razon_social, t_p.apellidos || ', ' || t_p.nombres))]]>
+		</queryString>
+		<field name="id_persona" class="java.lang.Long"/>
+		<field name="id_iva" class="java.lang.Long"/>
+		<field name="id_tipo_documento" class="java.lang.Long"/>
+		<field name="id_tipo_persona" class="java.lang.Long"/>
+		<field name="cuil_cuit" class="java.math.BigDecimal"/>
+		<field name="entidad" class="java.lang.String"/>
+		<field name="razon_social" class="java.lang.String"/>
+		<field name="nro_documento" class="java.lang.Integer"/>
+		<field name="tipo_y_numero" class="java.lang.String"/>
+		<field name="fecha_nacimiento" class="java.sql.Date"/>
+		<field name="activo" class="java.lang.Boolean"/>
+		<field name="logo" class="java.lang.Object"/>
+		<field name="id_iva_nombre" class="java.lang.String"/>
+		<field name="id_tipo_documento_nombre" class="java.lang.String"/>
+		<field name="id_tipo_persona_nombre" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idUsuarioToba" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	per.cuil_cuit,
+	coalesce(per.razon_social, per.apellidos || ', ' || per.nombres) entidad,
+	per.fecha_nacimiento,
+	iva.nombre_coniva,
+           per.activo,
+	t_per.nombre_tipoper
+FROM es_sagep.personas per
+LEFT OUTER JOIN es_sagep.condicion_iva iva ON per.id_iva = iva.id_iva
+LEFT OUTER JOIN es_sagep.tipos_personas t_per ON per.id_tipo_persona = t_per.id_tipo_persona]]>
+	</queryString>
+	<field name="cuil_cuit" class="java.math.BigDecimal"/>
+	<field name="entidad" class="java.lang.String"/>
+	<field name="fecha_nacimiento" class="java.sql.Date"/>
+	<field name="nombre_coniva" class="java.lang.String"/>
+	<field name="activo" class="java.lang.Boolean"/>
+	<field name="nombre_tipoper" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="69" uuid="578cdeaa-3406-4c12-bcf1-88f01714b26a"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "encabezado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="38" splitType="Stretch">
+			<line>
+				<reportElement x="-19" y="0" width="590" height="1" uuid="6ac07853-d3ae-46c6-8f87-2c57104200ae"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="38" uuid="0c5d4145-94c9-4c4a-84ba-d41b6e4c1371"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Personas]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="115" height="20" uuid="c4cef50d-245b-45bc-af0f-e35d2baa6814"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Persona]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="0" width="100" height="20" uuid="9664c446-3216-4ae8-a374-e47a2f4084da"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUIT / CUIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="0" width="102" height="20" uuid="68b970b7-5d33-45bf-b995-0e6905787f44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Condición de IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="0" width="138" height="20" uuid="fff28187-4158-4c25-a162-6024e8067489"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Nacimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="20" uuid="cab397c7-a7e7-47a0-9f80-e0127a786fdd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Activo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="24" width="555" height="1" uuid="649ec90b-34d7-4246-8b42-a8429adac7d8"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<textField>
+				<reportElement x="217" y="0" width="100" height="20" uuid="d5b9a8b8-e87b-44c5-bae1-19485ac27e79"/>
+				<textFieldExpression><![CDATA[$F{nombre_coniva}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="0" width="100" height="20" uuid="44832aff-0379-457a-937f-d5f44e1670f9"/>
+				<textFieldExpression><![CDATA[$F{cuil_cuit}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="317" y="0" width="138" height="20" uuid="72843ce1-c4b3-46e3-be05-012324ef904c"/>
+				<textFieldExpression><![CDATA[$F{fecha_nacimiento}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="e7e7bcb5-d50a-49df-addc-cef3b69d4dd5"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="0" width="117" height="20" uuid="3973197c-7ec4-4d84-8ea7-f9657c19fd90"/>
+				<textFieldExpression><![CDATA[$F{nombre_tipoper}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="88382f5e-14ef-4c2d-886d-df94702ee4bd"/>
+				<textFieldExpression><![CDATA[$F{activo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="25">
+			<textField evaluationTime="Report">
+				<reportElement x="298" y="5" width="100" height="20" uuid="11866c6b-4a31-4db3-8728-0d64dd1a2375"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="455" y="4" width="100" height="20" uuid="e9dbdd0b-157e-40f1-8d61-86756d874731"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="5" width="71" height="20" uuid="7c4b70f0-0e45-4c64-9cbb-02d04b18b140"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="5" width="555" height="1" uuid="1974b92c-b031-43e6-98a3-e7b919fcda6e"/>
+			</line>
+			<elementGroup>
+				<textField>
+					<reportElement x="0" y="6" width="100" height="18" uuid="f8d3ae48-ac50-44ad-984b-1bdf685d69f1"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA["Usuario: " + $P{idUsuarioToba}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+		</band>
+	</pageFooter>
+</jasperReport>

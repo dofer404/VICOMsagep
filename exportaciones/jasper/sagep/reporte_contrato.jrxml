@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_contrato" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dfd02f3f-2cc4-4041-8385-cd34ed352cc5">
+	<property name="ireport.zoom" value="2.8531167061100042"/>
+	<property name="ireport.x" value="524"/>
+	<property name="ireport.y" value="618"/>
+	<property name="ireport.layers" value="##Sun Sep 24 17:20:00 ART 2017\nlayer.1.name=Layer 1\nlayer.1.visible=true\nlayer.1.id=1\nlayer.0.name=Background\nlayer.0.visible=true\nlayer.0.id=0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="c4ffb17c-9c30-47b1-a027-4aa08b25275c"/>
+	<subDataset name="Table Dataset 2" uuid="5f2592f8-0135-4d6c-bad5-728473f73c7c"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	coalesce(t_p.razon_social, t_p.apellidos || ', ' || t_p.nombres) entidad,
+	t_c.fecha_inicio,
+	t_c.fecha_fin,
+	t_s.nombre_serv as id_servicio_nombre,
+	t_det.direccion || ' al ' || t_det.altura ||' - Barrio '|| t_bar.nombre_bar ||' - '||t_loc.nombre_loc || ', ' || t_prov.nombre_prov || ', ' || t_pais.nombre_pais as direccion_localidad,
+	t_te.nombre_tipoest as id_estado_nombre,
+	t_e.fecha_cambio,
+	t_p.cuil_cuit as id_persona_cuil_cuit,
+	t_tc.nombre_tipocon as id_tipo_contrato_nombre,
+	t_dt.monto_total
+
+FROM es_sagep.estados t_e
+
+	JOIN es_sagep.tipo_estado t_te on t_e.id_tipo_estado = t_te.id_tipo_estado
+	JOIN es_sagep.detalleubicacion_detallecontrato t_uc on t_e.id_ubicacion = t_uc.id_ubicacion and t_e.id_detalle_contrato = t_uc.id_detalle_contrato and t_e.fecha_cambio in (SELECT MAX(e2.fecha_cambio) FROM es_sagep.estados e2 WHERE t_e.id_ubicacion = e2.id_ubicacion AND t_e.id_detalle_contrato = e2.id_detalle_contrato)
+	JOIN es_sagep.detalles_contrato t_dt on t_uc.id_detalle_contrato = t_dt.id_detalle_contrato
+	JOIN es_sagep.detalle_ubicacion t_det on t_uc.id_ubicacion = t_det.id_ubicacion
+	JOIN es_sagep.barrios t_bar on t_det.id_barrio = t_bar.id_barrio
+	JOIN es_sagep.localidades t_loc on t_bar.id_localidad = t_loc.id_localidad
+	JOIN es_sagep.provincias t_prov on t_loc.id_provincia = t_prov.id_provincia
+	JOIN es_sagep.pais t_pais on t_prov.id_pais = t_pais.id_pais
+
+	JOIN es_sagep.servicios t_s on t_dt.id_servicio = t_s.id_servicio
+
+	JOIN es_sagep.contratos t_c on t_c.id_contrato = t_dt.id_contrato
+	JOIN es_sagep.tipos_contratos t_tc on t_c.id_tipo_contrato = t_tc.id_tipo_contrato
+	JOIN es_sagep.roles t_rs on t_c.id_contrato = t_rs.id_contrato
+	JOIN es_sagep.rol t_r on t_rs.id_rol = t_r.id_rol and t_r.nombre_rol = 'Contratado'
+	JOIN es_sagep.personas t_p on t_rs.id_persona = t_p.id_persona]]>
+	</queryString>
+	<field name="entidad" class="java.lang.String"/>
+	<field name="fecha_inicio" class="java.sql.Timestamp"/>
+	<field name="fecha_fin" class="java.sql.Timestamp"/>
+	<field name="id_servicio_nombre" class="java.lang.String"/>
+	<field name="direccion_localidad" class="java.lang.String"/>
+	<field name="id_estado_nombre" class="java.lang.String"/>
+	<field name="fecha_cambio" class="java.sql.Date"/>
+	<field name="id_persona_cuil_cuit" class="java.math.BigDecimal"/>
+	<field name="id_tipo_contrato_nombre" class="java.lang.String"/>
+	<field name="monto_total" class="java.math.BigDecimal"/>
+	<group name="entidad">
+		<groupExpression><![CDATA[$F{entidad}]]></groupExpression>
+		<groupHeader>
+			<band height="100">
+				<rectangle>
+					<reportElement x="0" y="1" width="555" height="20" uuid="cf156c17-38be-4ce6-a9f9-508fdf53b27f"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="0" y="51" width="81" height="20" uuid="0e9e4890-fbbc-4c13-b76c-5bfd2534c660"/>
+					<text><![CDATA[Fecha de Inicio:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="181" y="51" width="69" height="20" uuid="efb0da33-2969-4f2c-be3d-bf5682074771"/>
+					<text><![CDATA[Fecha de Fin:]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="81" y="51" width="100" height="20" uuid="902c6885-6fbd-4a73-b019-0be2c74af607"/>
+					<textFieldExpression><![CDATA[$F{fecha_inicio}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="250" y="51" width="100" height="20" uuid="eedf733d-3dc2-4512-9664-eefe00a9f93d"/>
+					<textFieldExpression><![CDATA[$F{fecha_fin}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="31" width="100" height="20" uuid="2765e7f4-4514-4388-a6e7-48178521bf7c"/>
+					<text><![CDATA[Tipo de Contrato]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="100" y="31" width="162" height="20" uuid="4e438bd0-3eca-45e8-9096-f4998f00e22e"/>
+					<textFieldExpression><![CDATA[$F{id_tipo_contrato_nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="555" height="21" uuid="f5956a29-e986-44e1-88b7-6a41756d9060"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+						<font size="12" isBold="true" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Contrato: " + $F{entidad}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="71" width="100" height="20" uuid="fbbefe73-8925-444d-997c-c16cf4a93d9f"/>
+					<text><![CDATA[Veedor]]></text>
+				</staticText>
+			</band>
+			<band height="25">
+				<staticText>
+					<reportElement x="0" y="0" width="555" height="25" uuid="7a277c0c-3224-48b2-884b-29dbeef6fd40"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true" isItalic="false" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Detalles]]></text>
+				</staticText>
+				<componentElement>
+					<reportElement key="table 1" style="table 1" x="344" y="0" width="360" height="140" uuid="79cb0f50-2e4e-4626-be3e-dd4d5c08cc8f"/>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Table Dataset 2" uuid="1a186e4c-766f-4cbf-aefb-c4f82ef6a3e7">
+							<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
+						</datasetRun>
+						<jr:column width="90" uuid="431481bf-e391-4fd2-9f57-d24074df6472">
+							<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+							<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+							<jr:columnHeader style="table 1_CH" height="30" rowSpan="1"/>
+							<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
+							<jr:detailCell style="table 1_TD" height="30" rowSpan="1"/>
+						</jr:column>
+						<jr:column width="90" uuid="da5b2ab3-d5fc-4e75-a422-5d3c0fa32c4d">
+							<jr:tableHeader height="30" rowSpan="1"/>
+							<jr:tableFooter height="30" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1"/>
+							<jr:columnFooter height="30" rowSpan="1"/>
+							<jr:detailCell height="30" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="90" height="30" uuid="edef5233-aa95-4c94-a3d1-d26292742383"/>
+									<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="87bc7ca0-a0a5-480b-8675-c0206993806f">
+							<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+							<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+							<jr:columnHeader style="table 1_CH" height="30" rowSpan="1"/>
+							<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
+							<jr:detailCell style="table 1_TD" height="30" rowSpan="1"/>
+						</jr:column>
+						<jr:column width="90" uuid="8434fbb7-e99e-40cd-8464-895698b05b5e">
+							<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+							<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+							<jr:columnHeader style="table 1_CH" height="30" rowSpan="1"/>
+							<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
+							<jr:detailCell style="table 1_TD" height="30" rowSpan="1"/>
+						</jr:column>
+						<jr:column width="90" uuid="8866b87a-66e5-4859-a3f1-5545d246ab1f">
+							<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+							<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+							<jr:columnHeader style="table 1_CH" height="30" rowSpan="1"/>
+							<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
+							<jr:detailCell style="table 1_TD" height="30" rowSpan="1"/>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="servicio">
+		<groupExpression><![CDATA[$F{id_servicio_nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="146" height="20" uuid="5e748a7c-53f0-46c5-8977-63bdeb440f97"/>
+					<textElement>
+						<font size="10" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_servicio_nombre}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="15">
+				<line>
+					<reportElement x="0" y="0" width="555" height="1" uuid="d2c89c6b-5268-43ea-8108-3cd1d45b9448"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="80" uuid="aca2e15e-df99-4d5f-a2b5-beda34990e2f"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "encabezado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="61" uuid="ad07bc4c-a26f-406f-9a0e-390ad4d4ed4e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Contratos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="48" splitType="Stretch">
+			<textField>
+				<reportElement x="81" y="0" width="414" height="20" printWhenGroupChanges="servicio" uuid="1740ef0a-b92a-41a6-84a0-04251a6ba432"/>
+				<textFieldExpression><![CDATA[$F{direccion_localidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="20" width="123" height="20" printWhenGroupChanges="servicio" uuid="afc9fe0c-d20b-45a3-9eb4-e52182260147"/>
+				<textFieldExpression><![CDATA[$F{id_estado_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="28" y="20" width="40" height="20" printWhenGroupChanges="servicio" uuid="3c6b466a-1318-4676-b8a9-c6a824944893"/>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="28" y="0" width="53" height="20" printWhenGroupChanges="servicio" uuid="d1f928c8-84f9-4fc2-b74d-176f3d37b1ca"/>
+				<textElement markup="none">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="455" y="0" width="100" height="20" uuid="732b22ee-e0bc-4163-b8aa-7119fdeb0d82"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="288" y="0" width="100" height="20" uuid="442e3896-3ef5-4953-b5c2-b8c2368ce309"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="229" y="0" width="71" height="20" uuid="290a11da-a87c-4d4d-ae1a-e497142a2650"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="35b8956a-4897-49e6-afe9-f858370adbe2"/>
+				<graphicElement>
+					<pen lineWidth="1.5" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>
