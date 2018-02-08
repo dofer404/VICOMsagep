@@ -160,8 +160,6 @@ class ci_agregarcontrato extends sagep_ci
 
 	function conf__form_ml_roles(sagep_ei_formulario_ml $form_ml)
 	{
-		//$array_contratante= [];
-
 		$cache_ml_roles = $this->get_cache_form_ml('form_ml_roles');
 		$datos = $cache_ml_roles->get_cache();
 		$form_ml->set_datos($datos);

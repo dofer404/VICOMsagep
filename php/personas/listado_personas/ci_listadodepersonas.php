@@ -3,6 +3,13 @@ require_once('personas/listado_personas/dao_listadodepersonas.php');
 
 class ci_listadodepersonas extends sagep_ci
 {
+
+	//-----------------------------------------------------------------------------------
+	//---- Variables --------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	protected $s__parametros_reporte;
+
 	//-----------------------------------------------------------------------------------
 	//---- Filtro -----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -34,7 +41,11 @@ class ci_listadodepersonas extends sagep_ci
 		if (isset($this->s__datos_filtro)) {
 			$filtro = $this->dep('filtro');
 			$filtro->set_datos($this->s__datos_filtro);
+			//$s__parametros_reporte=$sql_where;
 			$sql_where = $filtro->get_sql_where();
+			$this->s__parametros_reporte=$sql_where;
+			ei_arbol($this->s__parametros_reporte);
+
 
 			$datos = dao_listadodepersonas::get_listado_personas($sql_where);
 
@@ -44,18 +55,18 @@ class ci_listadodepersonas extends sagep_ci
 
 	function vista_jasperreports(toba_vista_jasperreports $reporte)
 	{
-		// /home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep
+		//home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep
 		$path_toba = '/home/marianofrezz/proyectos/toba_2_7_2';
-		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/personas.jasper';
+		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/personas_reporte.jasper';
 		$reporte->set_path_reporte($path_reporte);
 		$usuario = toba::usuario()->get_nombre();
-
-		$reporte->set_parametro('usuarioToba', 'S', $usuario);
+		$reporte->set_parametro('idUsuarioToba', 'S', $usuario);
+		$reporte->set_parametro('sql_parameto', 'S', $this->s__parametros_reporte);
 
 		$nombre_archivo = 'listado_personas';
 		$reporte->set_nombre_archivo($nombre_archivo . '.pdf');
 		$bd = toba::db('sagep');
 		$reporte->set_conexion($bd);
-	}
+	 }
 }
 ?>
