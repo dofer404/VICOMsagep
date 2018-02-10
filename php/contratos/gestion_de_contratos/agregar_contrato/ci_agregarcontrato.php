@@ -435,14 +435,12 @@ class ci_agregarcontrato extends sagep_ci
 		$datos = [];
 		foreach ($cache_cn_detalles as $detalle) {
 			$this->cn()->set_cursor_detalle($detalle ['x_dbr_clave']);
-			//$tabla_detalles->set_cursor($detalle ['x_dbr_clave']); // <vamos a obtener todas las ubicaciones de este detalle
-			$id_servicio = ['id_servicio'=>$detalle['id_servicio']]; // <nos guardamos el id_servicio de este detalle
+			$id_servicio = ['id_servicio'=>$detalle['id_servicio']];
 			$dato_servicio = dao_gestiondecontratos::get_servicio_detalle($detalle['id_servicio']);
 			$servicio = ['id_servicio'=>$dato_servicio['servicio']];
-			//$filas_ubics_detalle = $tabla_ubicaciones->get_filas(); // <obtenemos las ubicaciones
 			$filas_ubics_detalle = $this->cn()->get_ubicacion();
 		 	foreach ($filas_ubics_detalle as $ubicacion) {
-		 		unset ($ubicacion['x_dbr_clave']); // <Solo se va a mostrar, no se van a setear los valores desde este formulario
+		 		unset ($ubicacion['x_dbr_clave']);
 				$datos[] = array_merge($servicio, $ubicacion);
 		 	}
 		 }

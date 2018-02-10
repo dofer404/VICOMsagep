@@ -29,6 +29,15 @@ class ci_modificarcontrato extends sagep_ci
 		return $this->s__datos[$nombre];
 	}
 
+	function get_cache_form_contrato()
+	{
+		$datos = [];
+		if (isset($this->s__datos['form'])) {
+			$datos = $this->s__datos['form'];
+		}
+		return $datos;
+	}
+
 	//-----------------------------------------------------------------------------------
 	//---- Variables --------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -69,12 +78,30 @@ class ci_modificarcontrato extends sagep_ci
 		$cache_form = $this->get_cache_form('form');
 		$datos = $cache_form->get_cache();
 
+		//$datos_contrato = $this->get_cache_form_contrato();
+
+		//$idContrato = $this->traer_contrato();
+		//$idContrato = $datos['id_contrato'];
+		//$contratado['id_persona'] = dao_gestiondecontratos::get_contratado($idContrato);
+
+		//ei_arbol($idContrato);
+		//ei_arbol($contratado['id_persona']);
+
 		if (!$datos) {
 			if ($this->cn()->hay_cursor() ) {
 				$datos = $this->cn()->get_contratos();
 				$cache_form->set_cache($datos);
 			}
 		}
+
+		$idContrato = $datos['id_contrato'];
+		$contratado['id_persona'] = dao_gestiondecontratos::get_contratado($idContrato);
+
+		//ei_arbol($idContrato);
+		$cadena = str_replace(' ', '_', $contratado['id_persona']);
+
+		ei_arbol($cadena);
+
 		$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos['id_tipo_contrato']);
 		$monto_total = $this->dep('ci_detallecontrato')->calcular_monto($cantidad_meses);
 
@@ -108,35 +135,35 @@ class ci_modificarcontrato extends sagep_ci
 		//$this->activar_persona();
 	}
 
-	function vista_jasperreports(toba_vista_jasperreports $reporte)
-	{
-		// /home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep
-		$path_toba = '/home/marianofrezz/proyectos/toba_2_7_2';
-		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/reporte_contrato.jasper';
-		$reporte->set_path_reporte($path_reporte);
-		$usuario = toba::usuario()->get_nombre();
-		$idContrato = $this->s__datos['form']['id_contrato'];
-
-		//$reporte->set_parametro('usuarioToba', 'S', $usuario);
-		//$reporte->set_parametro('idPersona', 'E', $idPersona);
-
-		// if (!isset($this->s__datos['form']['razon_social'])) {
-		// 	$nombre_archivo = '"' . $this->s__datos['form']['apellidos'] . ' ' .$this->s__datos['form']['nombres'];
-		// } else {
-		// 	$nombre_archivo = '"' . $this->s__datos['form']['razon_social'];
-		// }
-
-		//$cadena = str_replace(' ', '_', $nombre_archivo);
-		$reporte->set_nombre_archivo('contrato' . '.pdf');
-		$bd = toba::db('sagep');
-		$reporte->set_conexion($bd);
-	}
-
-	function traer_contrato()
-	{
-		$idContrato = $this->s__datos['form']['id_contrato'];
-		return $idContrato;
-	}
+	// function vista_jasperreports(toba_vista_jasperreports $reporte)
+	// {
+	// 	// /home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep
+	// 	$path_toba = '/home/marianofrezz/proyectos/toba_2_7_2';
+	// 	$path_reporte = $path_toba . '/exportaciones/jasper/sagep/reporte_contrato.jasper';
+	// 	$reporte->set_path_reporte($path_reporte);
+	// 	$usuario = toba::usuario()->get_nombre();
+	// 	$idContrato = $this->s__datos['form']['id_contrato'];
+	//
+	// 	//$reporte->set_parametro('usuarioToba', 'S', $usuario);
+	// 	//$reporte->set_parametro('idPersona', 'E', $idPersona);
+	//
+	// 	// if (!isset($this->s__datos['form']['razon_social'])) {
+	// 	// 	$nombre_archivo = '"' . $this->s__datos['form']['apellidos'] . ' ' .$this->s__datos['form']['nombres'];
+	// 	// } else {
+	// 	// 	$nombre_archivo = '"' . $this->s__datos['form']['razon_social'];
+	// 	// }
+	//
+	// 	//$cadena = str_replace(' ', '_', $nombre_archivo);
+	// 	$reporte->set_nombre_archivo('contrato' . '.pdf');
+	// 	$bd = toba::db('sagep');
+	// 	$reporte->set_conexion($bd);
+	// }
+	//
+	// function traer_contrato()
+	// {
+	// 	$idContrato = $this->s__datos['form']['id_contrato'];
+	// 	return $idContrato;
+	// }
 
 	function get_detalles()
 	{
@@ -213,6 +240,47 @@ class ci_modificarcontrato extends sagep_ci
 		$datos = $this->cn()->get_liquidaciones();
 
 		$this->get_cache_form_ml('form_ml_cuotas')->set_cache($datos);
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- jasperreports ----------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function vista_jasperreports(toba_vista_jasperreports $reporte)
+	{
+		// /home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep
+		$path_toba = '/home/marianofrezz/proyectos/toba_2_7_2';
+		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/informacion_contrato.jasper';
+		$reporte->set_path_reporte($path_reporte);
+		$usuario = toba::usuario()->get_nombre();
+		$idContrato = $this->traer_contrato();
+		$contratado['id_persona'] = dao_gestiondecontratos::get_contratado($idContrato);
+
+		//ei_arbol($idContrato);
+		//ei_arbol($contratado['id_persona']);
+
+
+		//$reporte->set_parametro('idUsuarioToba', 'S', $usuario);
+		$reporte->set_parametro('id_contrato', 'E', $idContrato);
+
+		// if (!isset($this->s__datos['form']['razon_social'])) {
+		// 	$nombre_archivo = '"' . $this->s__datos['form']['apellidos'] . ' ' .$this->s__datos['form']['nombres'];
+		// } else {
+			$nombre_archivo = '"' . $contratado['id_persona'];
+		// }
+		$cadena1 = str_replace(', ', ' ', $nombre_archivo);
+
+		$cadena = str_replace(' ', '_', $cadena1);
+		$reporte->set_nombre_archivo($cadena. '.pdf');
+		$bd = toba::db('sagep');
+		$reporte->set_conexion($bd);
+	}
+
+	function traer_contrato()
+	{
+		$datos_contrato = $this->get_cache_form('form')->get_cache();
+		$idContrato = $datos_contrato['id_contrato'];
+		return $idContrato;
 	}
 
 }

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listado_detalles" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1db34711-da6e-43ff-aff6-764376686662">
+	<property name="ireport.zoom" value="2.5937424601000045"/>
+	<property name="ireport.x" value="496"/>
+	<property name="ireport.y" value="381"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sql_parametro" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	coalesce(t_p.razon_social, t_p.apellidos || ', ' || t_p.nombres) entidad,
+	t_s.nombre_serv as id_servicio_nombre,
+	t_c.fecha_inicio,
+	t_c.fecha_fin,
+	t_det.direccion || ' al ' || t_det.altura ||' - Barrio '|| t_bar.nombre_bar ||' - '||t_loc.nombre_loc || ', ' || t_prov.nombre_prov || ', ' || t_pais.nombre_pais as direccion,
+	t_te.nombre_tipoest as id_estado_nombre,
+	t_p.cuil_cuit as id_persona_cuil_cuit,
+	t_e.fecha_cambio,
+	t_dt.id_detalle_contrato,
+	t_s.id_servicio,
+	t_c.id_contrato,
+	t_dt.monto_total
+
+FROM es_sagep.estados t_e
+
+	JOIN es_sagep.tipo_estado t_te on t_e.id_tipo_estado = t_te.id_tipo_estado
+	JOIN es_sagep.detalleubicacion_detallecontrato t_uc on t_e.id_ubicacion = t_uc.id_ubicacion and t_e.id_detalle_contrato = t_uc.id_detalle_contrato and t_e.fecha_cambio in (SELECT MAX(e2.fecha_cambio) FROM es_sagep.estados e2 WHERE t_e.id_ubicacion = e2.id_ubicacion AND t_e.id_detalle_contrato = e2.id_detalle_contrato)
+	JOIN es_sagep.detalles_contrato t_dt on t_uc.id_detalle_contrato = t_dt.id_detalle_contrato
+	JOIN es_sagep.detalle_ubicacion t_det on t_uc.id_ubicacion = t_det.id_ubicacion
+	JOIN es_sagep.barrios t_bar on t_det.id_barrio = t_bar.id_barrio
+	JOIN es_sagep.localidades t_loc on t_bar.id_localidad = t_loc.id_localidad
+	JOIN es_sagep.provincias t_prov on t_loc.id_provincia = t_prov.id_provincia
+	JOIN es_sagep.pais t_pais on t_prov.id_pais = t_pais.id_pais
+
+	JOIN es_sagep.servicios t_s on t_dt.id_servicio = t_s.id_servicio
+
+	JOIN es_sagep.contratos t_c on t_c.id_contrato = t_dt.id_contrato
+	JOIN es_sagep.tipos_contratos t_tc on t_c.id_tipo_contrato = t_tc.id_tipo_contrato
+	JOIN es_sagep.roles t_rs on t_c.id_contrato = t_rs.id_contrato
+	JOIN es_sagep.rol t_r on t_rs.id_rol = t_r.id_rol and t_r.nombre_rol = 'Contratado'
+	JOIN es_sagep.personas t_p on t_rs.id_persona = t_p.id_persona
+WHERE $P!{sql_parametro}]]>
+	</queryString>
+	<field name="entidad" class="java.lang.String"/>
+	<field name="id_servicio_nombre" class="java.lang.String"/>
+	<field name="fecha_inicio" class="java.sql.Timestamp"/>
+	<field name="fecha_fin" class="java.sql.Timestamp"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="id_estado_nombre" class="java.lang.String"/>
+	<field name="id_persona_cuil_cuit" class="java.math.BigDecimal"/>
+	<field name="fecha_cambio" class="java.sql.Date"/>
+	<field name="id_detalle_contrato" class="java.lang.Long"/>
+	<field name="id_servicio" class="java.lang.Long"/>
+	<field name="id_contrato" class="java.lang.Long"/>
+	<field name="monto_total" class="java.math.BigDecimal"/>
+	<variable name="contador" class="java.lang.String"/>
+	<group name="entidad">
+		<groupExpression><![CDATA[$F{entidad}]]></groupExpression>
+		<groupHeader>
+			<band height="51">
+				<textField>
+					<reportElement x="0" y="1" width="555" height="50" uuid="f01b192f-52e7-4e54-875b-6a1e27387979"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
+						<font size="12" isBold="true" isStrikeThrough="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Entidad: " + $F{entidad}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="11">
+				<line>
+					<reportElement x="0" y="0" width="555" height="1" uuid="0ed5e6fc-d383-4661-ac87-36aba5104d62"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="contrato">
+		<groupExpression><![CDATA[$F{id_contrato}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<rectangle>
+					<reportElement x="0" y="0" width="555" height="20" uuid="e9723d80-0dfd-463d-91b3-6b38408e953e"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="0" y="0" width="129" height="20" uuid="4131dd33-654d-4149-8b63-785550bbfa93"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Servicio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="129" y="0" width="298" height="20" uuid="ee2df0d2-d86a-4708-ba67-d85a31aac597"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Dirección]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="427" y="0" width="128" height="20" uuid="d776cd56-28fc-4224-af7c-b8ff40eb01ea"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Estado]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="servicios">
+		<groupExpression><![CDATA[$F{id_servicio_nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="7"/>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="70" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="9" width="555" height="43" uuid="eb918a04-577c-4927-98f6-e5ceb8b269eb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Detalles]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="129" y="0" width="298" height="27" uuid="be5322eb-6172-4520-b84c-d72fcb2f3c37"/>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="129" height="27" uuid="0aa9068c-3644-41b2-bd55-19d28ddd0863"/>
+				<textElement>
+					<font size="10" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_servicio_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="427" y="0" width="128" height="27" uuid="6b02c24a-0afa-4508-9d51-f15ab7acd83e"/>
+				<textFieldExpression><![CDATA[$F{id_estado_nombre}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="27" width="555" height="1" uuid="8a7d8256-f333-4cff-af78-29b4b4ef02c5"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="455" y="0" width="100" height="20" uuid="ccd22a5e-0c91-453b-b8a1-9913ab94ebcd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="229" y="0" width="71" height="20" uuid="2617e677-5c39-44b7-b5f8-564497f8c91d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="288" y="0" width="100" height="20" uuid="dd528a24-18b2-4149-bfed-de5e27abe04c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="40f7385b-dfdb-43d9-87e2-b0e761927ecd"/>
+				<graphicElement>
+					<pen lineWidth="1.5" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="86ac8f9e-846c-46d4-8996-71910c3aedcc"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

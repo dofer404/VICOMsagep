@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listado_servicios" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4557fdf9-836c-4f71-a246-253c88313e9e">
+	<property name="ireport.zoom" value="1.9487171000000019"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="265"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idUsuarioToba" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sql_parametro" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT t_s.id_servicio,
+                  t_s.sigla_serv,
+                  t_s.nombre_serv,
+                  t_s.descripcion,
+                  t_s.tamano,
+                  t_s.imagen,
+                  t_sr.parent_id_servicio,
+                  t_sr.nombre_serv || ' : ' || t_s.nombre_serv  as servicios,
+                  t_sr.nombre_serv as parent_id_servicio_nombre
+
+          FROM es_sagep.servicios t_s
+          JOIN es_sagep.servicios t_sr ON t_s.parent_id_servicio = t_sr.id_servicio
+WHERE $P!{sql_parametro}
+ORDER BY (t_sr.nombre_serv, t_s.nombre_serv)]]>
+	</queryString>
+	<field name="id_servicio" class="java.lang.Long"/>
+	<field name="sigla_serv" class="java.lang.String"/>
+	<field name="nombre_serv" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="tamano" class="java.lang.String"/>
+	<field name="imagen" class="java.lang.Object"/>
+	<field name="parent_id_servicio" class="java.lang.Long"/>
+	<field name="servicios" class="java.lang.String"/>
+	<field name="parent_id_servicio_nombre" class="java.lang.String"/>
+	<group name="servicio_padre">
+		<groupExpression><![CDATA[$F{parent_id_servicio_nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="63">
+				<rectangle>
+					<reportElement x="0" y="43" width="555" height="20" uuid="c546ae05-c689-4845-8d37-2dbd468ffa69"/>
+				</rectangle>
+				<textField>
+					<reportElement x="0" y="13" width="555" height="30" uuid="568f60d2-2a46-49f1-b316-adb83601c6f8"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tipo de Servicio: " + $F{parent_id_servicio_nombre}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="43" width="100" height="20" uuid="26631e70-8fc2-443d-b625-0dc8e6005250"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sigla Servicio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="100" y="43" width="144" height="20" uuid="86b91233-d72c-4642-8994-2cc962267626"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nombre Servicio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="244" y="43" width="211" height="20" uuid="cb6b1627-6123-4c64-b8a1-712f58a7d641"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Descripción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="467" y="43" width="88" height="20" uuid="828e8c49-816e-4e3f-abda-1acb6fa02420"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tamaño]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="1">
+				<line>
+					<reportElement x="0" y="0" width="553" height="1" uuid="cbe67c15-5b6d-4300-ad65-89614a5f87a7"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="70" uuid="dc460b5b-8181-4df8-8e7d-e8ff23ffb5e3"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "encabezado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="45" uuid="c98cadc9-188f-41fe-ac5a-db3d4816c438"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Servicios]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-18" y="0" width="591" height="1" uuid="204e268f-1aac-43ee-abc8-ae8445ea6c9d"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="144" height="32" uuid="7bb58ba2-5452-434d-acc3-f4bc98673548"/>
+				<textFieldExpression><![CDATA[$F{nombre_serv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="32" uuid="ab754701-7fe6-4642-acaa-9aaff31ea1df"/>
+				<textFieldExpression><![CDATA[$F{sigla_serv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="0" width="211" height="32" uuid="2e8301d9-5590-4bcb-acf5-18a1f515af5f"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="0" width="88" height="32" uuid="02f5f16a-fcf1-4353-88ab-00cb6679a185"/>
+				<textFieldExpression><![CDATA[$F{tamano}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="31" width="554" height="1" uuid="73d36822-3ee2-4bea-bfe2-73455dfec2c2"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="454" y="0" width="100" height="20" uuid="e2b767f8-6783-4acb-938b-f2265b9603dd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="285" y="0" width="100" height="20" uuid="b0565787-d25f-4f88-a3d2-c6d192e82bf8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-1" y="-1" width="555" height="1" uuid="f54f519f-468b-4fc1-a8bf-272140841817"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="228" y="0" width="71" height="20" uuid="fa9a2166-74db-4523-9cac-a95f04aeb183"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="18" uuid="9590f50e-a821-47a6-adb6-35de88d78bee"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Usuario: " + $P{idUsuarioToba}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

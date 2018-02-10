@@ -7,7 +7,7 @@ require_once('parametros/servicios/tipos_de_estados/dao_tiposdeestados.php');
 require_once('personas/gestion_de_personas/dao_gestiondepersonas.php');
 require_once('servicios/gestion_de_servicios/dao_gestiondeservicios.php');
 
-class dao_gestiondecontratos{
+class dao_listadodecontratos{
 
   static function get_listado_contratos ($where='')
   {
@@ -80,14 +80,11 @@ class dao_gestiondecontratos{
    static function get_contratado($id_contrato) {
      $id_contrato = quote($id_contrato);
 
-     $sql = "SELECT t_roles.id_persona,
-           	coalesce(t_p.razon_social, t_p.apellidos || ', ' || t_p.nombres) entidad
-      FROM es_sagep.roles t_roles
+     $sql = "SELECT t_roles.id_persona FROM es_sagep.roles t_roles
                 INNER JOIN es_sagep.rol t_rol ON t_roles.id_rol = t_rol.id_rol AND t_rol.nombre_rol = 'Contratado'
-                INNER JOIN es_sagep.personas t_p ON t_roles.id_persona = t_p.id_persona
             WHERE t_roles.id_contrato = $id_contrato";
 
-     return consultar_fuente($sql)[0]['entidad'];
+     return consultar_fuente($sql)[0]['id_persona'];
 
    }
 

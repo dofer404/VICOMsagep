@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="informacion_persona" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4a3456a9-c7c6-4d19-b65d-36cd2bc10042">
+	<property name="ireport.zoom" value="2.357947691000002"/>
+	<property name="ireport.x" value="351"/>
+	<property name="ireport.y" value="666"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idPersona" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idUsuarioToba" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	per.cuil_cuit,
+	coalesce(per.razon_social, per.apellidos || ', ' || per.nombres) entidad,
+          per.fecha_nacimiento,
+          per.activo,
+          t_ci.nombre_coniva as id_iva_nombre,
+          t_tp.nombre_tipoper as id_tipo_persona_nombre,
+          tel_cor.tipo_contacto,
+	tel_cor.tipo,
+	tel_cor.descripcion
+
+FROM es_sagep.personas per
+INNER JOIN (SELECT tel.id_persona, tel.caracteristica || ' - ' || tel.numero descripcion, tel.id_tipo_telefono, 'Telefono' ||' '|| t_tel.nombre_tipotel ||''|| ': ' tipo, 'Tipo de Telefono' tipo_contacto
+		FROM es_sagep.telefonos tel, es_sagep.tipos_telefonos t_tel WHERE tel.id_tipo_telefono = t_tel.id_tipo_telefono
+	UNION SELECT cor.id_persona, cor.direccion descripcion, cor.id_tipo_correo, 'Correo' ||' '|| t_cor.nombre_tipocor ||''|| ': ' tipo, 'Tipo de Correo' tipo_contacto
+		FROM es_sagep.correos cor, es_sagep.tipos_correos t_cor WHERE cor.id_tipo_correo = t_cor.id_tipo_correo
+		UNION SELECT p_det.id_ubicacion, det.direccion || ' al ' || det.altura ||' - Barrio '|| bar.nombre_bar ||' - '|| zona.nombre_tipozona ||' - '||loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais descripcion, 1, 'Direccion' tipo, 'Dirección' tipo_contacto
+			FROM es_sagep.personas_detalleubicacion p_det, es_sagep.detalle_ubicacion det, es_sagep.localidades loc, es_sagep.barrios bar, es_sagep.provincias prov, es_sagep.pais pais, es_sagep.tipos_zonas zona
+			WHERE p_det.id_ubicacion = det.id_ubicacion and bar.id_barrio = det.id_barrio and loc.id_localidad = bar.id_localidad and prov.id_provincia = loc.id_provincia and pais.id_pais = prov.id_pais and zona.id_tipo_zona = det.id_zona
+		) tel_cor ON tel_cor.id_persona = per.id_persona
+
+INNER JOIN es_sagep.condicion_iva t_ci on per.id_iva = t_ci.id_iva
+INNER JOIN es_sagep.tipos_personas t_tp ON per.id_tipo_persona = t_tp.id_tipo_persona
+
+WHERE per.id_persona = $P{idPersona}
+
+ORDER BY (coalesce(per.razon_social, per.apellidos || ', ' || per.nombres), tel_cor.tipo, tel_cor.descripcion)]]>
+	</queryString>
+	<field name="cuil_cuit" class="java.math.BigDecimal"/>
+	<field name="entidad" class="java.lang.String"/>
+	<field name="fecha_nacimiento" class="java.sql.Date"/>
+	<field name="activo" class="java.lang.Boolean"/>
+	<field name="id_iva_nombre" class="java.lang.String"/>
+	<field name="id_tipo_persona_nombre" class="java.lang.String"/>
+	<field name="tipo_contacto" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<group name="tipo_contacto">
+		<groupExpression><![CDATA[$F{tipo_contacto}]]></groupExpression>
+		<groupHeader>
+			<band height="43">
+				<rectangle>
+					<reportElement x="0" y="0" width="555" height="33" uuid="559060f6-2371-45fd-882a-c5f4963aa527"/>
+				</rectangle>
+				<textField>
+					<reportElement x="-2" y="0" width="115" height="33" uuid="66bdc2ed-4ccf-409d-8598-6f65e0cd443c"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipo_contacto}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="113" y="0" width="442" height="33" uuid="3a4ebe66-c688-42b6-ab4d-62ca8a559d88"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Descripción]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="7">
+				<line>
+					<reportElement x="0" y="0" width="555" height="1" uuid="9c9b86c4-1cf5-4fea-8431-44a96c685c85"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="88" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="88" uuid="2865ef99-f329-4b19-906f-5b737e17adc9"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "encabezado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="96" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="3" width="555" height="27" uuid="9cf93579-5c20-4711-a05b-0440efe0e362"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Persona: " + $F{entidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="265" y="50" width="100" height="20" uuid="678b8a6e-3e85-4293-967e-3ea4663190ed"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{activo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="30" width="88" height="20" uuid="8346f2a4-8d84-4bc3-8894-1c9252f80c34"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Persona:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="76" y="50" width="115" height="20" uuid="80d80d89-e25d-416d-9362-9aef1c9c1942"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cuil_cuit}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="70" width="100" height="20" uuid="f7f7a830-9d3f-42bc-8de1-5fb846488a1a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Condición de IVA:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="335" y="30" width="138" height="20" uuid="4ca6ea1d-40a8-427a-80cb-4634c4f232bb"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_nacimiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="50" width="66" height="20" uuid="36aec5d4-9453-493a-a690-2e71ebdcce36"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CUIT / CUIL:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="98" y="30" width="102" height="20" uuid="ce02ca7b-9647-463a-9d06-5e2fb636fa15"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id_tipo_persona_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="225" y="30" width="110" height="20" uuid="da5c7c39-7886-4edd-ad18-a3152a469d0a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Nacimiento:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="70" width="115" height="20" uuid="8e877f3a-1ae0-4f18-a1ef-f873f5385e82"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id_iva_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="225" y="50" width="40" height="20" uuid="1e7d358a-ac96-4962-ad9f-8468bf6407a9"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Activo:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-17" y="0" width="593" height="1" uuid="d2df0d6e-9140-48a2-bf26-8c4e002534ba"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="113" y="0" width="324" height="20" uuid="706f131d-af14-4dd1-a74b-3ebe5ab29148"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="26" width="555" height="1" uuid="39f16f9b-5280-4e00-88f5-378c3c1513de"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="3" y="0" width="110" height="20" uuid="4b15a2e7-a9d0-46fb-8717-748b84fb3d6c"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="64" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="100" height="18" uuid="cff0a962-add9-4555-8f14-80197407f5d6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Usuario: " + $P{idUsuarioToba}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="308" y="1" width="100" height="20" uuid="9a9ebc01-5a7a-458f-ac84-f25d59c6abf6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="0471efc8-5998-419f-b644-2b620335e279"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="249" y="1" width="71" height="20" uuid="997f764d-f729-46c2-9151-a6b56bad43cd"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="455" y="1" width="100" height="20" uuid="55812204-e53d-4de8-98ad-231e09aa7d26"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
