@@ -43,7 +43,8 @@ class ci_agregarcontrato extends sagep_ci
 	function evt__procesar()
 	{
 			try {
-				$this->cn()->guardar();
+				$id_generado = $this->cn()->guardar(); //< nos guardamos el id que devuelve cn->guardar()
+				ei_arbol(['ID generado' => $id_generado]); //< Podemos hacer con el id lo que querramos
 				$this->guardado=1;
 				//$this->evt__cancelar();
 			} catch (toba_error_db $e) {

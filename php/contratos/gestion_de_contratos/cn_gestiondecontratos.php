@@ -15,7 +15,15 @@ class cn_gestiondecontratos extends sagep_cn
 	function guardar()
 	{
 		$this->dep('dr_contratos')->sincronizar();
+		// En este momento, después de la sincronización y antes del reseteo se pueden obtener los IDs generados, por ejemplo para obtener el id_contrato generado hacemos:
+		$datos_contrato = $this->get_contratos();
+		$id_generado = array();
+		$id_generado['id_contrato'] = $datos_contrato['id_contrato'];
+
+		// Ya con los IDs guardados en la variable de retorno podemos resetear el DR
 		$this->dep('dr_contratos')->resetear();
+
+		return $id_generado; //< devolvemos el ID que nos interesa
 	}
 
 	function eliminar()
