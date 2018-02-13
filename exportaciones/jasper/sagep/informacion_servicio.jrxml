@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="informacion_servicio" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="afa58cad-11bc-44fa-9e7c-c34d62e13b4a">
+	<property name="ireport.zoom" value="1.7715610000000035"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id_servicio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT t_s.id_servicio,
+                  t_s.sigla_serv,
+                  t_s.nombre_serv,
+                  t_s.descripcion,
+                  t_s.tamano,
+                  t_s.imagen,
+                  t_sr.parent_id_servicio,
+                  t_sr.nombre_serv || ' : ' || t_s.nombre_serv  servicios,
+                  t_sr.nombre_serv as parent_id_servicio_nombre,
+                  t_zon.nombre_tipozona,
+                  t_tar.monto
+
+          FROM es_sagep.servicios t_s
+          JOIN es_sagep.servicios t_sr ON t_s.parent_id_servicio = t_sr.id_servicio
+          JOIN es_sagep.tarifa t_tar ON t_s.id_servicio = t_tar.id_servicio
+          JOIN es_sagep.tipos_zonas t_zon ON t_tar.id_tipo_zona = t_zon.id_tipo_zona
+WHERE t_s.id_servicio = $P{id_servicio}]]>
+	</queryString>
+	<field name="id_servicio" class="java.lang.Long"/>
+	<field name="sigla_serv" class="java.lang.String"/>
+	<field name="nombre_serv" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="tamano" class="java.lang.String"/>
+	<field name="imagen" class="java.lang.Object"/>
+	<field name="parent_id_servicio" class="java.lang.Long"/>
+	<field name="servicios" class="java.lang.String"/>
+	<field name="parent_id_servicio_nombre" class="java.lang.String"/>
+	<field name="nombre_tipozona" class="java.lang.String"/>
+	<field name="monto" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="88" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="87" uuid="7fff1332-8e45-4a8d-af27-2d294ddd42cc"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "encabezado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="143" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="110" width="555" height="33" uuid="1da6ccac-1d61-4209-b586-ddac079645ef"/>
+			</rectangle>
+			<line>
+				<reportElement x="-16" y="-1" width="583" height="1" uuid="de616de4-1396-46de-958a-78627500a8a8"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="0" width="555" height="27" uuid="7a869e01-c244-4f40-b8a4-065041c305d0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Servicio: " + $F{nombre_serv}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="27" width="41" height="20" uuid="3fef98c9-b694-4e18-8196-950639f94eaf"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Sigla:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="41" y="27" width="100" height="20" uuid="025b43a2-891e-48fa-8740-459606fd4cbb"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sigla_serv}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="165" y="27" width="70" height="51" uuid="c850c5b4-821d-4a48-a8de-1b01ecd6cd91"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Descripción:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="235" y="27" width="290" height="51" uuid="bbac5dab-b1da-4343-9f7c-a899a2b41e92"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="58" width="52" height="20" uuid="c722ecb3-c737-453c-8bfe-15f454918654"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Tamaño:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="52" y="58" width="100" height="20" uuid="3cf55e45-552d-44f7-9fcc-d032d8624d90"/>
+				<textFieldExpression><![CDATA[$F{tamano}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="110" width="248" height="33" uuid="5da39726-aca1-45ec-8de9-e5ebfb7dea6f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Zona]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="110" width="307" height="33" uuid="9548cb03-81c8-4df2-9aee-bdc2e2c11840"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="90" width="185" height="20" uuid="2bfbe942-97ed-4307-a113-c877e24df56f"/>
+				<textFieldExpression><![CDATA[$F{parent_id_servicio_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="90" width="90" height="20" uuid="6301b47f-8f8c-4486-86ea-190f028f3bcd"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Servicio:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="248" height="20" uuid="d414b9a0-22a2-47c0-8c2c-d8409d23929f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_tipozona}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="248" y="0" width="307" height="20" uuid="e4077d5c-dac7-4de4-a951-458367c23504"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="98c2e9ce-5fa4-49f6-8ccb-9087a8227fdf"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="11"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="d04439a5-8605-4625-a41e-562735080972"/>
+			</line>
+			<textField>
+				<reportElement x="258" y="1" width="71" height="20" uuid="be8bf23e-c789-46b5-871f-86ca4060e554"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="318" y="1" width="100" height="20" uuid="d6e0e859-5ae5-426c-af64-6efead0c13e0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="455" y="1" width="100" height="20" uuid="132b4140-7e55-4286-a3f7-454c50df69b6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
