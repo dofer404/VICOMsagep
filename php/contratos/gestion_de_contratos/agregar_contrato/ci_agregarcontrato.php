@@ -446,7 +446,7 @@ class ci_agregarcontrato extends sagep_ci
 	// {
 	// 	$pantalla->set_descripcion("Liquidaciones <br/>
 	// 	 <br/> <li>Cuotas que se generan</li>
-  //                         <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operaci\F3n </li>
+  //                         <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
 	// 												<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
 	// }
 
@@ -465,7 +465,7 @@ class ci_agregarcontrato extends sagep_ci
 
 	 	$this->pantalla()->set_descripcion("Resumen <br/>
 	 <br/> <li>Resumen del Contrato</li>
-                      <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operaci\F3n </li>
+                      <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
 													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
 	}
 
@@ -473,7 +473,7 @@ class ci_agregarcontrato extends sagep_ci
 	// {
 	// 	$this->controlador()->pantalla()->set_descripcion("Liquidaciones <br/>
 	// 	 <br/> <li>Cuotas que se generan</li>
-  //                         <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operaci\F3n </li>
+  //                         <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
 	// 												<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
 	// }
 
@@ -481,36 +481,36 @@ class ci_agregarcontrato extends sagep_ci
 	{
 		if($this->pantalla()->get_etiqueta() == 'Contrato'){
 			$this->pantalla()->set_descripcion("Ingrese Datos del Contrato  <br/>
-			<br/> <li>En cada \EDtem, se brinda una ayuda para la carga</li>
+			<br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
                           <li>Presione \"Agregar\" para ingresar un nuevo Rol</li>
-                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operaci\F3n </li>
+                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
 													<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Inicial </div> ");
 		}
 
 		if($this->pantalla()->get_etiqueta() == 'Detalle de Contrato'){
 			$this->pantalla()->set_descripcion("Ingrese Detalles del Contrato <br/>
 			 <br/> <li>Presione \"Agregar\" para ingresar un Nuevo Detalle</li>
-														<li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operaci\F3n </li>
+														<li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
 														<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
 		}
 
 		if($this->dep('ci_agregardetalle')->pantalla()->get_etiqueta() == 'Ubicaciones'){
 			$this->pantalla()->set_descripcion("Ingrese un Detalle <br/>
-			 <br/> <li>En cada \EDtem, se brinda una ayuda para la carga</li>
-			 <li>Presione \"Agregar\" para ingresar un Nueva Ubicaci\F3n</li>
+			 <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
+			 <li>Presione \"Agregar\" para ingresar un Nueva Ubicación</li>
 	                          <li>Presione \"Aceptar\" para confirmar o \"Volver\" para ir a la Pantalla Anterior </li> ");
 
 		}
 		if($this->pantalla()->get_etiqueta() == 'Cuotas'){
 			$this->pantalla()->set_descripcion("Liquidaciones <br/>
 			 <br/> <li>Cuotas que se generan</li>
-	                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operaci\F3n </li>
+	                          <li>Presione \"Siguiente\" para continuar o \"Cancelar\" para anular la operación </li>
 														<div style = 'text-align:right'>Nota: Presione \"Anterior\" para volver a la Pantalla Anterior </div> ");
 
 		}
-		if($this->dep('ci_agregardetalle')->dep('ci_agregarubicacion')->pantalla()->get_etiqueta() == 'Pantalla Edici\F3n'){
-			$this->pantalla()->set_descripcion("Ingrese Ubicaci\F3n <br/>
-			 <br/>  <li>En cada \EDtem, se brinda una ayuda para la carga</li>
+		if($this->dep('ci_agregardetalle')->dep('ci_agregarubicacion')->pantalla()->get_etiqueta() == 'Pantalla Edición'){
+			$this->pantalla()->set_descripcion("Ingrese Ubicación <br/>
+			 <br/>  <li>En cada ítem, se brinda una ayuda para la carga</li>
 		 <li>Presione \"Siguiente\" para continuar o \"Volver\" para ir a la Pantalla Anterior </li>");
 
 		}
