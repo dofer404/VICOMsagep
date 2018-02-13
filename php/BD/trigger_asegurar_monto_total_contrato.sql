@@ -3,7 +3,6 @@ SET search_path TO es_sagep;
 CREATE OR REPLACE FUNCTION sf_tgr_contratos_monto_total() RETURNS TRIGGER
 	AS $$
 	DECLARE var_montoTotalCalc NUMERIC;
-	DECLARE var_cantMeses INTEGER;
 	BEGIN
 		SELECT SUM(monto_total)
 			INTO var_montoTotalCalc
