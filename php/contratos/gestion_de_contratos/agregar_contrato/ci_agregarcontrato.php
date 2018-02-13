@@ -149,7 +149,6 @@ class ci_agregarcontrato extends sagep_ci
 	function evt__form__modificacion($datos)
 	{
 		$this->get_cache_form('form')->set_cache($datos);
-		ei_arbol(array('datos_contratos:' => $datos));
 		$this->cn()->set_contratos($datos);
 	}
 
@@ -417,7 +416,6 @@ class ci_agregarcontrato extends sagep_ci
 		if ($this->cn()->hay_cursor() ) {
 			$antiguo = $this->cn()->get_contratos();
 			$datos = array_merge($antiguo, $datos);
-			ei_arbol(['cn' => array('antiguo:' => $antiguo, 'nuevo:' => $datos)]);
 			$this->cn()->set_contratos($datos);
 		}
 	}
