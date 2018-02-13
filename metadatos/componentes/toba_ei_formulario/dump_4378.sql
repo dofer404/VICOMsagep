@@ -185,7 +185,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'3741', --popup_item
 	'sagep', --popup_proyecto
 	'0', --popup_editable
-	NULL, --popup_ventana
+	'width: 600,height: 600,scrollbars: yes', --popup_ventana
 	'get_descPopUpPersonas', --popup_carga_desc_metodo
 	'dao_realizarpago', --popup_carga_desc_clase
 	'pagos/realizar_pago/dao_realizarpago.php', --popup_carga_desc_include

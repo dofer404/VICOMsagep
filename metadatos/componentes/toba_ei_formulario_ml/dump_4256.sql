@@ -136,7 +136,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4256', --objeto_ei_formulario
 	'sagep', --objeto_ei_formulario_proyecto
 	'caracteristica', --identificador
-	'ef_editable_numero', --elemento_formulario
+	'ef_editable', --elemento_formulario
 	'caracteristica', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -216,7 +216,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'4256', --objeto_ei_formulario
 	'sagep', --objeto_ei_formulario_proyecto
 	'numero', --identificador
-	'ef_editable_numero', --elemento_formulario
+	'ef_editable', --elemento_formulario
 	'numero', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio

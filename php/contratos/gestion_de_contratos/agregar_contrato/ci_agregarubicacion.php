@@ -10,6 +10,7 @@ class ci_agregarubicacion extends sagep_ci
 
 	protected $sql_state;
 	protected $s__datos;
+	protected $s__cantidad;
 
   //-----------------------------------------------------------------------------------
 	//---- setters y getters ------------------------------------------------------------

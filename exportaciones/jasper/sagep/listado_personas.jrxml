@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report4" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a7f79bf4-62b0-4fd0-ac6a-27e79a07f7f8">
+	<property name="ireport.zoom" value="4.5949729863572255"/>
+	<property name="ireport.x" value="265"/>
+	<property name="ireport.y" value="944"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sql_parametro" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idUsuarioToba" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+      t_p.id_persona,
+      t_ci.id_iva,
+      t_td.id_tipo_documento,
+      t_tp.id_tipo_persona,
+      t_p.cuil_cuit,
+      coalesce(t_p.razon_social, t_p.apellidos || ', ' || t_p.nombres) entidad,
+      t_p.razon_social,
+      t_p.nro_documento,
+      t_td.sigla_tipodoc || ' ' || t_p.nro_documento tipo_y_numero,
+      t_p.fecha_nacimiento,
+      t_p.activo,
+      t_p.logo,
+      t_ci.nombre_coniva as id_iva_nombre,
+      t_td.sigla_tipodoc as id_tipo_documento_nombre,
+      t_tp.nombre_tipoper as id_tipo_persona_nombre
+    FROM es_sagep.personas t_p
+
+    LEFT JOIN es_sagep.condicion_iva t_ci on t_p.id_iva = t_ci.id_iva
+    LEFT JOIN es_sagep.tipos_personas t_tp ON t_p.id_tipo_persona = t_tp.id_tipo_persona
+    LEFT JOIN es_sagep.tipos_documentos t_td ON t_p.id_tipo_documento = t_td.id_tipo_documento
+WHERE $P!{sql_parametro}]]>
+	</queryString>
+	<field name="id_persona" class="java.lang.Long"/>
+	<field name="id_iva" class="java.lang.Long"/>
+	<field name="id_tipo_documento" class="java.lang.Long"/>
+	<field name="id_tipo_persona" class="java.lang.Long"/>
+	<field name="cuil_cuit" class="java.math.BigDecimal"/>
+	<field name="entidad" class="java.lang.String"/>
+	<field name="razon_social" class="java.lang.String"/>
+	<field name="nro_documento" class="java.lang.Integer"/>
+	<field name="tipo_y_numero" class="java.lang.String"/>
+	<field name="fecha_nacimiento" class="java.sql.Date"/>
+	<field name="activo" class="java.lang.Boolean"/>
+	<field name="logo" class="java.lang.Object"/>
+	<field name="id_iva_nombre" class="java.lang.String"/>
+	<field name="id_tipo_documento_nombre" class="java.lang.String"/>
+	<field name="id_tipo_persona_nombre" class="java.lang.String"/>
+	<group name="tipo_persona">
+		<groupExpression><![CDATA[$F{id_tipo_persona_nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="93">
+				<rectangle>
+					<reportElement x="0" y="43" width="555" height="31" uuid="f3d2f7c2-d393-4a67-9c12-845afeb8add1"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="289" y="43" width="135" height="31" uuid="678bb78f-4f9a-4fcb-8635-61c8e3d6717c"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Condición de IVA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="505" y="43" width="50" height="31" uuid="641a8c8c-b6a7-4c42-8edb-dba5f63f75da"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Activo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="43" width="189" height="31" uuid="5f0debe5-ff40-41de-9fcb-09d82d811424"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Entidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="424" y="43" width="81" height="31" uuid="c22d6347-6894-4fb3-b6ad-2d92f22d42eb"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha de Nacimiento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="189" y="43" width="100" height="31" uuid="a56b56a8-154f-4c56-9b33-9f2f2a00b4df"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CUIT / CUIL]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="-2" y="0" width="555" height="43" uuid="b2ab4525-cd65-4d8d-8ec5-45d1455b8a1e"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Persona " + $F{id_tipo_persona_nombre}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="1">
+				<line>
+					<reportElement x="0" y="0" width="555" height="1" uuid="ff603882-a566-49a4-b89e-95012bfa38e2"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="79" uuid="5ebca078-6f5c-45ba-bb5b-2443fadd33dc"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "encabezado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="555" height="38" uuid="0516b882-909b-4b30-a5a9-5d6fae3abb0a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Personas]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-19" y="0" width="593" height="1" uuid="8b7d8a04-795c-42e0-b1fc-94acb51803f4"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="424" y="0" width="81" height="20" uuid="e00c1bcf-68d9-4c40-a046-234b18024c0b"/>
+				<textFieldExpression><![CDATA[$F{fecha_nacimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="505" y="0" width="48" height="20" uuid="044412e8-fb6e-4d98-8bcd-e3d7460514b0"/>
+				<textFieldExpression><![CDATA[$F{activo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="19" width="553" height="1" uuid="0b8fb9c5-2128-4fe0-97d1-01d5ade4c55d"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="289" y="0" width="133" height="19" uuid="f8bd05c3-d44a-437c-b8a0-0be1f8f21bf0"/>
+				<textFieldExpression><![CDATA[$F{id_iva_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="0" width="100" height="20" uuid="14e14050-93e0-4e1d-8100-734b9b94ceab"/>
+				<textFieldExpression><![CDATA[$F{cuil_cuit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="189" height="20" uuid="08d20801-2cb1-4517-8843-beddd6ffb039"/>
+				<textFieldExpression><![CDATA[$F{entidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="453" y="10" width="100" height="20" uuid="9b1d09bf-db83-49ea-b082-87124594b931"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="12" width="240" height="18" uuid="90ddb987-c2fa-4f9d-af4d-f3badefdad6e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Usuario: " + $P{idUsuarioToba}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="10" width="71" height="20" uuid="0016e47c-e0a1-4400-97ad-603f380abf0b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="300" y="10" width="100" height="20" uuid="43c05e75-0e9c-4b8b-ab8c-d017eafc99d9"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="3a0751ae-b53b-4f13-b134-2f55cc9b72cc"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

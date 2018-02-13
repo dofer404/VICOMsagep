@@ -330,7 +330,7 @@ class cn_gestiondecontratos extends sagep_cn
 
 	function eliminar_liquidaciones()
 	{
-		$this->dep('dr_contratos')->tabla('dt_liquidaciones')->eliminar_todo();
+
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -375,7 +375,7 @@ class cn_gestiondecontratos extends sagep_cn
 			$datos[$dt] =  $this->dep('dr_contratos')->tabla($dt)->get_filas();
 		}
 
-		ei_arbol( array ( ' a sincronizar en cn: '  =>  $datos ));
+	//	ei_arbol( array ( ' a sincronizar en cn: '  =>  $datos ));
 	}
 
 

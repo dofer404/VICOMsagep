@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_realizarpago - form_ml_formas_pago', --nombre
-	NULL, --titulo
+	'Formas de Pago', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	'sagep', --fuente_datos_proyecto
@@ -312,7 +312,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --permitir_html
 	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	'1', --solo_lectura
+	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
 	NULL, --carga_clase

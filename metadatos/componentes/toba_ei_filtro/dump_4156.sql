@@ -192,11 +192,11 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'sagep', --objeto_ei_filtro_proyecto
 	'cadena', --tipo
 	'entidad', --nombre
-	'entidad', --expresion
+	'coalesce(t_p.razon_social, t_p.apellidos || '', '' || t_p.nombres)', --expresion
 	'Entidad', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-	'0', --inicial
+	'1', --inicial
 	'1', --orden
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
@@ -254,7 +254,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Apellido', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-	'0', --inicial
+	'1', --inicial
 	'2', --orden
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
@@ -312,7 +312,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'CUIL / CUIT', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-	'0', --inicial
+	'1', --inicial
 	'4', --orden
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
@@ -370,7 +370,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Tipo de Persona', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-	'0', --inicial
+	'1', --inicial
 	'5', --orden
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
@@ -428,7 +428,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Condición de IVA', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-	'0', --inicial
+	'1', --inicial
 	'6', --orden
 	NULL, --estado_defecto
 	'1', --opciones_es_multiple

@@ -182,10 +182,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --edit_ajustable
 	NULL, --edit_confirmar_clave
 	NULL, --edit_expreg
-	'3701', --popup_item
+	'3742', --popup_item
 	'sagep', --popup_proyecto
 	'0', --popup_editable
-	'scrollbars:yes', --popup_ventana
+	'width: 600,height: 600,scrollbars: yes', --popup_ventana
 	'get_descPopUpDirecciones', --popup_carga_desc_metodo
 	'dao_gestiondepersonas', --popup_carga_desc_clase
 	'personas/gestion_de_personas/dao_gestiondepersonas.php', --popup_carga_desc_include

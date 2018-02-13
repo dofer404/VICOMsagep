@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="encabezado" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="67378826-d0c8-42a5-b451-09e8704e0f07">
+	<property name="ireport.zoom" value="1.9487171000000045"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true">
+		<box>
+			<pen lineStyle="Double"/>
+			<topPen lineStyle="Double"/>
+			<leftPen lineStyle="Double"/>
+			<bottomPen lineStyle="Double"/>
+			<rightPen lineStyle="Double"/>
+		</box>
+	</style>
+	<style name="Text Body" fill="Solid" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<subDataset name="dataset1" uuid="f777f413-b098-4fa4-b10f-08b61d667ad6"/>
+	<subDataset name="Table Dataset 1" uuid="978b0ffd-f52a-4d63-a26f-82db85a772e4"/>
+	<subDataset name="detalle_telefonos" uuid="2ee47114-7fa3-4edf-aaaf-1104aff255d2">
+		<queryString language="SQL">
+			<![CDATA[select * from es_sagep.telefonos]]>
+		</queryString>
+		<field name="id_telefono" class="java.lang.Long"/>
+		<field name="id_tipo_telefono" class="java.lang.Long"/>
+		<field name="caracteristica" class="java.math.BigDecimal"/>
+		<field name="numero" class="java.math.BigDecimal"/>
+		<field name="id_persona" class="java.lang.Long"/>
+		<group name="id_persona">
+			<groupExpression><![CDATA[$F{id_persona}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[SELECT
+	per.cuil_cuit,
+	emp.nombre_formal,
+	coalesce(per.razon_social, per.apellidos || ', ' || per.nombres) entidad,
+	tel_cor.nombre_tipo,
+	tel_cor.tipo
+
+FROM es_sagep.personas per
+INNER JOIN es_sagep.datos_empresa emp ON per.id_persona = emp.id_persona
+INNER JOIN (	SELECT cor.id_persona, 'Correo' as nombre_tipo, text_concat(coalesce(t_cor.nombre_tipocor ||': '|| cor.direccion ||' '|| ',')) tipo
+		FROM es_sagep.correos cor, es_sagep.tipos_correos t_cor WHERE cor.id_tipo_correo = t_cor.id_tipo_correo
+		GROUP BY(cor.id_persona)
+		UNION SELECT tel.id_persona, 'Telefono' as nombre_tipo, text_concat(coalesce(t_tel.nombre_tipotel || ': ' || tel.caracteristica ||' - '|| tel.numero) ||''||  ',') tipo
+		FROM es_sagep.telefonos tel, es_sagep.tipos_telefonos t_tel WHERE tel.id_tipo_telefono = t_tel.id_tipo_telefono
+		GROUP BY(tel.id_persona)
+			UNION SELECT ub_per.id_persona, 'Direccion' as nombre_tipo, text_concat( ub_det.direccion || ' al ' || ub_det.altura ||' - Barrio '|| bar.nombre_bar ||' - '||loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais ||''||  ' / ') tipo
+			FROM es_sagep.personas_detalleubicacion ub_per, es_sagep.detalle_ubicacion ub_det, es_sagep.barrios bar, es_sagep.localidades loc, es_sagep.provincias prov, es_sagep.pais pais
+			WHERE ub_per.id_ubicacion = ub_det.id_ubicacion AND ub_det.id_barrio = bar.id_barrio AND bar.id_localidad = loc.id_localidad AND loc.id_provincia = prov.id_provincia AND prov.id_pais = pais.id_pais
+			GROUP BY(ub_per.id_persona)
+		) tel_cor
+ON tel_cor.id_persona = per.id_persona
+ORDER BY (coalesce(per.razon_social, per.apellidos || ', ' || per.nombres), tel_cor.tipo)]]>
+	</queryString>
+	<field name="cuil_cuit" class="java.math.BigDecimal"/>
+	<field name="nombre_formal" class="java.lang.String"/>
+	<field name="entidad" class="java.lang.String"/>
+	<field name="nombre_tipo" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="16" y="7" width="189" height="20" uuid="0d464532-3155-4454-9d25-56a37ff5762a"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["Nombre: " + $F{nombre_formal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="205" y="7" width="100" height="20" uuid="cef632dd-d2b5-45b4-9426-6daf7b019c36"/>
+				<textFieldExpression><![CDATA["CUIT: " + $F{cuil_cuit}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="417" y="7" width="138" height="13" uuid="6460a91f-c43d-41f8-b5c4-545644e63058"/>
+				<imageExpression><![CDATA["/home/marianofrezz/Imágenes/logo_vicom.gif"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="25">
+			<textField>
+				<reportElement x="16" y="0" width="528" height="24" uuid="353e3346-9c57-4ecb-af4b-10b650dfe4f8"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{nombre_tipo} + " - " + $F{tipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

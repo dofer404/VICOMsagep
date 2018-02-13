@@ -61,6 +61,37 @@ class ci_realizarpago extends sagep_ci
 		$this->set_pantalla('introduccion');
 	}
 
+	function evt__aceptar()
+	{
+		$array_seleccion = [];
+		$datos_array = [];
+		$cache_ml_cuotas= $this->get_cache_form_ml('form_ml_cuotas');
+		$datos_cuotas = $cache_ml_cuotas->get_cache();
+
+		foreach ($datos_cuotas as $key => $valor) {
+			if($datos_cuotas[$key]['seleccionar']==1){
+				$array_seleccion [] = 	['nro_cuota' => $datos_cuotas[$key]['nro_cuota']
+													, 'nombre_mes' => $datos_cuotas[$key]['nombre_mes']
+													, 'anio' => $datos_cuotas[$key]['anio']
+													, 'fecha_vencimiento' => $datos_cuotas[$key]['fecha_vencimiento']
+													, 'monto' => $datos_cuotas[$key]['monto']
+													, 'descuento' => $datos_cuotas[$key]['descuento']
+													, 'recargo' => $datos_cuotas[$key]['recargo']
+													, 'monto_total' => $datos_cuotas[$key]['monto_total']
+													];
+
+			}
+		}
+
+		$cache_ml_seleccion = $this->get_cache_form_ml('form_ml_seleccion');
+		$datos_seleccion = $cache_ml_seleccion->get_cache();
+
+		$datos_array = array_merge($datos_seleccion, $array_seleccion);
+
+		$this->get_cache_form_ml('form_ml_seleccion')->set_cache($datos_array);
+		$this->set_pantalla('seleccionar_contratos');
+	}
+
 	function evt__volver_contrato()
 	{
 		$this->set_pantalla('seleccionar_contratos');
@@ -157,6 +188,24 @@ class ci_realizarpago extends sagep_ci
 		$this->set_pantalla('seleccionar_cuotas');
 	}
 
+
+		//-----------------------------------------------------------------------------------
+		//---- form_ml_seleccion ------------------------------------------------------------
+		//-----------------------------------------------------------------------------------
+
+		function conf__form_ml_seleccion(sagep_ei_formulario_ml $form_ml)
+		{
+			$cache_ml_seleccion= $this->get_cache_form_ml('form_ml_seleccion');
+			$datos = $cache_ml_seleccion->get_cache();
+		$form_ml->set_datos($datos);
+		}
+
+		function evt__form_ml_seleccion__modificacion($datos)
+		{
+			$this->get_cache_form_ml('form_ml_seleccion')->set_cache($datos);
+		}
+
+
 	//-----------------------------------------------------------------------------------
 	//---- form_ml_cuotas ---------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -170,11 +219,31 @@ class ci_realizarpago extends sagep_ci
 
 		$datos_cuotas = dao_realizarpago::get_cuotas($id_contrato);
 
+		foreach ($datos_cuotas as $key => $valor) {
+			if($form_ml->ef('seleccionar')==false){
+			}
+			//$this->form()->ef('seleccionar');
+			// $array_meses = '';
+			// $cantidad_impaga=dao_realizarpago::get_cantidad_impagas($contrato[$key]['id_contrato']);
+			// $cuotas_impagas = dao_realizarpago::get_cuotas_impagas($contrato[$key]['id_contrato']);
+			// for($i=0;$i<$cantidad_impaga;$i++){
+			// 	if($array_meses == ''){
+			// 		$array_meses = $cuotas_impagas[$i]['periodo'];
+			// 	}else {
+			// 		$array_meses = $array_meses . ', ' . $cuotas_impagas[$i]['periodo'];
+			// 	}
+			// }
+			// $array_cuota[] = ['id_contrato' => $contrato[$key]['id_contrato']
+			// 									, 'fecha_contrato' => $contrato[$key]['fecha_inicio']
+			// 								, 'cuota_pendiente' => $array_meses];
+		}
+
 		$form_ml->set_datos($datos_cuotas);
 	}
 
 	function evt__form_ml_cuotas__modificacion($datos)
 	{
+		$this->get_cache_form_ml('form_ml_cuotas')->set_cache($datos);
 	}
 
 	//-----------------------------------------------------------------------------------

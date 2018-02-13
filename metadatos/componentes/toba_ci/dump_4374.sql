@@ -217,7 +217,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	'4374', --objeto
 	'aceptar', --identificador
 	'Aceptar', --etiqueta
-	'0', --maneja_datos
+	'1', --maneja_datos
 	NULL, --sobre_fila
 	NULL, --confirmacion
 	NULL, --estilo
@@ -319,6 +319,30 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 	'4374', --objeto_consumidor
 	'4386', --objeto_proveedor
 	'form_ml_formas_pago', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
+	'3008', --dep_id
+	'4374', --objeto_consumidor
+	'4411', --objeto_proveedor
+	'form_ml_seleccion', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
+	'3009', --dep_id
+	'4374', --objeto_consumidor
+	'4412', --objeto_proveedor
+	'form_monto', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -487,6 +511,13 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'sagep', --proyecto
+	'1884', --pantalla
+	'4374', --objeto_ci
+	'2', --orden
+	'3008'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
 	'1885', --pantalla
 	'4374', --objeto_ci
 	'0', --orden
@@ -496,8 +527,15 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'sagep', --proyecto
 	'1886', --pantalla
 	'4374', --objeto_ci
-	'0', --orden
+	'1', --orden
 	'2983'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1886', --pantalla
+	'4374', --objeto_ci
+	'0', --orden
+	'3009'  --dep_id
 );
 
 ------------------------------------------------------------

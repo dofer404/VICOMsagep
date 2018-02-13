@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'ci_listadodeservicios - cuadro', --nombre
-	NULL, --titulo
+	'Listado de Servicios', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
@@ -55,16 +55,17 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
 	'100%', --ancho
-	'0', --ordenar
-	'0', --paginar
-	NULL, --tamano_pagina
+	'1', --ordenar
+	'1', --paginar
+	'15', --tamano_pagina
 	'P', --tipo_paginado
 	'0', --mostrar_total_registros
 	'0', --eof_invisible
-	NULL, --eof_customizado
+	'<center> No hay datos. Ingrese un criterio de búsqueda y presione "Buscar" </br></br> 
+ Presione "Buscar" sin ingresar ningún criterio para listar todos los registros </center>', --eof_customizado
 	'0', --siempre_con_titulo
 	'0', --exportar_paginado
-	'0', --exportar
+	'1', --exportar
 	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
@@ -80,7 +81,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'0', --scroll
 	NULL, --scroll_alto
 	't', --cc_modo
-	'0', --cc_modo_anidado_colap
+	'1', --cc_modo_anidado_colap
 	NULL, --cc_modo_anidado_totcol
 	NULL  --cc_modo_anidado_totcua
 );
@@ -95,11 +96,11 @@ INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto
 	'4322', --objeto_cuadro
 	'46', --objeto_cuadro_cc
 	'corte_servicios', --identificador
-	NULL, --descripcion
+	'Tipo de Servicio', --descripcion
 	'1', --orden
 	'parent_id_servicio', --columnas_id
 	'parent_id_servicio_nombre', --columnas_descripcion
-	'0', --pie_contar_filas
+	'1', --pie_contar_filas
 	'0', --pie_mostrar_titular
 	'0', --pie_mostrar_titulos
 	NULL, --imp_paginar

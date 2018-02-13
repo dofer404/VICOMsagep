@@ -106,7 +106,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'0', --siempre_con_titulo
 	'0', --exportar_paginado
 	'1', --exportar
-	'1', --exportar_rtf
+	'0', --exportar_rtf
 	NULL, --pdf_propiedades
 	NULL, --pdf_respetar_paginacion
 	NULL, --asociacion_columnas
@@ -219,7 +219,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'sagep', --objeto_cuadro_proyecto
 	'4154', --objeto_cuadro
 	'1957', --objeto_cuadro_col
-	'direccion_localidad', --clave
+	'direccion', --clave
 	'3', --orden
 	'Ubicación', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo

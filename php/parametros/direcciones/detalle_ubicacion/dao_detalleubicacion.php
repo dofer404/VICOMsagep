@@ -20,7 +20,7 @@ class dao_detalleubicacion{
               det.id_ubicacion,
               det.direccion,
               det.altura,
-              zona.nombre_tipozona as tipo_zona,
+              'Zona' ||': ' || zona.sigla_tipozona as tipo_zona,
               loc.id_localidad,
               bar.id_barrio,
               bar.nombre_bar as nombre_barrio,

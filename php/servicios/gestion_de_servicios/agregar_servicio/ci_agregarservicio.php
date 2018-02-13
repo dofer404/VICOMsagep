@@ -121,5 +121,30 @@ class ci_agregarservicio extends sagep_ci
 		$this->get_cache_form_ml('form_ml_tarifa')->set_cache($datos);
 	}
 
+	//---- Pantalla Resumen -------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------
+	//---- form_ml_tarifa_resumen -------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_ml_tarifa_resumen(sagep_ei_formulario_ml $form_ml)
+	{
+		$cache_ml_tarifa= $this->get_cache_form_ml('form_ml_tarifa');
+		$datos = $cache_ml_tarifa->get_cache();
+		$form_ml->set_datos($datos);
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form_servicio ----------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_servicio(sagep_ei_formulario $form)
+	{
+		$cache_form = $this->get_cache_form('form');
+		$datos = $cache_form->get_cache();
+		$form->set_datos($datos);
+	}
+
 }
 ?>

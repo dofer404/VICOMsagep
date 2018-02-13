@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="correos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ac98b5d5-9806-4928-abb1-b08f9f1a8ca8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idPersona" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+	per.id_persona,
+	per.cuil_cuit,
+	coalesce(per.razon_social, per.apellidos || ', ' || per.nombres) entidad,
+	cor.direccion,
+	cor.id_tipo_correo,
+	t_cor.nombre_tipocor
+	 from es_sagep.personas per
+	INNER JOIN es_sagep.correos cor ON per.id_persona = cor.id_persona
+	 INNER JOIN es_sagep.tipos_correos t_cor ON cor.id_tipo_correo = t_cor.id_tipo_correo
+	WHERE per.id_persona = $P{idPersona}]]>
+	</queryString>
+	<field name="id_persona" class="java.lang.Long"/>
+	<field name="cuil_cuit" class="java.math.BigDecimal"/>
+	<field name="entidad" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="id_tipo_correo" class="java.lang.Long"/>
+	<field name="nombre_tipocor" class="java.lang.String"/>
+	<group name="Persona">
+		<groupExpression><![CDATA[$F{id_persona}]]></groupExpression>
+		<groupHeader>
+			<band height="23"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="13"/>
+		</groupFooter>
+	</group>
+	<group name="group_persona">
+		<groupExpression><![CDATA[$F{entidad}]]></groupExpression>
+		<groupHeader>
+			<band height="48">
+				<textField>
+					<reportElement x="54" y="0" width="100" height="20" uuid="63fad785-e417-479c-a798-901b8ff1f5c3"/>
+					<textFieldExpression><![CDATA[$F{entidad}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="154" y="20" width="100" height="20" uuid="932d883c-2ceb-4d2f-a958-1ccd8c6ba316"/>
+					<text><![CDATA[Correos]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="11"/>
+		</groupFooter>
+	</group>
+	<columnHeader>
+		<band height="69" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="271" y="0" width="100" height="20" uuid="509cfccc-a639-40d7-b4e2-c216be3fa705"/>
+				<textFieldExpression><![CDATA[$F{nombre_tipocor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="0" width="100" height="20" uuid="2a832168-be4d-4e4c-b64b-71a0434299ed"/>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

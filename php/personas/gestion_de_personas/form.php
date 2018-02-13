@@ -14,18 +14,10 @@ class form extends sagep_ei_formulario
 			{$this->objeto_js}.evt__apellidos__procesar = function(es_inicial) //Pasar a mayusculas
 			{
 			var ef=this.ef('apellidos');
-			var caracteres = ef.get_estado().toCharArray();
-			caracteres[0] = Character.toUpperCase(caracteres[0]);
+			if(ef.tiene_estado)
+			{
+			}
 
-				if(ef.tiene_estado)
-				{
-						for (int i = 0; i < ef.get_estado().length()- 2; i++) {
-							if (caracteres[i] == ' ' || caracteres[i] == '.' || caracteres[i] == ','){
-								caracteres[i + 1] = Character.toUpperCase(caracteres[i + 1]);
-							}
-						}
-						ef.set_estado(ef.caracteres);
-				}
 			}
 
 			{$this->objeto_js}.evt__nombres__procesar = function(es_inicial)
@@ -34,7 +26,6 @@ class form extends sagep_ei_formulario
 
 			if(ef.tiene_estado)
 			{
-			ef.set_estado(ef.get_estado().charAt(0).toUpperCase()+ef.get_estado().slice(1).toLowerCase());
 			}
 			}
 			//---- Procesamiento de EFs --------------------------------
@@ -71,15 +62,15 @@ class form extends sagep_ei_formulario
 			this.ef('nombres').ocultar();
 			this.ef('apellidos').ocultar();
 			this.ef('nro_documento').ocultar();
-			this.ef('fecha_nacimiento').ocultar();
 			this.ef('id_tipo_documento').ocultar();
+			this.ef('fecha_nacimiento').ocultar();
 			} else {
 			this.ef('razon_social').ocultar();
 			this.ef('nombres').mostrar();
 			this.ef('apellidos').mostrar();
-			this.ef('fecha_nacimiento').mostrar();
 			this.ef('nro_documento').mostrar();
 			this.ef('id_tipo_documento').mostrar();
+			this.ef('fecha_nacimiento').mostrar();
 			}
 			}
 			//---- Procesamiento de EFs --------------------------------

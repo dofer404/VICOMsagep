@@ -12,6 +12,8 @@ class ci_gestiondepersonas extends sagep_ci
 	protected $s__datos_filtro;
 	protected $s__datos;
 	protected $s__criterios_filtrado;
+	protected $s__parametros_reporte;
+
 
 	//-----------------------------------------------------------------------------------
 	//---- Eventos ----------------------------------------------------------------------
@@ -99,16 +101,19 @@ class ci_gestiondepersonas extends sagep_ci
 			$filtro->set_datos($this->s__datos_filtro);
 			$sql_where = $filtro->get_sql_where();
 
+			$filtro_reporte = $this->s__datos_filtro;
+			$this->s__parametros_reporte=$sql_where;
+
 			$datos = dao_gestiondepersonas::get_listado_personas($sql_where);
 			$this->s__datos['cuadro'] = $datos;
 
 			$cuadro->set_datos($datos);
 
 		}
-		if (!(isset($datos) && ! empty($datos))) {
-			$this->pantalla()->eliminar_evento('vista_jasperreports');
-			$this->pantalla()->eliminar_evento('vista_excel');
-		}
+		// if (!(isset($datos) && ! empty($datos))) {
+		// 	$this->pantalla()->eliminar_evento('vista_jasperreports');
+		// 	$this->pantalla()->eliminar_evento('vista_excel');
+		// }
 	}
 
 	function evt__cuadro__edicion($seleccion)
@@ -141,79 +146,90 @@ class ci_gestiondepersonas extends sagep_ci
 	{
 
 		$path_toba = '/home/marianofrezz/proyectos/toba_2_7_2';
-		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/personas.jasper';
+		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/persona.jasper';
+
 		$reporte->set_path_reporte($path_reporte);
-
-		$filtro_reporte = $this->s__datos_filtro;
-
-		//$report='personas.jasper';
-		//$path_reporte = toba::proyecto()->get_path().'/exportaciones/jasper/'.$report;
-
-		//$reporte->set_path_reporte($path_reporte);
 		$usuario = toba::usuario()->get_nombre();
-	//	$reporte->set_parametro('usuarioToba', 'S', $usuario);
-
-
-		//Parametro para el titulo
-		$reporte->set_parametro('titulo', 'S', 'LISTADO PERSONAL POR APELLIDO');
-
-		//Parametros para el encabezado del titulo
-		//$report->set_parametro('imagenpj','S',$path_imagen_pj['path']);
-		//$report->set_parametro('imagenprov','S',$path_imagen_provincia['path']);
-
-		//Parametros para el usuario
-		$reporte->set_parametro('usuario', 'S', toba::usuario()->get_id());
-
-		//Parametros segun las opciones de filtrado
-		// $filtro = '%%';
-		//
-		// if ((trim($this->s__criterios_filtrado['apellidos']['valor']) != '')) {
-		// 	if (trim($this->s__criterios_filtrado['apellidos']['valor']) != 'nopar') {
-		// 		$filtro = utf8_encode(trim($this->s__criterios_filtrado['apellidos']['valor']));
-		// 	}
-		// }
-
-	$reporte->set_parametro('idpersona', 'S', $filtro_reporte);
-		$reporte->set_parametro('nombres', 'S', $filtro);
+		$reporte->set_parametro('idUsuarioToba', 'S', $usuario);
+		//$reporte->set_parametro('sql_parameto', 'S', $this->s__parametros_reporte);
 
 		$nombre_archivo = 'listado_personas';
 		$reporte->set_nombre_archivo($nombre_archivo . '.pdf');
 		$bd = toba::db('sagep');
 		$reporte->set_conexion($bd);
-	}
 
-	function ajax__get_datos_apellido($apellidos, toba_ajax_respuesta $respuesta)
-	{
-		$this->s__criterios_filtrado['apellidos']['condicion'] = 'es_igual_a';
-		$this->s__criterios_filtrado['apellidos']['valor'] = $apellidos;
-		$respuesta->set($apellidos);
-	}
-
-	function ajax__get_datos_nombre($nombres, toba_ajax_respuesta $respuesta)
-	{
-		$this->s__criterios_filtrado['apellidos']['condicion'] = 'es_igual_a';
-		$this->s__criterios_filtrado['nombres']['valor'] = $nombres;
-		$respuesta->set($nombres);
-	}
-
-	function vista_pdf(toba_vista_pdf $salida)
-	{
-		// /home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep
-		$path_toba = '/home/marianofrezz/proyectos/toba_2_7_2';
-		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/personas.jasper';
-		$reporte->set_path_reporte($path_reporte);
-		$usuario = toba::usuario()->get_nombre();
-		//$apellido = $this->dep('filtro')->columna('apellidos')->get_estado();
-
-
-
-		$reporte->set_parametro('usuarioToba', 'S', $usuario);
-		//$reporte->set_parametro('apellido', 'E', $apellido);
-
-		$nombre_archivo = 'listado_personas';
-		$reporte->set_nombre_archivo($nombre_archivo . '.pdf');
-		$bd = toba::db('sagep');
-		$reporte->set_conexion($bd);
+	// 	$reporte->set_path_reporte($path_reporte);
+	//
+	// 	$filtro_reporte = $this->s__datos_filtro;
+	//
+	// 	//$report='personas.jasper';
+	// 	//$path_reporte = toba::proyecto()->get_path().'/exportaciones/jasper/'.$report;
+	//
+	// 	//$reporte->set_path_reporte($path_reporte);
+	// 	$usuario = toba::usuario()->get_nombre();
+	// //	$reporte->set_parametro('usuarioToba', 'S', $usuario);
+	//
+	//
+	// 	//Parametro para el titulo
+	// 	$reporte->set_parametro('titulo', 'S', 'LISTADO PERSONAL POR APELLIDO');
+	//
+	// 	//Parametros para el encabezado del titulo
+	// 	//$report->set_parametro('imagenpj','S',$path_imagen_pj['path']);
+	// 	//$report->set_parametro('imagenprov','S',$path_imagen_provincia['path']);
+	//
+	// 	//Parametros para el usuario
+	// 	$reporte->set_parametro('usuario', 'S', toba::usuario()->get_id());
+	//
+	// 	//Parametros segun las opciones de filtrado
+	// 	// $filtro = '%%';
+	// 	//
+	// 	// if ((trim($this->s__criterios_filtrado['apellidos']['valor']) != '')) {
+	// 	// 	if (trim($this->s__criterios_filtrado['apellidos']['valor']) != 'nopar') {
+	// 	// 		$filtro = utf8_encode(trim($this->s__criterios_filtrado['apellidos']['valor']));
+	// 	// 	}
+	// 	// }
+	//
+	// $reporte->set_parametro('idpersona', 'S', $filtro_reporte);
+	// 	$reporte->set_parametro('nombres', 'S', $filtro);
+	//
+	// 	$nombre_archivo = 'listado_personas';
+	// 	$reporte->set_nombre_archivo($nombre_archivo . '.pdf');
+	// 	$bd = toba::db('sagep');
+	// 	$reporte->set_conexion($bd);
+	// }
+	//
+	// function ajax__get_datos_apellido($apellidos, toba_ajax_respuesta $respuesta)
+	// {
+	// 	$this->s__criterios_filtrado['apellidos']['condicion'] = 'es_igual_a';
+	// 	$this->s__criterios_filtrado['apellidos']['valor'] = $apellidos;
+	// 	$respuesta->set($apellidos);
+	// }
+	//
+	// function ajax__get_datos_nombre($nombres, toba_ajax_respuesta $respuesta)
+	// {
+	// 	$this->s__criterios_filtrado['apellidos']['condicion'] = 'es_igual_a';
+	// 	$this->s__criterios_filtrado['nombres']['valor'] = $nombres;
+	// 	$respuesta->set($nombres);
+	// }
+	//
+	// function vista_pdf(toba_vista_pdf $salida)
+	// {
+	// 	// /home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep
+	// 	$path_toba = '/home/marianofrezz/proyectos/toba_2_7_2';
+	// 	$path_reporte = $path_toba . '/exportaciones/jasper/sagep/personas.jasper';
+	// 	$reporte->set_path_reporte($path_reporte);
+	// 	$usuario = toba::usuario()->get_nombre();
+	// 	//$apellido = $this->dep('filtro')->columna('apellidos')->get_estado();
+	//
+	//
+	//
+	// 	$reporte->set_parametro('usuarioToba', 'S', $usuario);
+	// 	//$reporte->set_parametro('apellido', 'E', $apellido);
+	//
+	// 	$nombre_archivo = 'listado_personas';
+	// 	$reporte->set_nombre_archivo($nombre_archivo . '.pdf');
+	// 	$bd = toba::db('sagep');
+	// 	$reporte->set_conexion($bd);
 	}
 
 	function vista_excel(toba_vista_excel $salida)
@@ -222,7 +238,6 @@ class ci_gestiondepersonas extends sagep_ci
 		$excel->setActiveSheetIndex(0);
 		$excel->getActiveSheet()->setTitle('Principal');
 		$this->dependencia('cuadro')->vista_excel($salida);
-
 	}
 
 }

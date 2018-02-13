@@ -218,7 +218,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'nro_cuota', --identificador
 	'ef_editable', --elemento_formulario
 	'nro_cuota', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Numero de Cuota', --etiqueta
@@ -298,7 +298,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'nombre_mes', --identificador
 	'ef_editable', --elemento_formulario
 	'nombre_mes', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Mes', --etiqueta
@@ -378,21 +378,21 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'descuento', --identificador
 	'ef_editable_numero_porcentaje', --elemento_formulario
 	'descuento', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'6', --orden
 	'Descuento', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
-	NULL, --colapsado
-	NULL, --desactivado
+	'0', --colapsado
+	'0', --desactivado
 	NULL, --estilo
-	NULL, --total
+	'0', --total
 	NULL, --inicializacion
-	NULL, --permitir_html
-	NULL, --deshabilitar_rest_func
+	'0', --permitir_html
+	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	NULL, --solo_lectura
+	'1', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -458,7 +458,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'recargo', --identificador
 	'ef_editable_moneda', --elemento_formulario
 	'recargo', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'7', --orden
 	'Recargo', --etiqueta
@@ -472,7 +472,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --permitir_html
 	'0', --deshabilitar_rest_func
 	NULL, --estado_defecto
-	'0', --solo_lectura
+	'1', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
 	NULL, --carga_clase
@@ -538,7 +538,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'monto', --identificador
 	'ef_fijo', --elemento_formulario
 	'monto', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Importe', --etiqueta
@@ -618,7 +618,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'anio', --identificador
 	'ef_editable', --elemento_formulario
 	'anio', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'3', --orden
 	'Anio', --etiqueta

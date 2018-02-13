@@ -25,14 +25,6 @@ class ci_modificarservicio extends sagep_ci
 		return $this->s__datos[$nombre_ml];
 	}
 
-	function get_cache_form($nombre)
-	{
-		if (!isset($this->s__datos[$nombre])) {
-			$this->s__datos[$nombre] = new cache_form();
-		}
-		return $this->s__datos[$nombre];
-	}
-
 	// form_servicios
 
 	function get_cache_form_servicio()
@@ -62,18 +54,17 @@ class ci_modificarservicio extends sagep_ci
   function evt__form__modificacion($datos)
   {
     $this->cn()->set_servicios($datos);
-		$this->get_cache_form('form')->set_cache($datos);
+		$this->set_cache_form_servicio($datos);
   }
 
   function conf__form(sagep_ei_formulario $form)
   {
-		$cache_form = $this->get_cache_form('form');
-		$datos = $cache_form->get_cache();
+		$datos = $this->get_cache_form_servicio();
 
     if (!$datos) {
       if ($this->cn()->hay_cursor() ) {
         $datos = $this->cn()->get_servicios();
-				$this->get_cache_form('form')->set_cache($datos);
+				$this->set_cache_form_servicio($datos);
       }
     }
     $form->set_datos($datos);
@@ -101,8 +92,47 @@ class ci_modificarservicio extends sagep_ci
 	function evt__form_ml_tarifa__modificacion($datos)
 	{
 		$this->cn()->procesar_filas_tarifa($datos);
-		$datos = $this->cn()->get_tarifa();
-		$this->get_cache_form_ml('form_ml_tarifa')->set_cache($datos);
+		$datos = $this->cn()->get_servicios();
+		//$this->get_cache_form_ml('form_ml_tarifa')->set_cache($datos);
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- jasperreports ----------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function vista_jasperreports(toba_vista_jasperreports $reporte)
+	{
+		// /home/marianofrezz/proyectos/toba_2_7_2/exportaciones/jasper/sagep
+		$path_toba = '/home/marianofrezz/proyectos/toba_2_7_2';
+		$path_reporte = $path_toba . '/exportaciones/jasper/sagep/informacion_servicio.jasper';
+		$reporte->set_path_reporte($path_reporte);
+		$usuario = toba::usuario()->get_nombre();
+		$idServicio = $this->traer_servicio();
+
+		$datos_servicio = $this->get_cache_form_servicio();
+
+		//$reporte->set_parametro('idUsuarioToba', 'S', $usuario);
+		$reporte->set_parametro('id_servicio', 'E', $idServicio);
+
+		// if (!isset($this->s__datos['form']['razon_social'])) {
+		// 	$nombre_archivo = '"' . $this->s__datos['form']['apellidos'] . ' ' .$this->s__datos['form']['nombres'];
+		// } else {
+			$nombre_archivo = '"' . $datos_servicio['nombre_serv'];
+		// }
+		//$cadena1 = str_replace(', ', ' ', $nombre_archivo);
+
+		$cadena = str_replace(' ', '_', $nombre_archivo);
+		$reporte->set_nombre_archivo($cadena. '.pdf');
+		$bd = toba::db('sagep');
+		$reporte->set_conexion($bd);
+	}
+
+	function traer_servicio()
+	{
+		$datos_servicio = $this->get_cache_form_servicio();
+
+		$idServicio = $datos_servicio['id_servicio'];
+		return $idServicio;
 	}
 }
 ?>
