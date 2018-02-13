@@ -43,12 +43,14 @@ class ci_agregarcontrato extends sagep_ci
 	function evt__procesar()
 	{
 			try {
-				$this->cn()->guardar();
+				$id_generado = $this->cn()->guardar(); //< nos guardamos el id que devuelve cn->guardar()
+				$this->s__datos['id_resumen_contrato'] = $id_generado;
 				$this->guardado=1;
 				//$this->evt__cancelar();
 			} catch (toba_error_db $e) {
+        // Todos los throw son un peligro porque pueden saltar durante la presentación. Mejor reemplazarlos por algo más presentable.
 				if (!mensajes_error::$debug) {
-					$this->cn()->reiniciar();
+					// $this->cn()->reiniciar(); //< Quitamos este reinicio porque impide que el usuario reintente el registro
 					$sql_state = $e->get_sqlstate();
 					mensajes_error::get_mensaje_error($sql_state);
 					throw $e;
@@ -384,24 +386,38 @@ class ci_agregarcontrato extends sagep_ci
 	function conf__form_contrato(sagep_ei_formulario $form)
 	{
 		$cantidad_meses = 0;
-		$cache_form = $this->get_cache_form('form');
-		$datos = $cache_form->get_cache();
 
-		if (!$datos) {
-			if ($this->cn()->hay_cursor() ) {
-				$datos = $this->cn()->get_contratos();
-				$cache_form->set_cache($datos);
-			}
-	}
-			if($datos) {
-				$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos['id_tipo_contrato']);
-			}
+		if (isset($this->s__datos['id_resumen_contrato'])) {
+			$seleccion = $this->s__datos['id_resumen_contrato'];
+			$this->cn()->cargar($seleccion);
+			$this->cn()->set_cursor($seleccion);
+			$datos = $this->cn()->get_contratos();
+		} else {
+			$cache_form = $this->get_cache_form('form');
+			$datos = $cache_form->get_cache();
 
+			if (!$datos) {
+				if ($this->cn()->hay_cursor() ) {
+					$datos = $this->cn()->get_contratos();
+					$cache_form->set_cache($datos);
+				}
+			}
+		}
+
+		if (isset($datos['id_tipo_contrato'])) {
+			$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos['id_tipo_contrato']);
 			$monto_total = $this->dep('ci_agregardetalle')->calcular_monto($cantidad_meses);
 
 			$datos = array_merge($datos, $monto_total);
+		}
 
-	$form->set_datos($datos);
+		$form->set_datos($datos);
+
+		if ($this->cn()->hay_cursor() ) {
+			$antiguo = $this->cn()->get_contratos();
+			$datos = array_merge($antiguo, $datos);
+			$this->cn()->set_contratos($datos);
+		}
 	}
 
 	//-----------------------------------------------------------------------------------
