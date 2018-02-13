@@ -3,7 +3,6 @@ require_once('comunes/cache_form.php');
 require_once('comunes/cache_form_ml.php');
 require_once('comunes/mensajes_error.php');
 
-
 class ci_agregarpersona extends sagep_ci
 {
 	//-----------------------------------------------------------------------------------
@@ -76,6 +75,7 @@ class ci_agregarpersona extends sagep_ci
 		$this->get_cache_form('form')->set_cache($datos);
 	}
 
+
 	//-----------------------------------------------------------------------------------
 	//---- Form_ml_telefonos ------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -110,7 +110,7 @@ class ci_agregarpersona extends sagep_ci
 			$form_ml->set_datos($datos);
 		} else {
 			$form_ml->set_registro_nuevo();
-		 }
+			}
 	}
 
 	function evt__form_ml_correos__modificacion($datos)
@@ -158,6 +158,52 @@ class ci_agregarpersona extends sagep_ci
 		$this->cn()->procesar_filas_cuentas_per($datos);
 		$datos = $this->cn()->get_cuentas_per();
 		$this->get_cache_form_ml('form_ml_cuentas')->set_cache($datos);
+	}
+
+	// ----------------------Pantalla Resumen ---------------------------------------------
+
+	//-----------------------------------------------------------------------------------
+	//---- form_persona -----------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_persona(sagep_ei_formulario $form)
+	{
+		$cache_form = $this->get_cache_form('form');
+		$datos = $cache_form->get_cache();
+		$form->set_datos($datos);
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form_ml_correos_resumen ------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_ml_correos_resumen(sagep_ei_formulario_ml $form_ml)
+	{
+		$cache_ml_correos = $this->get_cache_form_ml('form_ml_correos');
+		$datos = $cache_ml_correos->get_cache();
+		$form_ml->set_datos($datos);
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form_ml_telefonos_resumen ----------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_ml_telefonos_resumen(sagep_ei_formulario_ml $form_ml)
+	{
+		$cache_ml_telefonos = $this->get_cache_form_ml('form_ml_telefonos');
+		$datos = $cache_ml_telefonos->get_cache();
+		$form_ml->set_datos($datos);
+	}
+
+	//-----------------------------------------------------------------------------------
+	//---- form_ml_direcciones_resumen --------------------------------------------------
+	//-----------------------------------------------------------------------------------
+
+	function conf__form_ml_direcciones_resumen(sagep_ei_formulario_ml $form_ml)
+	{
+		$cache_form_ml_direcciones = $this->get_cache_form_ml('form_ml_direcciones');
+		$datos = $cache_form_ml_direcciones->get_cache();
+		$form_ml->set_datos($datos);
 	}
 
 }

@@ -108,16 +108,26 @@ class dao_gestiondepersonas{
 
   $id_ubicacion = quote($id_ubicacion);
     $sql = "SELECT
-              det.direccion
+              det.direccion || ' al ' || det.altura ||' - Barrio '|| bar.nombre_bar ||' - Zona '|| zona.sigla_tipozona ||' - '||loc.nombre_loc || ', ' || prov.nombre_prov || ', ' || pais.nombre_pais as direccion_localidad
             FROM
-              es_sagep.detalle_ubicacion det
+            es_sagep.detalle_ubicacion det,
+            es_sagep.localidades loc,
+            es_sagep.barrios bar,
+            es_sagep.provincias prov,
+            es_sagep.pais pais,
+            es_sagep.tipos_zonas zona
             WHERE
-              det.id_ubicacion = $id_ubicacion";
+            bar.id_barrio = det.id_barrio and
+            loc.id_localidad = bar.id_localidad and
+            prov.id_provincia = loc.id_provincia and
+            pais.id_pais = prov.id_pais and
+            zona.id_tipo_zona = det.id_zona and
+            det.id_ubicacion = $id_ubicacion";
 
     $resultado = consultar_fuente($sql);
 
   if (count($resultado) > 0) {
-      return $resultado[0]['direccion'];
+      return $resultado[0]['direccion_localidad'];
   } else {
       return 'Fallo. Intente nuevamente';
     }

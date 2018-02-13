@@ -2,7 +2,7 @@
 
 class mensajes_error {
 
-	public static $debug = true;
+	public static $debug = false;
 
 	public static function get_mensaje_error($codigo = null, $tabla = null, $pronombre = null, $mensaje = null)
 	{

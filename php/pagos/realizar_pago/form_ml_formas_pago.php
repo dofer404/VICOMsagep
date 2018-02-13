@@ -51,9 +51,9 @@ class form_ml_formas_pago extends sagep_ei_formulario_ml
 								}
 								// datos['entidad_financiera']
 								if (datos['entidad_financiera']) {
-										this.ef('entidad_financiera').mostrar();
+										this.ef('entidad_financiera').ocultar(true);
 								} else {
-									this.ef('entidad_financiera').ocultar();
+									this.ef('entidad_financiera').ocultar(true);
 								}
 								// datos['titular']
 								if (datos['titular']) {

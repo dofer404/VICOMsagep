@@ -28,14 +28,6 @@ class form extends sagep_ei_formulario
 			}
 		}
 
-		{$this->objeto_js}.evt__descripcion__procesar = function(es_inicial)
-		{
-			var ef=this.ef('descripcion');
-
-			if(ef.tiene_estado){
-				ef.set_estado(ef.get_estado().charAt(0).toUpperCase()+ef.get_estado().slice(1).toLowerCase());
-			}
-		}
 		";
 	}
 

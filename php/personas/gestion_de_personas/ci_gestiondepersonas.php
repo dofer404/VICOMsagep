@@ -103,8 +103,6 @@ class ci_gestiondepersonas extends sagep_ci
 
 			$filtro_reporte = $this->s__datos_filtro;
 			$this->s__parametros_reporte=$sql_where;
-			ei_arbol($this->s__parametros_reporte);
-
 
 			$datos = dao_gestiondepersonas::get_listado_personas($sql_where);
 			$this->s__datos['cuadro'] = $datos;
@@ -112,10 +110,10 @@ class ci_gestiondepersonas extends sagep_ci
 			$cuadro->set_datos($datos);
 
 		}
-		if (!(isset($datos) && ! empty($datos))) {
-			$this->pantalla()->eliminar_evento('vista_jasperreports');
-			$this->pantalla()->eliminar_evento('vista_excel');
-		}
+		// if (!(isset($datos) && ! empty($datos))) {
+		// 	$this->pantalla()->eliminar_evento('vista_jasperreports');
+		// 	$this->pantalla()->eliminar_evento('vista_excel');
+		// }
 	}
 
 	function evt__cuadro__edicion($seleccion)
@@ -240,7 +238,6 @@ class ci_gestiondepersonas extends sagep_ci
 		$excel->setActiveSheetIndex(0);
 		$excel->getActiveSheet()->setTitle('Principal');
 		$this->dependencia('cuadro')->vista_excel($salida);
-
 	}
 
 }

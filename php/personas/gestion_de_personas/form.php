@@ -16,7 +16,6 @@ class form extends sagep_ei_formulario
 			var ef=this.ef('apellidos');
 			if(ef.tiene_estado)
 			{
-			ef.set_estado(ef.get_estado().charAt(0).toUpperCase()+ef.get_estado().slice(1).toLowerCase());
 			}
 
 			}
@@ -27,7 +26,6 @@ class form extends sagep_ei_formulario
 
 			if(ef.tiene_estado)
 			{
-			ef.set_estado(ef.get_estado().charAt(0).toUpperCase()+ef.get_estado().slice(1).toLowerCase());
 			}
 			}
 			//---- Procesamiento de EFs --------------------------------
@@ -64,15 +62,15 @@ class form extends sagep_ei_formulario
 			this.ef('nombres').ocultar();
 			this.ef('apellidos').ocultar();
 			this.ef('nro_documento').ocultar();
-			this.ef('fecha_nacimiento').ocultar();
 			this.ef('id_tipo_documento').ocultar();
+			this.ef('fecha_nacimiento').ocultar();
 			} else {
 			this.ef('razon_social').ocultar();
 			this.ef('nombres').mostrar();
 			this.ef('apellidos').mostrar();
-			this.ef('fecha_nacimiento').mostrar();
 			this.ef('nro_documento').mostrar();
 			this.ef('id_tipo_documento').mostrar();
+			this.ef('fecha_nacimiento').mostrar();
 			}
 			}
 			//---- Procesamiento de EFs --------------------------------

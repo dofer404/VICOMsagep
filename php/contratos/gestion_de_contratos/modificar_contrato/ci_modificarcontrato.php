@@ -84,9 +84,6 @@ class ci_modificarcontrato extends sagep_ci
 		//$idContrato = $datos['id_contrato'];
 		//$contratado['id_persona'] = dao_gestiondecontratos::get_contratado($idContrato);
 
-		//ei_arbol($idContrato);
-		//ei_arbol($contratado['id_persona']);
-
 		if (!$datos) {
 			if ($this->cn()->hay_cursor() ) {
 				$datos = $this->cn()->get_contratos();
@@ -97,10 +94,7 @@ class ci_modificarcontrato extends sagep_ci
 		$idContrato = $datos['id_contrato'];
 		$contratado['id_persona'] = dao_gestiondecontratos::get_contratado($idContrato);
 
-		//ei_arbol($idContrato);
 		$cadena = str_replace(' ', '_', $contratado['id_persona']);
-
-		ei_arbol($cadena);
 
 		$cantidad_meses = dao_gestiondecontratos::get_cantidad_meses($datos['id_tipo_contrato']);
 		$monto_total = $this->dep('ci_detallecontrato')->calcular_monto($cantidad_meses);
@@ -255,10 +249,6 @@ class ci_modificarcontrato extends sagep_ci
 		$usuario = toba::usuario()->get_nombre();
 		$idContrato = $this->traer_contrato();
 		$contratado['id_persona'] = dao_gestiondecontratos::get_contratado($idContrato);
-
-		//ei_arbol($idContrato);
-		//ei_arbol($contratado['id_persona']);
-
 
 		//$reporte->set_parametro('idUsuarioToba', 'S', $usuario);
 		$reporte->set_parametro('id_contrato', 'E', $idContrato);

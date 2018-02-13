@@ -171,6 +171,18 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
+	'3011', --dep_id
+	'4252', --objeto_consumidor
+	'4414', --objeto_proveedor
+	'form_ml_correos_resumen', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
 	'2853', --dep_id
 	'4252', --objeto_consumidor
 	'4257', --objeto_proveedor
@@ -195,10 +207,46 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'sagep', --proyecto
+	'3013', --dep_id
+	'4252', --objeto_consumidor
+	'4416', --objeto_proveedor
+	'form_ml_direcciones_resumen', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
 	'2852', --dep_id
 	'4252', --objeto_consumidor
 	'4256', --objeto_proveedor
 	'form_ml_telefonos', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
+	'3012', --dep_id
+	'4252', --objeto_consumidor
+	'4415', --objeto_proveedor
+	'form_ml_telefonos_resumen', --identificador
+	NULL, --parametros_a
+	NULL, --parametros_b
+	NULL, --parametros_c
+	NULL, --inicializar
+	NULL  --orden
+);
+INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
+	'sagep', --proyecto
+	'3010', --dep_id
+	'4252', --objeto_consumidor
+	'4413', --objeto_proveedor
+	'form_persona', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -286,16 +334,12 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'sagep', --objeto_ci_proyecto
 	'4252', --objeto_ci
-	'1818', --pantalla
-	'cuenta', --identificador
-	'5', --orden
-	'Cuenta', --etiqueta
-	'Ingrese Información de la Cuenta Bancaria <br/>
-                         <br/> <li>En cada ítem, se brinda una ayuda para la carga</li>
-                         <li>Presione "Agregar" para ingresar una nueva fila  </li>
-                         <li>Presione "Guardar" para finalizar o "Cancelar" para anular la operación </li>
-
-<div style = "text-align:right">Nota: Presione "Anterior" para volver a la Pantalla de Contactos </div>', --descripcion
+	'1851', --pantalla
+	'introduccion', --identificador
+	'1', --orden
+	'Introducción', --etiqueta
+	'Creación de una persona  <br/>
+		 <br/> <li>Presione "Siguiente" para continuar</li>', --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -310,12 +354,11 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
 	'sagep', --objeto_ci_proyecto
 	'4252', --objeto_ci
-	'1851', --pantalla
-	'introduccion', --identificador
-	'1', --orden
-	'Introducción', --etiqueta
-	'Creación de una persona  <br/>
-		 <br/> <li>Presione "Siguiente" para continuar</li>', --descripcion
+	'1897', --pantalla
+	'resumen', --identificador
+	'5', --orden
+	'Resumen', --etiqueta
+	NULL, --descripcion
 	NULL, --tip
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
@@ -362,10 +405,31 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'sagep', --proyecto
-	'1818', --pantalla
+	'1897', --pantalla
 	'4252', --objeto_ci
 	'0', --orden
-	'2853'  --dep_id
+	'3010'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1897', --pantalla
+	'4252', --objeto_ci
+	'2', --orden
+	'3011'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1897', --pantalla
+	'4252', --objeto_ci
+	'3', --orden
+	'3012'  --dep_id
+);
+INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
+	'sagep', --proyecto
+	'1897', --pantalla
+	'4252', --objeto_ci
+	'1', --orden
+	'3013'  --dep_id
 );
 
 ------------------------------------------------------------
@@ -390,19 +454,13 @@ INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VAL
 	'sagep'  --proyecto
 );
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
-	'1818', --pantalla
+	'1897', --pantalla
 	'4252', --objeto_ci
 	'3760', --evento_id
 	'sagep'  --proyecto
 );
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
-	'1818', --pantalla
-	'4252', --objeto_ci
-	'3761', --evento_id
-	'sagep'  --proyecto
-);
-INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
-	'1851', --pantalla
+	'1897', --pantalla
 	'4252', --objeto_ci
 	'3761', --evento_id
 	'sagep'  --proyecto

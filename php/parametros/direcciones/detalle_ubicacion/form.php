@@ -12,22 +12,12 @@ class form extends sagep_ei_formulario
 
 		{$this->objeto_js}.evt__direccion__procesar = function(es_inicial)
 		{
-      var ef=this.ef('direccion');
+		var ef=this.ef('direccion');
 
-      if(ef.tiene_estado)
-      {
-      ef.set_estado(ef.get_estado().charAt(0).toUpperCase()+ef.get_estado().slice(1).toLowerCase());
-      }
-		}
-
-		{$this->objeto_js}.evt__calle2__procesar = function(es_inicial)
+		if(ef.tiene_estado)
 		{
-      var ef=this.ef('calle2');
-
-      if(ef.tiene_estado)
-      {
-      ef.set_estado(ef.get_estado().charAt(0).toUpperCase()+ef.get_estado().slice(1).toLowerCase());
-      }
+		ef.set_estado(ef.get_estado().charAt(0).toUpperCase()+ef.get_estado().slice(1).toLowerCase());
+		}
 		}
 		";
 	}

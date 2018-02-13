@@ -59,12 +59,20 @@ class ci_listadodepersonas extends sagep_ci
 		$usuario = toba::usuario()->get_nombre();
 
 		$reporte->set_parametro('sql_parametro', 'S', $this->s__parametros_reporte);
-		//$reporte->set_parametro('idUsuarioToba', 'S', "toba");
+	//	$reporte->set_parametro('idUsuarioToba', 'S', 'toba');
 
 		$nombre_archivo = 'listado_personas';
 		$reporte->set_nombre_archivo($nombre_archivo . '.pdf');
 		$bd = toba::db('sagep');
 		$reporte->set_conexion($bd);
+	 }
+
+	 function vista_excel(toba_vista_excel $salida)
+	 {
+		 $excel = $salida->get_excel();
+		 $excel->setActiveSheetIndex(0);
+		 $excel->getActiveSheet()->setTitle('Principal');
+		 $this->dependencia('cuadro')->vista_excel($salida);
 	 }
 }
 ?>

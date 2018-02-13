@@ -64,7 +64,7 @@ class ci_listadoservicios extends sagep_ci
 		$reporte->set_parametro('sql_parametro', 'S', $this->s__parametros_reporte);
 	//	$reporte->set_parametro('sql_parametro', 'S', '1=1');
 
-		//$reporte->set_parametro('idUsuarioToba', 'S', $usuario);
+		//$reporte->set_parametro('idUsuarioToba', 'S', toba::usuario()->get_nombre());
 
 		$nombre_archivo = 'listado_servicios';
 		$reporte->set_nombre_archivo($nombre_archivo . '.pdf');

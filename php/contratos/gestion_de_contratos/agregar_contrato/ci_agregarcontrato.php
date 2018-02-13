@@ -60,9 +60,7 @@ class ci_agregarcontrato extends sagep_ci
 			}
 
 			$this->guardado=2;
-			//ei_arbol($this->guardado);
 			//$modo = $this->cambiar_modo(true);
-			//ei_arbol('Se guardo. Mostrar evento');
 			// $this->pantalla()->evento('imprimir')->mostrar();
 			// $this->pantalla()->eliminar_evento('cambiar_tab__anterior');
 			// $this->pantalla()->eliminar_evento('cancelar');
@@ -87,9 +85,7 @@ class ci_agregarcontrato extends sagep_ci
 					$this->cn()->debug_arbol_datos_en_cache_cn();
 				}
 			}
-			//ei_arbol($this->guardado);
 			//$modo = $this->cambiar_modo(true);
-			//ei_arbol('Se guardo. Mostrar evento');
 			// $this->pantalla()->evento('imprimir')->mostrar();
 			// $this->pantalla()->eliminar_evento('cambiar_tab__anterior');
 			// $this->pantalla()->eliminar_evento('cancelar');
@@ -244,14 +240,11 @@ class ci_agregarcontrato extends sagep_ci
 		$mes_inicio = getdate($fecha_inicio)['mon'] - 1;
 		$anio = getdate ($fecha_inicio)['year'];
 		$dia_inicio = getdate($fecha_inicio)['wday'];
-		ei_arbol($fecha_inicio);
-		ei_arbol($dia_inicio);
 		$mes_fin = $mes_inicio;
 		$anio_vencimiento = $anio;
 		$mes_inicio = ($mes_inicio + 1 == 13 ? 1 : $mes_inicio + 1);
 
 		$i=0;
-		ei_arbol($cantidad_meses);
 		while($i < $cantidad_meses) {
 			$mes_fin = ($mes_fin + 1 == 13 ? 1 : $mes_fin + 1);
 			$fecha_vencimiento_fin =   $anio. "-" .($mes_fin). "-" .$dia_inicio;
@@ -266,9 +259,6 @@ class ci_agregarcontrato extends sagep_ci
 			}
 			$i=$i+1;
 		}
-
-		ei_arbol($fecha_vencimiento_fin);
-
 	}
 
 	function generarPeriodos ()
